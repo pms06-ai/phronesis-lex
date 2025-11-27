@@ -16,8 +16,8 @@
       "dest": "backend/api/index.py"
     },
     {
-      "src": "/(css|js)/(.*)",
-      "dest": "/$1/$2"
+      "src": "/(.*\\.(css|js|html|png|jpg|jpeg|svg|ico))",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
