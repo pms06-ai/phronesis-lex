@@ -231,6 +231,311 @@ async def list_biases(case_id: str):
 
 
 # ============================================================================
+# Professionals
+# ============================================================================
+
+@app.get("/api/cases/{case_id}/professionals")
+async def list_professionals(case_id: str):
+    try:
+        professionals = await fetch_all(
+            """SELECT p.*, pc.capacity, pc.party_represented
+               FROM professionals p
+               JOIN professional_capacities pc ON p.id = pc.professional_id
+               WHERE pc.case_id = $1
+               ORDER BY p.name""",
+            uuid.UUID(case_id)
+        )
+        return {"professionals": [{k: str(v) if isinstance(v, uuid.UUID) else v for k, v in p.items()} for p in professionals]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/professionals")
+async def create_professional(
+    name: str = Form(...),
+    profession: str = Form(...),
+    case_id: Optional[str] = Form(None),
+    capacity: Optional[str] = Form(None)
+):
+    prof_id = str(uuid.uuid4())
+    try:
+        # Insert professional
+        await execute(
+            """INSERT INTO professionals (id, name, normalized_name, profession)
+               VALUES ($1, $2, $3, $4)""",
+            uuid.UUID(prof_id), name, name.lower().strip(), profession
+        )
+
+        # Link to case if provided
+        if case_id and capacity:
+            cap_id = str(uuid.uuid4())
+            await execute(
+                """INSERT INTO professional_capacities (id, case_id, professional_id, capacity)
+                   VALUES ($1, $2, $3, $4)""",
+                uuid.UUID(cap_id), uuid.UUID(case_id), uuid.UUID(prof_id), capacity
+            )
+
+        return {"id": prof_id, "name": name}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# Document Details
+# ============================================================================
+
+@app.get("/api/documents/{doc_id}")
+async def get_document(doc_id: str, include_text: bool = False):
+    try:
+        if include_text:
+            doc = await fetch_one("SELECT * FROM documents WHERE id = $1", uuid.UUID(doc_id))
+        else:
+            doc = await fetch_one(
+                """SELECT id, case_id, filename, folder, doc_type, word_count, page_count,
+                   processed_at, ocr_quality, file_hash FROM documents WHERE id = $1""",
+                uuid.UUID(doc_id)
+            )
+
+        if not doc:
+            raise HTTPException(status_code=404, detail="Document not found")
+
+        return {k: str(v) if isinstance(v, uuid.UUID) else v for k, v in doc.items()}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/documents/{doc_id}/text")
+async def get_document_text(doc_id: str):
+    try:
+        doc = await fetch_one(
+            "SELECT full_text, word_count FROM documents WHERE id = $1",
+            uuid.UUID(doc_id)
+        )
+        if not doc:
+            raise HTTPException(status_code=404, detail="Document not found")
+
+        return {
+            "text": doc["full_text"],
+            "word_count": doc["word_count"]
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# AI Analysis Endpoints
+# ============================================================================
+
+@app.post("/api/documents/{doc_id}/analyze")
+async def analyze_document(doc_id: str):
+    """Analyze document using Claude AI"""
+    try:
+        # Get document
+        doc = await fetch_one(
+            "SELECT id, case_id, full_text, filename, doc_type FROM documents WHERE id = $1",
+            uuid.UUID(doc_id)
+        )
+        if not doc:
+            raise HTTPException(status_code=404, detail="Document not found")
+
+        if not ANTHROPIC_API_KEY:
+            raise HTTPException(status_code=503, detail="AI service not configured")
+
+        # Initialize Anthropic client
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+
+        # Build analysis prompt
+        prompt = f"""Analyze this legal document and extract structured information in JSON format.
+
+Document: {doc['filename']}
+Type: {doc['doc_type'] or 'unknown'}
+
+Text:
+{doc['full_text'][:50000]}
+
+Provide a JSON response with:
+{{
+    "summary": "Brief executive summary",
+    "key_points": ["list of key points"],
+    "claims": [
+        {{
+            "claim_text": "the claim",
+            "claim_type": "assertion|allegation|finding|order",
+            "claimant": "who made it",
+            "confidence": 0.0-1.0
+        }}
+    ],
+    "entities": [
+        {{
+            "entity_type": "person|organization|date|location|case_law",
+            "text": "entity text",
+            "context": "surrounding context"
+        }}
+    ],
+    "timeline_events": [
+        {{
+            "date": "YYYY-MM-DD or description",
+            "event": "what happened",
+            "significance": "why it matters"
+        }}
+    ]
+}}"""
+
+        # Call Claude
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=8000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        # Parse response
+        result_text = response.content[0].text
+
+        # Try to extract JSON
+        import re
+        json_match = re.search(r'\{.*\}', result_text, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+        else:
+            result = {"summary": result_text}
+
+        # Store analysis results
+        analysis_id = str(uuid.uuid4())
+        await execute(
+            """INSERT INTO analysis_runs (id, document_id, case_id, analysis_type, result_data, created_at)
+               VALUES ($1, $2, $3, 'comprehensive', $4, $5)""",
+            uuid.UUID(analysis_id),
+            uuid.UUID(doc_id),
+            uuid.UUID(str(doc['case_id'])),
+            json.dumps(result),
+            datetime.now()
+        )
+
+        # Store extracted claims
+        for claim in result.get("claims", []):
+            claim_id = str(uuid.uuid4())
+            await execute(
+                """INSERT INTO claims (id, case_id, document_id, claim_text, claim_type,
+                   claimant, confidence, created_at)
+                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)""",
+                uuid.UUID(claim_id),
+                uuid.UUID(str(doc['case_id'])),
+                uuid.UUID(doc_id),
+                claim.get("claim_text", ""),
+                claim.get("claim_type", "assertion"),
+                claim.get("claimant"),
+                claim.get("confidence", 0.8),
+                datetime.now()
+            )
+
+        return {
+            "analysis_id": analysis_id,
+            "summary": result.get("summary"),
+            "claims_extracted": len(result.get("claims", [])),
+            "entities_extracted": len(result.get("entities", [])),
+            "timeline_events": len(result.get("timeline_events", [])),
+            "result": result
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/documents/{doc_id}/detect-biases")
+async def detect_biases(doc_id: str):
+    """Detect cognitive biases in document using Claude AI"""
+    try:
+        # Get document
+        doc = await fetch_one(
+            "SELECT id, case_id, full_text, filename FROM documents WHERE id = $1",
+            uuid.UUID(doc_id)
+        )
+        if not doc:
+            raise HTTPException(status_code=404, detail="Document not found")
+
+        if not ANTHROPIC_API_KEY:
+            raise HTTPException(status_code=503, detail="AI service not configured")
+
+        # Initialize Anthropic client
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+
+        # Build bias detection prompt
+        prompt = f"""Analyze this legal document for cognitive biases and logical fallacies.
+
+Document: {doc['filename']}
+
+Text:
+{doc['full_text'][:50000]}
+
+Identify cognitive biases in JSON format:
+{{
+    "biases": [
+        {{
+            "bias_type": "confirmation_bias|anchoring_bias|availability_bias|outcome_bias|hindsight_bias|authority_bias",
+            "description": "what bias was detected",
+            "evidence": "quote from text showing the bias",
+            "severity": "low|medium|high",
+            "confidence": 0.0-1.0
+        }}
+    ]
+}}"""
+
+        # Call Claude
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        # Parse response
+        result_text = response.content[0].text
+
+        # Try to extract JSON
+        import re
+        json_match = re.search(r'\{.*\}', result_text, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+        else:
+            result = {"biases": []}
+
+        # Store bias indicators
+        for bias in result.get("biases", []):
+            bias_id = str(uuid.uuid4())
+            await execute(
+                """INSERT INTO bias_indicators (id, case_id, document_id, bias_type,
+                   description, evidence_quote, severity, confidence, created_at)
+                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)""",
+                uuid.UUID(bias_id),
+                uuid.UUID(str(doc['case_id'])),
+                uuid.UUID(doc_id),
+                bias.get("bias_type", "other"),
+                bias.get("description", ""),
+                bias.get("evidence", ""),
+                bias.get("severity", "medium"),
+                bias.get("confidence", 0.7),
+                datetime.now()
+            )
+
+        return {
+            "biases_detected": len(result.get("biases", [])),
+            "biases": result.get("biases", [])
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
 # Vercel Handler
 # ============================================================================
 
