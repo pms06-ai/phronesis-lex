@@ -1,27 +1,12 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "backend/api/index.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/api/index.py"
+      "source": "/api/:path*",
+      "destination": "/backend/api/index.py"
     },
     {
-      "src": "/health",
-      "dest": "backend/api/index.py"
-    },
-    {
-      "src": "/(css|js)/(.*)",
-      "dest": "/$1/$2"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/health",
+      "destination": "/backend/api/index.py"
     }
   ]
 }
