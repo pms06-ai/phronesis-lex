@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phronesis LEX - Veritas Per Rationem</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts - Classical & Professional -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+    <!-- Chart.js for Data Visualizer -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Vis.js Network for Entity Map -->
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/dist/vis-network.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Gunmetal Grey Base
+                        dark: {
+                            950: '#121416',
+                            900: '#1a1d21',
+                            800: '#22262b',
+                            700: '#2a2f35',
+                            600: '#363c44',
+                            500: '#454d57',
+                        },
+                        // Brass & Metallic Accents
+                        accent: {
+                            brass: '#C9AE5D',
+                            gold: '#B5A642',
+                            bronze: '#8B7B3A',
+                            copper: '#D4C36A',
+                            silver: '#9CA3AF',
+                            steel: '#6B7280',
+                            // Semantic colors
+                            red: '#DC2626',
+                            green: '#22C55E',
+                            amber: '#F59E0B',
+                            blue: '#3B82F6',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+                    },
+                    letterSpacing: {
+                        'classical': '0.025em',
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+<body class="bg-dark-950 text-gray-100 min-h-screen">
+    <div x-data class="flex h-screen overflow-hidden">
+
+        <!-- Left Sidebar -->
+        <aside class="w-64 bg-dark-900 border-r border-dark-700 flex flex-col" :class="{ 'w-16': $store.app.sidebarCollapsed }">
+            <!-- Logo -->
+            <div class="p-4 border-b border-dark-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-accent-brass to-accent-gold rounded flex items-center justify-center glow-brass">
+                        <span class="material-symbols-outlined text-dark-900 text-xl">balance</span>
+                    </div>
+                    <div x-show="!$store.app.sidebarCollapsed">
+                        <span class="font-display text-xl tracking-wide text-accent-brass">Phronesis</span><span class="font-display text-xl text-gray-400 tracking-wide">LEX</span>
+                        <p class="text-[8px] text-accent-bronze tracking-[0.2em] uppercase italic">Veritas Per Rationem</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ask Phronesis Button -->
+            <div class="p-3" x-show="!$store.app.sidebarCollapsed">
+                <button @click="$store.app.toggleAssistant()" class="w-full bg-gradient-to-r from-accent-brass to-accent-gold p-3 rounded flex items-center gap-3 hover:opacity-90 transition glow-brass">
+                    <span class="material-symbols-outlined text-dark-900">psychology</span>
+                    <div class="text-left">
+                        <div class="font-sans font-semibold text-sm text-dark-900">Ask Phronesis</div>
+                        <div class="text-[10px] text-dark-700 font-sans">Forensic Counsel</div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto p-2">
+                <template x-for="item in $store.app.navConfig" :key="item.id || item.section">
+                    <div>
+                        <!-- Section Header -->
+                        <div x-show="item.section && !item.id" class="mt-4 mb-2 px-3 flex items-center justify-between" :class="{ 'hidden': $store.app.sidebarCollapsed }">
+                            <span class="text-[9px] font-mono text-gray-600 uppercase tracking-widest" x-text="item.section"></span>
+                            <span x-show="item.badge" class="text-[8px] bg-accent-green/20 text-accent-green px-1.5 py-0.5 rounded font-mono pulse" x-text="item.badge"></span>
+                        </div>
+                        <!-- Nav Item -->
+                        <div
+                            x-show="item.id"
+                            class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer text-sm group"
+                            :class="{
+                                'active': $store.app.currentPage === item.id,
+                                'text-gray-400': $store.app.currentPage !== item.id
+                            }"
+                            @click="$store.app.navigateTo(item.id)"
+                            :title="item.status === 'live' ? 'Live data' : item.status === 'hybrid' ? 'Partial data' : item.status === 'mock' ? 'Demo data' : 'Coming soon'"
+                        >
+                            <span class="material-symbols-outlined" :class="item.iconClass || ($store.app.currentPage === item.id ? 'text-accent-brass' : '')" x-text="item.icon"></span>
+                            <span class="font-mono text-xs flex-1" x-show="!$store.app.sidebarCollapsed" x-text="item.label"></span>
+                            <span x-show="!$store.app.sidebarCollapsed && item.status" class="w-1.5 h-1.5 rounded-full" :class="{
+                                'bg-accent-green': item.status === 'live',
+                                'bg-accent-amber': item.status === 'hybrid' || item.status === 'mock',
+                                'bg-gray-600': item.status === 'stub'
+                            }"></span>
+                        </div>
+                    </div>
+                </template>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="p-3 border-t border-dark-700">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-accent-bronze to-accent-copper rounded-full flex items-center justify-center text-xs font-bold">JD</div>
+                    <div class="flex-1" x-show="!$store.app.sidebarCollapsed">
+                        <div class="text-xs font-mono font-medium">Officer Doe</div>
+                        <div class="text-[9px] text-accent-green font-mono">UPLINK_STABLE</div>
+                    </div>
+                    <span class="material-symbols-outlined text-gray-500 cursor-pointer hover:text-accent-brass" x-show="!$store.app.sidebarCollapsed">settings</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="h-14 bg-dark-900/80 backdrop-blur border-b border-dark-700 flex items-center justify-between px-4">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 bg-dark-700 px-3 py-1.5 rounded-lg border border-dark-600">
+                        <span class="text-[9px] text-gray-500 font-mono uppercase">Active Investigation</span>
+                        <span class="text-xs font-mono font-medium" x-text="$store.case.activeCase ? $store.case.activeCase.title + ' (' + $store.case.activeCase.reference + ')' : 'Loading...'"></span>
+                        <span class="material-symbols-outlined text-gray-400 text-sm cursor-pointer">expand_more</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <input type="text" placeholder="Query Gemini Logic Engine..." class="w-80 bg-dark-800 border border-dark-600 rounded-lg px-4 py-2 text-xs font-mono placeholder-gray-500 focus:outline-none focus:border-accent-brass/50">
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">search</span>
+                    </div>
+                    <button class="flex items-center gap-1 bg-accent-brass/20 text-accent-brass px-3 py-1.5 rounded-lg text-xs font-mono">
+                        <span class="w-2 h-2 bg-accent-brass rounded-full pulse"></span>
+                        AI ACTIVE
+                    </button>
+                    <div class="flex items-center gap-1 bg-accent-green/20 text-accent-green px-3 py-1.5 rounded-lg text-xs font-mono">
+                        <span class="material-symbols-outlined text-sm">save</span>
+                        LOCAL
+                    </div>
+                    <button class="text-gray-400 hover:text-accent-brass">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Container -->
+            <div class="flex-1 overflow-y-auto p-6 grid-bg">
+                <!-- Loading State -->
+                <template x-if="$store.case.loading">
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center">
+                            <div class="spinner mx-auto mb-4"></div>
+                            <p class="text-sm font-mono text-gray-500">Loading case data...</p>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Dashboard Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'dashboard'">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Investigation Dashboard</h1>
+                                <p class="text-xs font-mono text-gray-500">
+                                    Overview for Case <span x-text="$store.case.activeCase?.reference || 'N/A'"></span> ·
+                                    <span x-text="$store.case.primarySubject?.name || 'N/A'"></span>
+                                </p>
+                            </div>
+                            <button class="flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-accent-brass">
+                                <span class="material-symbols-outlined">monitor_heart</span>
+                                System Health
+                            </button>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-4 gap-4 mb-6">
+                            <!-- Documents Card -->
+                            <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-dark-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="material-symbols-outlined text-gray-400">description</span>
+                                    <span class="text-[9px] text-gray-500 font-mono uppercase">Processed</span>
+                                </div>
+                                <div class="text-3xl font-bold font-mono text-white mb-2" x-text="$store.case.dashboardStats.documents"></div>
+                                <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Documents</div>
+                                <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                                    <div class="progress-bar h-full rounded-full" :style="'width:' + $store.case.dashboardStats.documentProgress + '%'"></div>
+                                </div>
+                            </div>
+
+                            <!-- Extractions Card -->
+                            <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-dark-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="material-symbols-outlined text-accent-brass">data_object</span>
+                                    <span class="text-[9px] text-gray-500 font-mono uppercase">Extracted</span>
+                                </div>
+                                <div class="text-3xl font-bold font-mono text-accent-brass mb-2" x-text="$store.case.dashboardStats.totalExtractions"></div>
+                                <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Entity Extractions</div>
+                                <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                                    <div class="progress-bar h-full rounded-full" style="width:100%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Unique Entities Card -->
+                            <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-dark-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="material-symbols-outlined text-accent-copper">hub</span>
+                                    <span class="text-[9px] text-gray-500 font-mono uppercase">Unique</span>
+                                </div>
+                                <div class="text-3xl font-bold font-mono text-white mb-2" x-text="$store.case.dashboardStats.uniqueEntityCount"></div>
+                                <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Entities</div>
+                                <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                                    <div class="h-full rounded-full bg-accent-copper" style="width:100%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Relationships Card -->
+                            <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-accent-brass/30 glow-brass">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="material-symbols-outlined text-accent-brass">share</span>
+                                    <span class="text-[9px] text-gray-500 font-mono uppercase">Connections</span>
+                                </div>
+                                <div class="text-3xl font-bold font-mono text-accent-brass text-glow-brass mb-2" x-text="$store.case.dashboardStats.relationshipCount"></div>
+                                <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Relationships</div>
+                                <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                                    <div class="progress-bar h-full rounded-full" style="width:100%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="bg-dark-800 rounded-xl border border-dark-700">
+                            <div class="flex items-center justify-between p-4 border-b border-dark-700">
+                                <h2 class="font-mono font-bold flex items-center gap-2 text-accent-brass">
+                                    <span class="material-symbols-outlined">history</span>
+                                    PROCESSED DOCUMENTS
+                                </h2>
+                                <button @click="$store.app.navigateTo('data-sheets')" class="text-xs font-mono text-accent-brass hover:underline">View All</button>
+                            </div>
+                            <div class="divide-y divide-dark-700">
+                                <template x-for="doc in $store.case.documents.slice(0, 6)" :key="doc.id">
+                                    <div class="flex items-center justify-between p-4 hover:bg-dark-700/50 transition cursor-pointer">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-dark-600 rounded-lg flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-sm text-accent-brass">description</span>
+                                            </div>
+                                            <div>
+                                                <div class="font-mono text-xs font-medium truncate max-w-xs" x-text="doc.name"></div>
+                                                <div class="text-[10px] font-mono text-gray-500" x-text="(doc.folder || 'Unknown') + ' · ' + (doc.entityCount || 0) + ' entities'"></div>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs font-mono text-accent-brass" x-text="doc.entityCount || 0"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Subject Profiler Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'subject-profiler'">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Subject Profiler</h1>
+                                <p class="text-xs font-mono text-gray-500">Deep analysis of investigation subjects</p>
+                            </div>
+                            <button class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                <span class="material-symbols-outlined text-sm">person_add</span>
+                                Add Subject
+                            </button>
+                        </div>
+
+                        <template x-if="$store.case.primarySubject">
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                <!-- Primary Subject Card -->
+                                <div class="col-span-2 bg-dark-800 rounded-xl border border-accent-bronze/30 p-5">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-16 h-16 bg-gradient-to-br from-accent-bronze to-accent-copper rounded-xl flex items-center justify-center text-2xl font-bold font-mono"
+                                                 x-text="$store.case.primarySubject.name.split(' ').map(n => n[0]).join('').substring(0,2)"></div>
+                                            <div>
+                                                <div class="flex items-center gap-2">
+                                                    <h2 class="text-lg font-mono font-bold" x-text="$store.case.primarySubject.name"></h2>
+                                                    <span class="text-[9px] bg-accent-red/20 text-accent-red px-2 py-0.5 rounded font-mono">PRIMARY TARGET</span>
+                                                </div>
+                                                <p class="text-xs font-mono text-gray-500" x-text="$store.case.primarySubject.role"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-4 gap-3 mb-4">
+                                        <div class="bg-dark-700 rounded-lg p-3 border border-dark-600">
+                                            <div class="text-[9px] font-mono text-gray-500 uppercase">Documents</div>
+                                            <div class="text-xl font-mono font-bold text-accent-brass" x-text="$store.case.documents.length"></div>
+                                        </div>
+                                        <div class="bg-dark-700 rounded-lg p-3 border border-dark-600">
+                                            <div class="text-[9px] font-mono text-gray-500 uppercase">Connections</div>
+                                            <div class="text-xl font-mono font-bold text-accent-bronze" x-text="$store.case.entities.length"></div>
+                                        </div>
+                                        <div class="bg-dark-700 rounded-lg p-3 border border-dark-600">
+                                            <div class="text-[9px] font-mono text-gray-500 uppercase">Violations</div>
+                                            <div class="text-xl font-mono font-bold text-accent-red" x-text="$store.case.violationStats.total"></div>
+                                        </div>
+                                        <div class="bg-dark-700 rounded-lg p-3 border border-dark-600">
+                                            <div class="text-[9px] font-mono text-gray-500 uppercase">Risk Score</div>
+                                            <div class="text-xl font-mono font-bold"
+                                                 :class="$store.case.primarySubject.riskLevel === 'High' ? 'text-accent-red' :
+                                                         $store.case.primarySubject.riskLevel === 'Medium' ? 'text-accent-amber' : 'text-accent-green'"
+                                                 x-text="$store.case.primarySubject.riskLevel"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Flags -->
+                                    <div class="flex flex-wrap gap-2" x-show="$store.case.primarySubject.flags">
+                                        <template x-for="flag in $store.case.primarySubject.flags" :key="flag">
+                                            <span class="text-[9px] bg-accent-amber/20 text-accent-amber px-2 py-1 rounded font-mono" x-text="flag"></span>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <!-- Risk Assessment -->
+                                <div class="bg-dark-800 rounded-xl border border-dark-700 p-5">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <span class="material-symbols-outlined text-accent-amber">shield</span>
+                                        <h3 class="font-mono font-bold text-sm">Risk Assessment</h3>
+                                    </div>
+                                    <div class="relative mb-4">
+                                        <div class="h-3 bg-dark-600 rounded-full overflow-hidden">
+                                            <div class="h-full bg-gradient-to-r from-accent-green via-accent-amber to-accent-red rounded-full"
+                                                 :style="'width:' + $store.case.primarySubject.riskScore + '%'"></div>
+                                        </div>
+                                        <div class="absolute -top-1 transform -translate-x-1/2" :style="'left:' + $store.case.primarySubject.riskScore + '%'">
+                                            <div class="w-5 h-5 bg-accent-amber rounded-full border-2 border-dark-800 flex items-center justify-center">
+                                                <span class="text-[8px] font-mono font-bold" x-text="$store.case.primarySubject.riskScore"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-gray-400">Status</span>
+                                            <span class="font-mono text-accent-red" x-text="$store.case.primarySubject.status"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Connected Entities -->
+                        <div class="bg-dark-800 rounded-xl border border-dark-700 p-5">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-accent-brass">hub</span>
+                                    <h3 class="font-mono font-bold text-sm">Connected Entities</h3>
+                                </div>
+                                <button class="text-xs font-mono text-accent-brass hover:underline">View Entity Map</button>
+                            </div>
+                            <div class="grid grid-cols-4 gap-3">
+                                <template x-for="entity in $store.case.entities" :key="entity.id">
+                                    <div class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                                                 :class="{
+                                                     'bg-accent-blue/20': entity.type === 'organization',
+                                                     'bg-accent-bronze/20': entity.type === 'institution',
+                                                     'bg-accent-green/20': entity.type === 'group'
+                                                 }">
+                                                <span class="material-symbols-outlined text-sm"
+                                                      :class="{
+                                                          'text-accent-blue': entity.type === 'organization',
+                                                          'text-accent-bronze': entity.type === 'institution',
+                                                          'text-accent-green': entity.type === 'group'
+                                                      }"
+                                                      x-text="entity.type === 'organization' ? 'business' : entity.type === 'institution' ? 'gavel' : 'group'"></span>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs font-mono font-medium" x-text="entity.name"></div>
+                                                <div class="text-[9px] text-gray-500 capitalize" x-text="entity.type"></div>
+                                            </div>
+                                        </div>
+                                        <div class="text-[9px] font-mono text-accent-brass" x-text="entity.connectionStrength + '% connection'"></div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Case Workflow Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'case-workflow'">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Case Workflow</h1>
+                                <p class="text-xs font-mono text-gray-500">Track investigation stages and task progress</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">filter_list</span>Filter
+                                </button>
+                                <button @click="$store.app.openModal('task')" class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                    <span class="material-symbols-outlined text-sm">add</span>New Task
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="bg-dark-800 rounded-xl border border-dark-700 p-5 mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-accent-brass">trending_up</span>
+                                    <h3 class="font-mono font-bold text-sm">Case Progress</h3>
+                                </div>
+                            </div>
+                            <div class="relative mb-3">
+                                <div class="h-2 bg-dark-600 rounded-full overflow-hidden">
+                                    <div class="progress-bar h-full rounded-full"
+                                         :style="'width:' + ($store.case.taskStats.completed / Math.max(1, $store.case.taskStats.total) * 100) + '%'"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-[10px] font-mono text-gray-500">
+                                <span x-text="Math.round($store.case.taskStats.completed / Math.max(1, $store.case.taskStats.total) * 100) + '% Complete'"></span>
+                                <span x-text="$store.case.taskStats.completed + ' of ' + $store.case.taskStats.total + ' tasks done'"></span>
+                            </div>
+                        </div>
+
+                        <!-- Kanban Board -->
+                        <div class="grid grid-cols-4 gap-4">
+                            <!-- To Do Column -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-4">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+                                        <span class="font-mono text-xs font-bold text-gray-400">TO DO</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-gray-500 bg-dark-600 px-2 py-0.5 rounded" x-text="$store.case.taskStats.todo"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <template x-for="task in $store.case.tasksByStatus.todo" :key="task.id">
+                                        <div x-data="{ showMenu: false }" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer relative" @click.away="showMenu = false">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[8px] px-1.5 py-0.5 rounded font-mono"
+                                                      :class="{
+                                                          'bg-accent-red/20 text-accent-red': task.priority === 'high',
+                                                          'bg-accent-amber/20 text-accent-amber': task.priority === 'medium',
+                                                          'bg-accent-green/20 text-accent-green': task.priority === 'low'
+                                                      }"
+                                                      x-text="task.priority.toUpperCase()"></span>
+                                                <button @click.stop="showMenu = !showMenu" class="text-gray-500 hover:text-white">
+                                                    <span class="material-symbols-outlined text-sm">more_vert</span>
+                                                </button>
+                                            </div>
+                                            <div class="text-xs font-mono font-medium mb-1" x-text="task.title"></div>
+                                            <div class="text-[10px] text-gray-500" x-text="task.description"></div>
+                                            <!-- Status Menu -->
+                                            <div x-show="showMenu" x-transition class="absolute right-2 top-8 bg-dark-600 rounded-lg border border-dark-500 shadow-xl z-10 py-1 min-w-[120px]">
+                                                <button @click="$store.case.moveTask(task.id, 'in_progress'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-gray-300 hover:bg-dark-500">Start Work</button>
+                                                <button @click="$store.case.moveTask(task.id, 'review'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-gray-300 hover:bg-dark-500">To Review</button>
+                                                <button @click="$store.case.moveTask(task.id, 'completed'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-green hover:bg-dark-500">Complete</button>
+                                                <div class="border-t border-dark-500 my-1"></div>
+                                                <button @click="$store.case.deleteTask(task.id); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-red hover:bg-dark-500">Delete</button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- In Progress Column -->
+                            <div class="bg-dark-800 rounded-xl border border-accent-brass/30 p-4">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-accent-brass rounded-full pulse"></div>
+                                        <span class="font-mono text-xs font-bold text-accent-brass">IN PROGRESS</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-accent-brass bg-accent-brass/20 px-2 py-0.5 rounded" x-text="$store.case.taskStats.inProgress"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <template x-for="task in $store.case.tasksByStatus.in_progress" :key="task.id">
+                                        <div x-data="{ showMenu: false }" class="bg-dark-700 rounded-lg p-3 border border-accent-brass/30 cursor-pointer relative" @click.away="showMenu = false">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[8px] px-1.5 py-0.5 rounded font-mono"
+                                                      :class="{
+                                                          'bg-accent-red/20 text-accent-red': task.priority === 'high',
+                                                          'bg-accent-amber/20 text-accent-amber': task.priority === 'medium',
+                                                          'bg-accent-green/20 text-accent-green': task.priority === 'low'
+                                                      }"
+                                                      x-text="task.priority.toUpperCase()"></span>
+                                                <button @click.stop="showMenu = !showMenu" class="text-gray-500 hover:text-white">
+                                                    <span class="material-symbols-outlined text-sm">more_vert</span>
+                                                </button>
+                                            </div>
+                                            <div class="text-xs font-mono font-medium mb-1" x-text="task.title"></div>
+                                            <div class="text-[10px] text-gray-500" x-text="task.description"></div>
+                                            <div x-show="showMenu" x-transition class="absolute right-2 top-8 bg-dark-600 rounded-lg border border-dark-500 shadow-xl z-10 py-1 min-w-[120px]">
+                                                <button @click="$store.case.moveTask(task.id, 'todo'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-gray-300 hover:bg-dark-500">Back to Todo</button>
+                                                <button @click="$store.case.moveTask(task.id, 'review'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-gray-300 hover:bg-dark-500">To Review</button>
+                                                <button @click="$store.case.moveTask(task.id, 'completed'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-green hover:bg-dark-500">Complete</button>
+                                                <div class="border-t border-dark-500 my-1"></div>
+                                                <button @click="$store.case.deleteTask(task.id); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-red hover:bg-dark-500">Delete</button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Review Column -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-4">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-accent-amber rounded-full"></div>
+                                        <span class="font-mono text-xs font-bold text-accent-amber">REVIEW</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-gray-500 bg-dark-600 px-2 py-0.5 rounded" x-text="$store.case.taskStats.review"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <template x-for="task in $store.case.tasksByStatus.review" :key="task.id">
+                                        <div x-data="{ showMenu: false }" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer relative" @click.away="showMenu = false">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="text-[8px] px-1.5 py-0.5 rounded font-mono bg-accent-bronze/20 text-accent-bronze">REVIEW</span>
+                                                <button @click.stop="showMenu = !showMenu" class="text-gray-500 hover:text-white">
+                                                    <span class="material-symbols-outlined text-sm">more_vert</span>
+                                                </button>
+                                            </div>
+                                            <div class="text-xs font-mono font-medium mb-1" x-text="task.title"></div>
+                                            <div class="text-[10px] text-gray-500" x-text="task.description"></div>
+                                            <div x-show="showMenu" x-transition class="absolute right-2 top-8 bg-dark-600 rounded-lg border border-dark-500 shadow-xl z-10 py-1 min-w-[120px]">
+                                                <button @click="$store.case.moveTask(task.id, 'in_progress'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-gray-300 hover:bg-dark-500">Back to Work</button>
+                                                <button @click="$store.case.moveTask(task.id, 'completed'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-green hover:bg-dark-500">Approve</button>
+                                                <div class="border-t border-dark-500 my-1"></div>
+                                                <button @click="$store.case.deleteTask(task.id); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-red hover:bg-dark-500">Delete</button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Completed Column -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-4">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-accent-green rounded-full"></div>
+                                        <span class="font-mono text-xs font-bold text-accent-green">COMPLETED</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-gray-500 bg-dark-600 px-2 py-0.5 rounded" x-text="$store.case.taskStats.completed"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <template x-for="task in $store.case.tasksByStatus.completed" :key="task.id">
+                                        <div x-data="{ showMenu: false }" class="bg-dark-700 rounded-lg p-3 border border-dark-600 opacity-75 cursor-pointer relative" @click.away="showMenu = false">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="material-symbols-outlined text-accent-green text-sm">check_circle</span>
+                                                <button @click.stop="showMenu = !showMenu" class="text-gray-500 hover:text-white">
+                                                    <span class="material-symbols-outlined text-sm">more_vert</span>
+                                                </button>
+                                            </div>
+                                            <div class="text-xs font-mono font-medium mb-1 line-through text-gray-500" x-text="task.title"></div>
+                                            <div x-show="showMenu" x-transition class="absolute right-2 top-8 bg-dark-600 rounded-lg border border-dark-500 shadow-xl z-10 py-1 min-w-[120px]">
+                                                <button @click="$store.case.moveTask(task.id, 'todo'); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-gray-300 hover:bg-dark-500">Reopen</button>
+                                                <div class="border-t border-dark-500 my-1"></div>
+                                                <button @click="$store.case.deleteTask(task.id); showMenu = false" class="w-full px-3 py-1.5 text-left text-xs font-mono text-accent-red hover:bg-dark-500">Delete</button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Violation Matrix Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'violation-matrix'">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Violation Matrix</h1>
+                                <p class="text-xs font-mono text-gray-500">Regulatory breach analysis and tracking</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">download</span>Export
+                                </button>
+                                <button @click="$store.app.openModal('violation')" class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                    <span class="material-symbols-outlined text-sm">add</span>Log Violation
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="grid grid-cols-5 gap-4 mb-6">
+                            <div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Total Violations</div>
+                                <div class="text-2xl font-display font-semibold text-white tracking-wide" x-text="$store.case.violationStats.total"></div>
+                            </div>
+                            <div class="bg-dark-800 rounded-xl p-4 border border-accent-red/30">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Critical</div>
+                                <div class="text-2xl font-mono font-bold text-accent-red" x-text="$store.case.violationStats.critical"></div>
+                            </div>
+                            <div class="bg-dark-800 rounded-xl p-4 border border-accent-amber/30">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">High</div>
+                                <div class="text-2xl font-mono font-bold text-accent-amber" x-text="$store.case.violationStats.high"></div>
+                            </div>
+                            <div class="bg-dark-800 rounded-xl p-4 border border-accent-amber/30">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Medium</div>
+                                <div class="text-2xl font-mono font-bold text-accent-amber" x-text="$store.case.violationStats.medium"></div>
+                            </div>
+                            <div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Low</div>
+                                <div class="text-2xl font-mono font-bold text-gray-400" x-text="$store.case.violationStats.low"></div>
+                            </div>
+                        </div>
+
+                        <!-- Violations Table -->
+                        <div class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <div class="grid grid-cols-12 gap-4 p-4 border-b border-dark-700 bg-dark-700/50">
+                                <div class="col-span-1 text-[9px] font-mono text-gray-500 uppercase">ID</div>
+                                <div class="col-span-2 text-[9px] font-mono text-gray-500 uppercase">Code</div>
+                                <div class="col-span-4 text-[9px] font-mono text-gray-500 uppercase">Description</div>
+                                <div class="col-span-2 text-[9px] font-mono text-gray-500 uppercase">Subject</div>
+                                <div class="col-span-1 text-[9px] font-mono text-gray-500 uppercase">Severity</div>
+                                <div class="col-span-2 text-[9px] font-mono text-gray-500 uppercase">Status</div>
+                            </div>
+                            <div class="divide-y divide-dark-700">
+                                <template x-for="violation in $store.case.violations" :key="violation.id">
+                                    <div class="grid grid-cols-12 gap-4 p-4 hover:bg-dark-700/30 transition cursor-pointer items-center">
+                                        <div class="col-span-1 text-xs font-mono text-gray-400" x-text="violation.id"></div>
+                                        <div class="col-span-2">
+                                            <span class="text-xs font-mono font-medium" x-text="violation.code"></span>
+                                        </div>
+                                        <div class="col-span-4 text-xs text-gray-300" x-text="violation.title"></div>
+                                        <div class="col-span-2 text-xs font-mono text-gray-400" x-text="violation.subject"></div>
+                                        <div class="col-span-1">
+                                            <span class="text-[9px] font-mono px-2 py-0.5 rounded"
+                                                  :class="{
+                                                      'bg-accent-red/20 text-accent-red': violation.severity === 'critical',
+                                                      'bg-accent-amber/20 text-accent-amber': violation.severity === 'high',
+                                                      'bg-accent-amber/20 text-accent-amber': violation.severity === 'medium',
+                                                      'bg-gray-500/20 text-gray-400': violation.severity === 'low'
+                                                  }"
+                                                  x-text="violation.severity.toUpperCase()"></span>
+                                        </div>
+                                        <div class="col-span-2">
+                                            <span class="text-[9px] font-mono px-2 py-0.5 rounded"
+                                                  :class="{
+                                                      'bg-accent-brass/20 text-accent-brass': violation.status === 'confirmed',
+                                                      'bg-accent-amber/20 text-accent-amber': violation.status === 'under_review',
+                                                      'bg-accent-amber/20 text-accent-amber': violation.status === 'investigating',
+                                                      'bg-gray-500/20 text-gray-500': violation.status === 'dismissed'
+                                                  }"
+                                                  x-text="violation.status.replace('_', ' ')"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Forensic Timeline Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'forensic-timeline'">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Forensic Timeline</h1>
+                                <p class="text-xs font-mono text-gray-500">Chronological event reconstruction</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">download</span>Export
+                                </button>
+                                <button class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                    <span class="material-symbols-outlined text-sm">add</span>Add Event
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Event Stream -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-5">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-accent-brass">history</span>
+                                        <h3 class="font-mono font-bold text-sm">Event Stream</h3>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-gray-500" x-text="$store.case.timeline.length + ' events'"></span>
+                                </div>
+                                <div class="space-y-3 max-h-96 overflow-y-auto">
+                                    <template x-for="event in $store.case.timeline" :key="event.id">
+                                        <div class="flex gap-3 p-2 bg-dark-700 rounded-lg border-l-2"
+                                             :class="{
+                                                 'border-accent-red': event.isAnomaly,
+                                                 'border-accent-brass': event.type === 'milestone',
+                                                 'border-accent-green': event.type === 'assignment',
+                                                 'border-accent-blue': event.type === 'document',
+                                                 'border-accent-bronze': event.type === 'meeting'
+                                             }">
+                                            <div class="text-center min-w-[40px]">
+                                                <div class="text-lg font-mono font-bold text-white" x-text="new Date(event.date).getDate()"></div>
+                                                <div class="text-[9px] font-mono text-gray-500" x-text="new Date(event.date).toLocaleString('en', { month: 'short' }).toUpperCase()"></div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xs font-mono font-medium" x-text="event.title"></span>
+                                                    <span x-show="event.isAnomaly" class="text-[8px] bg-accent-red/20 text-accent-red px-1.5 py-0.5 rounded font-mono" x-text="event.anomalyType"></span>
+                                                </div>
+                                                <p class="text-[10px] text-gray-500 mt-1" x-text="event.description"></p>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Anomalies Panel -->
+                            <div class="bg-dark-800 rounded-xl border border-accent-amber/30 p-5">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-accent-amber">warning</span>
+                                        <h3 class="font-mono font-bold text-sm">Timeline Anomalies</h3>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-accent-amber" x-text="$store.case.timeline.filter(e => e.isAnomaly).length + ' detected'"></span>
+                                </div>
+                                <div class="space-y-3">
+                                    <template x-for="anomaly in $store.case.timeline.filter(e => e.isAnomaly)" :key="anomaly.id">
+                                        <div class="p-3 bg-dark-700 rounded-lg border border-accent-amber/30">
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <span class="material-symbols-outlined text-accent-amber text-sm">schedule</span>
+                                                <span class="text-xs font-mono font-medium text-accent-amber" x-text="anomaly.anomalyType"></span>
+                                            </div>
+                                            <p class="text-[10px] text-gray-400 mb-2" x-text="anomaly.description"></p>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[9px] font-mono text-gray-500" x-text="anomaly.date"></span>
+                                                <button class="text-[9px] font-mono text-accent-brass hover:underline">Investigate</button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="mt-4 p-3 bg-accent-brass/10 border border-accent-brass/30 rounded-lg">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-accent-brass text-sm">auto_awesome</span>
+                                        <span class="text-[9px] font-mono text-accent-brass">AI ANALYSIS</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 mt-1">Gemini has flagged these temporal anomalies for forensic review.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Evidence Drive Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'evidence-drive'">
+                    <div x-data="evidenceDrive">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Evidence Drive</h1>
+                                <p class="text-xs font-mono text-gray-500">Browse case documents and files</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button @click="goToRoot()" class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">home</span>Root
+                                </button>
+                                <button @click="goUp()" x-show="currentPath.length > 0" class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">arrow_upward</span>Up
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Breadcrumb -->
+                        <div class="bg-dark-800 rounded-lg p-3 mb-4 border border-dark-700">
+                            <div class="flex items-center gap-2 text-xs font-mono">
+                                <span class="material-symbols-outlined text-accent-brass text-sm">folder</span>
+                                <span class="text-gray-500">THE CASE</span>
+                                <template x-for="(crumb, idx) in currentPath" :key="idx">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-gray-600">/</span>
+                                        <span class="text-accent-brass cursor-pointer hover:underline" @click="navigateTo(idx)" x-text="crumb"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Stats Bar -->
+                        <div class="grid grid-cols-4 gap-4 mb-6">
+                            <div class="bg-dark-800 rounded-lg p-3 border border-dark-700">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase">Total Folders</div>
+                                <div class="text-xl font-mono font-bold text-accent-brass">31</div>
+                            </div>
+                            <div class="bg-dark-800 rounded-lg p-3 border border-dark-700">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase">Documents</div>
+                                <div class="text-xl font-mono font-bold text-accent-green">247</div>
+                            </div>
+                            <div class="bg-dark-800 rounded-lg p-3 border border-dark-700">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase">Audio Files</div>
+                                <div class="text-xl font-mono font-bold text-accent-bronze">6</div>
+                            </div>
+                            <div class="bg-dark-800 rounded-lg p-3 border border-dark-700">
+                                <div class="text-[9px] font-mono text-gray-500 uppercase">Total Size</div>
+                                <div class="text-xl font-mono font-bold text-accent-amber">~500MB</div>
+                            </div>
+                        </div>
+
+                        <!-- File Browser -->
+                        <div class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <div class="grid grid-cols-12 gap-4 p-4 border-b border-dark-700 bg-dark-700/50">
+                                <div class="col-span-6 text-[9px] font-mono text-gray-500 uppercase">Name</div>
+                                <div class="col-span-2 text-[9px] font-mono text-gray-500 uppercase">Type</div>
+                                <div class="col-span-2 text-[9px] font-mono text-gray-500 uppercase">Items</div>
+                                <div class="col-span-2 text-[9px] font-mono text-gray-500 uppercase">Action</div>
+                            </div>
+                            <div class="divide-y divide-dark-700 max-h-[500px] overflow-y-auto">
+                                <template x-for="item in currentItems" :key="item.name">
+                                    <div class="grid grid-cols-12 gap-4 p-4 hover:bg-dark-700/30 transition cursor-pointer items-center"
+                                         @click="item.type === 'folder' ? openFolder(item.name) : null">
+                                        <div class="col-span-6 flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg flex items-center justify-center"
+                                                 :class="{
+                                                     'bg-accent-brass/20': item.type === 'folder',
+                                                     'bg-accent-red/20': item.ext === 'pdf',
+                                                     'bg-accent-blue/20': item.ext === 'docx' || item.ext === 'doc',
+                                                     'bg-accent-bronze/20': item.ext === 'mp3' || item.ext === 'wav',
+                                                     'bg-accent-green/20': item.ext === 'txt',
+                                                     'bg-accent-amber/20': !item.type && !['pdf','docx','doc','mp3','wav','txt'].includes(item.ext)
+                                                 }">
+                                                <span class="material-symbols-outlined"
+                                                      :class="{
+                                                          'text-accent-brass': item.type === 'folder',
+                                                          'text-accent-red': item.ext === 'pdf',
+                                                          'text-accent-blue': item.ext === 'docx' || item.ext === 'doc',
+                                                          'text-accent-bronze': item.ext === 'mp3' || item.ext === 'wav',
+                                                          'text-accent-green': item.ext === 'txt',
+                                                          'text-accent-amber': !item.type && !['pdf','docx','doc','mp3','wav','txt'].includes(item.ext)
+                                                      }"
+                                                      x-text="item.type === 'folder' ? 'folder' : (item.ext === 'pdf' ? 'picture_as_pdf' : (item.ext === 'mp3' || item.ext === 'wav' ? 'audio_file' : 'description'))"></span>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-mono font-medium text-white" x-text="item.name"></div>
+                                                <div class="text-[10px] text-gray-500" x-text="item.type === 'folder' ? 'Folder' : (item.ext ? item.ext.toUpperCase() + ' File' : 'File')"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-span-2">
+                                            <span class="text-xs font-mono px-2 py-1 rounded"
+                                                  :class="{
+                                                      'bg-accent-brass/20 text-accent-brass': item.type === 'folder',
+                                                      'bg-accent-red/20 text-accent-red': item.ext === 'pdf',
+                                                      'bg-accent-blue/20 text-accent-blue': item.ext === 'docx',
+                                                      'bg-accent-bronze/20 text-accent-bronze': item.ext === 'mp3',
+                                                      'bg-gray-500/20 text-gray-400': !item.type && !['pdf','docx','mp3'].includes(item.ext)
+                                                  }"
+                                                  x-text="item.type === 'folder' ? 'Folder' : (item.ext || 'File').toUpperCase()"></span>
+                                        </div>
+                                        <div class="col-span-2 text-xs font-mono text-gray-400" x-text="item.type === 'folder' ? (item.items || '-') : '-'"></div>
+                                        <div class="col-span-2">
+                                            <button x-show="item.type !== 'folder'"
+                                                    @click.stop="openFile(item)"
+                                                    class="flex items-center gap-1 bg-accent-brass/20 text-accent-brass px-3 py-1.5 rounded text-[10px] font-mono hover:bg-accent-brass/30 transition">
+                                                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                                Open
+                                            </button>
+                                            <button x-show="item.type === 'folder'"
+                                                    class="flex items-center gap-1 bg-dark-600 text-gray-400 px-3 py-1.5 rounded text-[10px] font-mono hover:bg-dark-500 transition">
+                                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                                                Enter
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Quick Access -->
+                        <div class="mt-6 bg-dark-800 rounded-xl border border-dark-700 p-4">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="material-symbols-outlined text-accent-brass">star</span>
+                                <h3 class="font-mono font-bold text-sm">Quick Access - Key Documents</h3>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div @click="openQuickFile('00_MASTER_BUNDLE/A_Preliminary_Documents.pdf')" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="material-symbols-outlined text-accent-red">picture_as_pdf</span>
+                                        <span class="text-xs font-mono">Section A</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-500">Preliminary Documents</div>
+                                </div>
+                                <div @click="openQuickFile('00_MASTER_BUNDLE/G_Police_Disclosure.pdf')" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="material-symbols-outlined text-accent-red">picture_as_pdf</span>
+                                        <span class="text-xs font-mono">Section G</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-500">Police Disclosure</div>
+                                </div>
+                                <div @click="openQuickFile('05_PARTIES_CafCass/WORD DOCS/Section 7 Report 28 Sept 2022.docx')" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="material-symbols-outlined text-accent-blue">description</span>
+                                        <span class="text-xs font-mono">Section 7</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-500">CafCass Report</div>
+                                </div>
+                                <div @click="openQuickFile('05_PARTIES_Dr_Hunnisett/Recordings/transcripts/Paul Stephen Interview part 1.txt')" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="material-symbols-outlined text-accent-green">text_snippet</span>
+                                        <span class="text-xs font-mono">Transcript</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-500">Paul Stephen Interview 1</div>
+                                </div>
+                                <div @click="openQuickFile('05_PARTIES_Dr_Hunnisett/Recordings/transcripts/Samantha Stephen interview part 1.txt')" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="material-symbols-outlined text-accent-green">text_snippet</span>
+                                        <span class="text-xs font-mono">Transcript</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-500">Samantha Stephen Interview 1</div>
+                                </div>
+                                <div @click="openQuickFile('02_COURT_PROCEEDINGS_Orders/Orders/Official Iterim order 9June23.pdf')" class="bg-dark-700 rounded-lg p-3 border border-dark-600 hover:border-accent-brass/30 transition cursor-pointer">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="material-symbols-outlined text-accent-red">gavel</span>
+                                        <span class="text-xs font-mono">ICO Order</span>
+                                    </div>
+                                    <div class="text-[10px] text-gray-500">9 June 2023 Order</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Entity Map Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'entity-map'">
+                    <div x-data="entityMapComponent()" x-init="initNetwork()">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Entity Map</h1>
+                                <p class="text-xs font-mono text-gray-500">Relationship visualization between case parties</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <!-- Search -->
+                                <div class="relative">
+                                    <input type="text" x-model="searchQuery" @input.debounce.300ms="applySearch()" placeholder="Search entities..." class="bg-dark-700 border border-dark-600 rounded-lg pl-9 pr-8 py-2 text-xs font-mono text-white w-48 focus:border-accent-brass/50">
+                                    <span class="material-symbols-outlined text-gray-500 text-sm absolute left-3 top-1/2 -translate-y-1/2">search</span>
+                                    <button x-show="searchQuery" @click="clearSearch()" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white">
+                                        <span class="material-symbols-outlined text-sm">close</span>
+                                    </button>
+                                </div>
+                                <!-- Filter -->
+                                <select x-model="filterType" @change="applyFilter()" class="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-xs font-mono text-white">
+                                    <option value="all">All Entities</option>
+                                    <option value="subject">Subjects</option>
+                                    <option value="person">People</option>
+                                    <option value="organization">Organizations</option>
+                                    <option value="institution">Institutions</option>
+                                </select>
+                                <!-- Layout Selector -->
+                                <select x-model="layoutType" @change="setLayout(layoutType)" class="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-xs font-mono text-white">
+                                    <option value="mindmap">Mind Map</option>
+                                    <option value="hierarchical">Hierarchy</option>
+                                    <option value="physics">Organic</option>
+                                </select>
+                                <!-- Zoom Controls -->
+                                <div class="flex items-center border border-dark-600 rounded-lg overflow-hidden">
+                                    <button @click="zoomOut()" class="bg-dark-700 text-gray-300 px-2 py-2 hover:bg-dark-600 transition">
+                                        <span class="material-symbols-outlined text-sm">remove</span>
+                                    </button>
+                                    <button @click="resetView()" class="bg-dark-700 text-gray-300 px-2 py-2 hover:bg-dark-600 transition border-x border-dark-600">
+                                        <span class="material-symbols-outlined text-sm">center_focus_strong</span>
+                                    </button>
+                                    <button @click="zoomIn()" class="bg-dark-700 text-gray-300 px-2 py-2 hover:bg-dark-600 transition">
+                                        <span class="material-symbols-outlined text-sm">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-4 gap-6 h-[calc(100vh-200px)]">
+                            <!-- Network Graph -->
+                            <div class="col-span-3 bg-dark-800 rounded-xl border border-dark-700 relative overflow-hidden">
+                                <div id="entity-network" class="w-full h-full"></div>
+                                <!-- Node Legend -->
+                                <div class="absolute bottom-4 left-4 bg-dark-900/95 rounded-lg p-3 border border-dark-600">
+                                    <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Nodes</div>
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-3 h-3 rounded-full bg-accent-brass"></span>
+                                            <span class="text-gray-400">Subject</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-3 h-3 rounded-full bg-accent-bronze"></span>
+                                            <span class="text-gray-400">Organization</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-3 h-3 rounded-full bg-accent-copper"></span>
+                                            <span class="text-gray-400">Institution</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-3 h-3 rounded-full bg-accent-silver"></span>
+                                            <span class="text-gray-400">Person</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Relationship Legend -->
+                                <div class="absolute bottom-4 left-36 bg-dark-900/95 rounded-lg p-3 border border-dark-600">
+                                    <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Relationships</div>
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-4 h-0.5 bg-accent-brass"></span>
+                                            <span class="text-gray-400">Familial</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-4 h-0.5 bg-accent-green"></span>
+                                            <span class="text-gray-400">Legal</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-4 h-0.5 bg-accent-blue"></span>
+                                            <span class="text-gray-400">Professional</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-xs font-mono">
+                                            <span class="w-4 h-0.5 bg-accent-amber"></span>
+                                            <span class="text-gray-400">Institutional</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Interaction Hint -->
+                                <div class="absolute top-4 right-4 bg-dark-900/80 rounded-lg px-3 py-2 border border-dark-600">
+                                    <p class="text-[10px] font-mono text-gray-500">Double-click to focus • Scroll to zoom • Drag to pan</p>
+                                </div>
+                            </div>
+
+                            <!-- Details Panel -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-4 overflow-y-auto">
+                                <template x-if="!selectedNode">
+                                    <div class="text-center text-gray-500 py-8">
+                                        <span class="material-symbols-outlined text-4xl mb-2">touch_app</span>
+                                        <p class="text-xs font-mono">Click a node to view details</p>
+                                    </div>
+                                </template>
+                                <template x-if="selectedNode">
+                                    <div>
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" :class="getNodeColorClass(selectedNode.type)">
+                                                <span class="material-symbols-outlined text-white" x-text="getNodeIcon(selectedNode.type)"></span>
+                                            </div>
+                                            <div>
+                                                <h3 class="font-mono font-bold text-white" x-text="selectedNode.label"></h3>
+                                                <p class="text-xs font-mono text-gray-500 capitalize" x-text="selectedNode.type"></p>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <div class="bg-dark-700 rounded-lg p-3">
+                                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Role</div>
+                                                <div class="text-sm font-mono text-white" x-text="selectedNode.role || 'N/A'"></div>
+                                            </div>
+                                            <div class="bg-dark-700 rounded-lg p-3">
+                                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Connection Strength</div>
+                                                <div class="flex items-center gap-2">
+                                                    <div class="flex-1 h-2 bg-dark-600 rounded-full overflow-hidden">
+                                                        <div class="h-full bg-accent-brass rounded-full" :style="'width: ' + (selectedNode.strength || 50) + '%'"></div>
+                                                    </div>
+                                                    <span class="text-xs font-mono text-accent-brass" x-text="(selectedNode.strength || 50) + '%'"></span>
+                                                </div>
+                                            </div>
+                                            <!-- Connected Entities -->
+                                            <div class="bg-dark-700 rounded-lg p-3">
+                                                <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Relationships</div>
+                                                <div class="space-y-2 max-h-48 overflow-y-auto">
+                                                    <template x-if="selectedNode.connections && selectedNode.connections.length > 0">
+                                                        <template x-for="conn in selectedNode.connections" :key="conn.node.id">
+                                                            <div class="flex items-center gap-2 text-xs">
+                                                                <span class="material-symbols-outlined text-sm" :class="conn.direction === 'outgoing' ? 'text-accent-brass' : 'text-gray-500'" x-text="conn.direction === 'outgoing' ? 'arrow_forward' : 'arrow_back'"></span>
+                                                                <span class="font-mono text-gray-400" x-text="conn.label"></span>
+                                                                <span class="font-mono text-white truncate" x-text="conn.node.label"></span>
+                                                            </div>
+                                                        </template>
+                                                    </template>
+                                                    <template x-if="!selectedNode.connections || selectedNode.connections.length === 0">
+                                                        <p class="text-xs font-mono text-gray-500">No relationships</p>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Data Sheets Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'data-sheets'">
+                    <div x-data="{
+                        activeTab: 'entities',
+                        searchQuery: '',
+                        sortColumn: '',
+                        sortDirection: 'asc',
+                        sortBy(column) {
+                            if (this.sortColumn === column) {
+                                this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+                            } else {
+                                this.sortColumn = column;
+                                this.sortDirection = 'asc';
+                            }
+                        },
+                        getEntityTypeLabel(type) {
+                            const labels = {
+                                'UK_JUDGE': 'Judge', 'UK_LOCAL_AUTHORITY': 'Local Authority',
+                                'UK_POLICE_FORCE': 'Police Force', 'UK_COURT': 'Court',
+                                'CASE_NUMBER': 'Case Number', 'SOLICITOR_FIRM': 'Solicitor',
+                                'DATE': 'Date'
+                            };
+                            return labels[type] || type;
+                        },
+                        exportCSV() {
+                            const store = Alpine.store('case');
+                            let data = [];
+                            let headers = [];
+                            if (this.activeTab === 'entities') {
+                                headers = ['Name', 'Type', 'Occurrences', 'Documents', 'Confidence'];
+                                data = store.uniqueEntities.map(e => [e.name, this.getEntityTypeLabel(e.type), e.occurrences, e.documents.length, (e.avgConfidence * 100).toFixed(0) + '%']);
+                            } else if (this.activeTab === 'extractions') {
+                                headers = ['Entity', 'Type', 'Document', 'Folder', 'Confidence'];
+                                data = store.entityExtractions.map(e => [e.normalizedText, this.getEntityTypeLabel(e.entityType), e.documentName, e.folder, (e.confidence * 100).toFixed(0) + '%']);
+                            } else if (this.activeTab === 'documents') {
+                                headers = ['Name', 'Folder', 'Entities'];
+                                data = store.documents.map(d => [d.name, d.folder, d.entityCount]);
+                            } else if (this.activeTab === 'subjects') {
+                                headers = ['Name', 'Role', 'Risk Level', 'Status'];
+                                data = store.subjects.map(s => [s.name, s.role, s.riskLevel, s.status]);
+                            } else if (this.activeTab === 'violations') {
+                                headers = ['Code', 'Title', 'Severity', 'Status', 'Date'];
+                                data = store.violations.map(v => [v.code, v.title, v.severity, v.status, v.date]);
+                            } else if (this.activeTab === 'timeline') {
+                                headers = ['Date', 'Event', 'Type', 'Anomaly'];
+                                data = store.timeline.map(e => [e.date, e.title, e.type, e.isAnomaly ? e.anomalyType : '']);
+                            }
+                            const csv = [headers.join(','), ...data.map(row => row.map(cell => '\"' + String(cell).replace(/\"/g, '\"\"') + '\"').join(','))].join('\\n');
+                            const blob = new Blob([csv], { type: 'text/csv' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = this.activeTab + '_export.csv';
+                            a.click();
+                            URL.revokeObjectURL(url);
+                        }
+                    }">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Data Sheets</h1>
+                                <p class="text-xs font-mono text-gray-500">Spreadsheet view of case data</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="relative">
+                                    <input x-model="searchQuery" type="text" placeholder="Search..." class="bg-dark-700 border border-dark-600 rounded-lg px-4 py-2 pl-10 text-xs font-mono text-white w-64">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">search</span>
+                                </div>
+                                <button @click="exportCSV()" class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                    <span class="material-symbols-outlined text-sm">download</span>Export CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div class="flex gap-1 mb-4 bg-dark-800 rounded-lg p-1 w-fit">
+                            <button @click="activeTab = 'entities'" :class="activeTab === 'entities' ? 'bg-dark-600 text-white' : 'text-gray-400 hover:text-white'" class="px-4 py-2 rounded-lg text-xs font-mono transition">Entities</button>
+                            <button @click="activeTab = 'extractions'" :class="activeTab === 'extractions' ? 'bg-dark-600 text-white' : 'text-gray-400 hover:text-white'" class="px-4 py-2 rounded-lg text-xs font-mono transition">Extractions</button>
+                            <button @click="activeTab = 'documents'" :class="activeTab === 'documents' ? 'bg-dark-600 text-white' : 'text-gray-400 hover:text-white'" class="px-4 py-2 rounded-lg text-xs font-mono transition">Documents</button>
+                            <button @click="activeTab = 'subjects'" :class="activeTab === 'subjects' ? 'bg-dark-600 text-white' : 'text-gray-400 hover:text-white'" class="px-4 py-2 rounded-lg text-xs font-mono transition">Subjects</button>
+                            <button @click="activeTab = 'violations'" :class="activeTab === 'violations' ? 'bg-dark-600 text-white' : 'text-gray-400 hover:text-white'" class="px-4 py-2 rounded-lg text-xs font-mono transition">Violations</button>
+                            <button @click="activeTab = 'timeline'" :class="activeTab === 'timeline' ? 'bg-dark-600 text-white' : 'text-gray-400 hover:text-white'" class="px-4 py-2 rounded-lg text-xs font-mono transition">Timeline</button>
+                        </div>
+
+                        <!-- Entities Table (Unique Entities from Extraction) -->
+                        <div x-show="activeTab === 'entities'" class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-dark-700">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('name')">Entity Name</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('type')">Type</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('occurrences')">Occurrences</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Documents</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-dark-700">
+                                    <template x-for="entity in $store.case.uniqueEntities.filter(e => e.name.toLowerCase().includes(searchQuery.toLowerCase()))" :key="entity.id">
+                                        <tr class="hover:bg-dark-700/50">
+                                            <td class="px-4 py-3 text-sm font-mono text-white" x-text="entity.name"></td>
+                                            <td class="px-4 py-3">
+                                                <span class="text-xs font-mono px-2 py-1 rounded" :class="{
+                                                    'bg-accent-brass/20 text-accent-brass': entity.type === 'UK_JUDGE',
+                                                    'bg-accent-bronze/20 text-accent-bronze': entity.type === 'UK_LOCAL_AUTHORITY',
+                                                    'bg-accent-steel/20 text-accent-steel': entity.type === 'UK_POLICE_FORCE',
+                                                    'bg-accent-copper/20 text-accent-copper': entity.type === 'UK_COURT',
+                                                    'bg-accent-silver/20 text-accent-silver': entity.type === 'CASE_NUMBER',
+                                                    'bg-accent-gold/20 text-accent-gold': entity.type === 'SOLICITOR_FIRM',
+                                                    'bg-dark-500/50 text-gray-400': entity.type === 'DATE'
+                                                }" x-text="getEntityTypeLabel(entity.type)"></span>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm font-mono text-accent-brass" x-text="entity.occurrences"></td>
+                                            <td class="px-4 py-3 text-sm font-mono text-gray-400" x-text="entity.documents.length"></td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-16 h-1.5 bg-dark-600 rounded-full overflow-hidden">
+                                                        <div class="h-full bg-accent-brass rounded-full" :style="'width: ' + (entity.avgConfidence * 100) + '%'"></div>
+                                                    </div>
+                                                    <span class="text-xs font-mono text-gray-400" x-text="(entity.avgConfidence * 100).toFixed(0) + '%'"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <div class="px-4 py-3 bg-dark-700/50 border-t border-dark-600 text-xs font-mono text-gray-500">
+                                <span x-text="$store.case.uniqueEntities.length"></span> unique entities extracted from <span x-text="$store.case.extractionStats.documents || 0"></span> documents
+                            </div>
+                        </div>
+
+                        <!-- Extractions Table (All Raw Extractions) -->
+                        <div x-show="activeTab === 'extractions'" class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-dark-700">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Entity</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Type</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Document</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Folder</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-dark-700 max-h-96 overflow-y-auto">
+                                    <template x-for="ext in $store.case.entityExtractions.filter(e => e.normalizedText.toLowerCase().includes(searchQuery.toLowerCase()) || e.documentName.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 200)" :key="ext.id">
+                                        <tr class="hover:bg-dark-700/50">
+                                            <td class="px-4 py-3 text-sm font-mono text-white" x-text="ext.normalizedText"></td>
+                                            <td class="px-4 py-3">
+                                                <span class="text-xs font-mono px-2 py-1 rounded" :class="{
+                                                    'bg-accent-brass/20 text-accent-brass': ext.entityType === 'UK_JUDGE',
+                                                    'bg-accent-bronze/20 text-accent-bronze': ext.entityType === 'UK_LOCAL_AUTHORITY',
+                                                    'bg-accent-steel/20 text-accent-steel': ext.entityType === 'UK_POLICE_FORCE',
+                                                    'bg-accent-copper/20 text-accent-copper': ext.entityType === 'UK_COURT',
+                                                    'bg-accent-silver/20 text-accent-silver': ext.entityType === 'CASE_NUMBER',
+                                                    'bg-accent-gold/20 text-accent-gold': ext.entityType === 'SOLICITOR_FIRM',
+                                                    'bg-dark-500/50 text-gray-400': ext.entityType === 'DATE'
+                                                }" x-text="getEntityTypeLabel(ext.entityType)"></span>
+                                            </td>
+                                            <td class="px-4 py-3 text-xs font-mono text-gray-400 truncate max-w-xs" x-text="ext.documentName"></td>
+                                            <td class="px-4 py-3 text-xs font-mono text-gray-500" x-text="ext.folder"></td>
+                                            <td class="px-4 py-3 text-xs font-mono text-gray-400" x-text="(ext.confidence * 100).toFixed(0) + '%'"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <div class="px-4 py-3 bg-dark-700/50 border-t border-dark-600 text-xs font-mono text-gray-500">
+                                Showing <span x-text="Math.min(200, $store.case.entityExtractions.filter(e => e.normalizedText.toLowerCase().includes(searchQuery.toLowerCase()) || e.documentName.toLowerCase().includes(searchQuery.toLowerCase())).length)"></span> of <span x-text="$store.case.entityExtractions.length"></span> extractions
+                            </div>
+                        </div>
+
+                        <!-- Subjects Table -->
+                        <div x-show="activeTab === 'subjects'" class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-dark-700">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('name')">Name</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('role')">Role</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('riskLevel')">Risk Level</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase cursor-pointer hover:text-white" @click="sortBy('status')">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-dark-700">
+                                    <template x-for="subject in $store.case.subjects.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()))" :key="subject.id">
+                                        <tr class="hover:bg-dark-700/50">
+                                            <td class="px-4 py-3 text-sm font-mono text-white" x-text="subject.name"></td>
+                                            <td class="px-4 py-3 text-sm font-mono text-gray-400" x-text="subject.role"></td>
+                                            <td class="px-4 py-3">
+                                                <span class="text-xs font-mono px-2 py-1 rounded" :class="{
+                                                    'bg-accent-red/20 text-accent-red': subject.riskLevel === 'High',
+                                                    'bg-accent-amber/20 text-accent-amber': subject.riskLevel === 'Medium',
+                                                    'bg-accent-green/20 text-accent-green': subject.riskLevel === 'Low',
+                                                    'bg-accent-brass/20 text-accent-brass': subject.riskLevel === 'Protected'
+                                                }" x-text="subject.riskLevel"></span>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm font-mono text-gray-400" x-text="subject.status"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Violations Table -->
+                        <div x-show="activeTab === 'violations'" class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-dark-700">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Code</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Title</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Severity</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Status</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-dark-700">
+                                    <template x-for="v in $store.case.violations.filter(v => v.title.toLowerCase().includes(searchQuery.toLowerCase()))" :key="v.id">
+                                        <tr class="hover:bg-dark-700/50">
+                                            <td class="px-4 py-3 text-sm font-mono text-accent-brass" x-text="v.code"></td>
+                                            <td class="px-4 py-3 text-sm font-mono text-white" x-text="v.title"></td>
+                                            <td class="px-4 py-3">
+                                                <span class="text-xs font-mono px-2 py-1 rounded" :class="{
+                                                    'bg-accent-red/20 text-accent-red': v.severity === 'critical',
+                                                    'bg-accent-amber/20 text-accent-amber': v.severity === 'high',
+                                                    'bg-accent-amber/20 text-accent-amber': v.severity === 'medium',
+                                                    'bg-accent-green/20 text-accent-green': v.severity === 'low'
+                                                }" x-text="v.severity"></span>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm font-mono text-gray-400 capitalize" x-text="v.status.replace('_', ' ')"></td>
+                                            <td class="px-4 py-3 text-sm font-mono text-gray-400" x-text="v.date"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Timeline Table -->
+                        <div x-show="activeTab === 'timeline'" class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-dark-700">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Date</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Event</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Type</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Anomaly</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-dark-700">
+                                    <template x-for="event in $store.case.timeline.filter(e => e.title.toLowerCase().includes(searchQuery.toLowerCase()))" :key="event.id">
+                                        <tr class="hover:bg-dark-700/50" :class="event.isAnomaly ? 'bg-accent-red/5' : ''">
+                                            <td class="px-4 py-3 text-sm font-mono text-accent-brass" x-text="event.date"></td>
+                                            <td class="px-4 py-3 text-sm font-mono text-white" x-text="event.title"></td>
+                                            <td class="px-4 py-3 text-sm font-mono text-gray-400 capitalize" x-text="event.type"></td>
+                                            <td class="px-4 py-3">
+                                                <span x-show="event.isAnomaly" class="text-xs font-mono px-2 py-1 rounded bg-accent-red/20 text-accent-red" x-text="event.anomalyType"></span>
+                                                <span x-show="!event.isAnomaly" class="text-xs font-mono text-gray-500">-</span>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Documents Table -->
+                        <div x-show="activeTab === 'documents'" class="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-dark-700">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Document Name</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Folder</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Entities</th>
+                                        <th class="px-4 py-3 text-left text-[10px] font-mono text-gray-400 uppercase">Entity Types</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-dark-700">
+                                    <template x-for="doc in $store.case.documents.filter(d => d.name.toLowerCase().includes(searchQuery.toLowerCase()) || (d.folder && d.folder.toLowerCase().includes(searchQuery.toLowerCase())))" :key="doc.id">
+                                        <tr class="hover:bg-dark-700/50">
+                                            <td class="px-4 py-3 text-sm font-mono text-white truncate max-w-xs" x-text="doc.name"></td>
+                                            <td class="px-4 py-3">
+                                                <span class="text-xs font-mono px-2 py-1 rounded bg-dark-600 text-gray-300" x-text="doc.folder || 'Unknown'"></span>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm font-mono text-accent-brass" x-text="doc.entityCount || 0"></td>
+                                            <td class="px-4 py-3 text-xs font-mono text-gray-500 truncate max-w-xs" x-text="(doc.entities || []).slice(0, 3).join(', ') + (doc.entities?.length > 3 ? '...' : '')"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                            <div class="px-4 py-3 bg-dark-700/50 border-t border-dark-600 text-xs font-mono text-gray-500">
+                                <span x-text="$store.case.documents.length"></span> documents processed
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Data Visualizer Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'data-visualizer'">
+                    <div x-data="dataVisualizerComponent()" x-init="initCharts()">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Data Visualizer</h1>
+                                <p class="text-xs font-mono text-gray-500">Visual analytics for case data</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button @click="refreshCharts()" class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">refresh</span>Refresh
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Violations by Severity -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                <h3 class="text-sm font-mono font-bold text-white mb-4">Violations by Severity</h3>
+                                <div class="h-64">
+                                    <canvas id="violationsSeverityChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Tasks by Status -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                <h3 class="text-sm font-mono font-bold text-white mb-4">Tasks by Status</h3>
+                                <div class="h-64">
+                                    <canvas id="tasksStatusChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Timeline Events -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-6 col-span-2">
+                                <h3 class="text-sm font-mono font-bold text-white mb-4">Case Timeline</h3>
+                                <div class="h-64">
+                                    <canvas id="timelineChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Quick Stats -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                <h3 class="text-sm font-mono font-bold text-white mb-4">Document Analysis</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono mb-1">
+                                            <span class="text-gray-400">Analyzed</span>
+                                            <span class="text-accent-green" x-text="$store.case.documents.filter(d => d.status === 'analyzed').length + ' docs'"></span>
+                                        </div>
+                                        <div class="h-2 bg-dark-600 rounded-full overflow-hidden">
+                                            <div class="h-full bg-accent-green rounded-full" :style="'width: ' + ($store.case.documents.filter(d => d.status === 'analyzed').length / $store.case.documents.length * 100) + '%'"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono mb-1">
+                                            <span class="text-gray-400">Transcribed</span>
+                                            <span class="text-accent-brass" x-text="$store.case.documents.filter(d => d.status === 'transcribed').length + ' docs'"></span>
+                                        </div>
+                                        <div class="h-2 bg-dark-600 rounded-full overflow-hidden">
+                                            <div class="h-full bg-accent-brass rounded-full" :style="'width: ' + ($store.case.documents.filter(d => d.status === 'transcribed').length / $store.case.documents.length * 100) + '%'"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono mb-1">
+                                            <span class="text-gray-400">Pending</span>
+                                            <span class="text-accent-amber" x-text="$store.case.documents.filter(d => d.status === 'pending').length + ' docs'"></span>
+                                        </div>
+                                        <div class="h-2 bg-dark-600 rounded-full overflow-hidden">
+                                            <div class="h-full bg-accent-amber rounded-full" :style="'width: ' + ($store.case.documents.filter(d => d.status === 'pending').length / $store.case.documents.length * 100) + '%'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Entity Distribution -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                <h3 class="text-sm font-mono font-bold text-white mb-4">Entity Distribution</h3>
+                                <div class="h-64">
+                                    <canvas id="entityChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Doc Comparator Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'doc-comparator'">
+                    <div x-data="{ leftDoc: null, rightDoc: null, syncScroll: true }">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Doc Comparator</h1>
+                                <p class="text-xs font-mono text-gray-500">Side-by-side document comparison</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <label class="flex items-center gap-2 text-xs font-mono text-gray-400 cursor-pointer">
+                                    <input type="checkbox" x-model="syncScroll" class="rounded bg-dark-700 border-dark-600 text-accent-brass focus:ring-accent-brass/50">
+                                    Sync Scroll
+                                </label>
+                                <button class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">difference</span>Show Differences
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 h-[calc(100vh-200px)]">
+                            <!-- Left Document -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 flex flex-col overflow-hidden">
+                                <div class="p-3 border-b border-dark-700 flex items-center gap-2">
+                                    <select x-model="leftDoc" class="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-xs font-mono text-white">
+                                        <option :value="null">Select document...</option>
+                                        <template x-for="doc in $store.case.documents" :key="doc.id">
+                                            <option :value="doc.id" x-text="doc.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="flex-1 p-4 overflow-y-auto font-mono text-sm text-gray-300 leading-relaxed" id="leftDocContent">
+                                    <template x-if="!leftDoc">
+                                        <div class="text-center text-gray-500 py-12">
+                                            <span class="material-symbols-outlined text-4xl mb-2">description</span>
+                                            <p class="text-xs">Select a document to view</p>
+                                        </div>
+                                    </template>
+                                    <template x-if="leftDoc">
+                                        <div class="space-y-4">
+                                            <p class="text-gray-400">[Document content preview would appear here]</p>
+                                            <p>This is a placeholder for document comparison functionality. When the document processing engine is connected, actual document content will be displayed here with difference highlighting.</p>
+                                            <p class="text-accent-brass">Selected Document ID: <span x-text="leftDoc"></span></p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Right Document -->
+                            <div class="bg-dark-800 rounded-xl border border-dark-700 flex flex-col overflow-hidden">
+                                <div class="p-3 border-b border-dark-700 flex items-center gap-2">
+                                    <select x-model="rightDoc" class="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-xs font-mono text-white">
+                                        <option :value="null">Select document...</option>
+                                        <template x-for="doc in $store.case.documents" :key="doc.id">
+                                            <option :value="doc.id" x-text="doc.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="flex-1 p-4 overflow-y-auto font-mono text-sm text-gray-300 leading-relaxed" id="rightDocContent">
+                                    <template x-if="!rightDoc">
+                                        <div class="text-center text-gray-500 py-12">
+                                            <span class="material-symbols-outlined text-4xl mb-2">description</span>
+                                            <p class="text-xs">Select a document to compare</p>
+                                        </div>
+                                    </template>
+                                    <template x-if="rightDoc">
+                                        <div class="space-y-4">
+                                            <p class="text-gray-400">[Document content preview would appear here]</p>
+                                            <p>This is a placeholder for document comparison functionality. When the document processing engine is connected, actual document content will be displayed here with difference highlighting.</p>
+                                            <p class="text-accent-brass">Selected Document ID: <span x-text="rightDoc"></span></p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Report Docs Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'report-docs'">
+                    <div x-data="{ selectedTemplate: null, sections: [] }">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Report Docs</h1>
+                                <p class="text-xs font-mono text-gray-500">Generate investigation reports</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="flex items-center gap-2 bg-dark-700 text-gray-300 px-4 py-2 rounded-lg text-xs font-mono hover:bg-dark-600 transition border border-dark-600">
+                                    <span class="material-symbols-outlined text-sm">print</span>Print
+                                </button>
+                                <button class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                    <span class="material-symbols-outlined text-sm">download</span>Export PDF
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-6">
+                            <!-- Template Selection -->
+                            <div class="space-y-4">
+                                <h3 class="text-sm font-mono font-bold text-white">Report Templates</h3>
+                                <div class="space-y-2">
+                                    <div @click="selectedTemplate = 'summary'; sections = ['executive', 'findings', 'recommendations']"
+                                         class="bg-dark-800 rounded-xl border p-4 cursor-pointer transition"
+                                         :class="selectedTemplate === 'summary' ? 'border-accent-brass bg-accent-brass/5' : 'border-dark-700 hover:border-dark-600'">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-accent-brass/20 rounded-lg flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-accent-brass">summarize</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-mono font-medium text-white">Executive Summary</div>
+                                                <div class="text-[10px] font-mono text-gray-500">Brief overview of findings</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div @click="selectedTemplate = 'detailed'; sections = ['executive', 'background', 'methodology', 'findings', 'evidence', 'timeline', 'recommendations', 'appendix']"
+                                         class="bg-dark-800 rounded-xl border p-4 cursor-pointer transition"
+                                         :class="selectedTemplate === 'detailed' ? 'border-accent-brass bg-accent-brass/5' : 'border-dark-700 hover:border-dark-600'">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-accent-bronze/20 rounded-lg flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-accent-bronze">description</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-mono font-medium text-white">Detailed Report</div>
+                                                <div class="text-[10px] font-mono text-gray-500">Comprehensive investigation report</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div @click="selectedTemplate = 'legal'; sections = ['case_info', 'parties', 'violations', 'evidence', 'legal_analysis', 'conclusions']"
+                                         class="bg-dark-800 rounded-xl border p-4 cursor-pointer transition"
+                                         :class="selectedTemplate === 'legal' ? 'border-accent-brass bg-accent-brass/5' : 'border-dark-700 hover:border-dark-600'">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-accent-copper/20 rounded-lg flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-accent-copper">gavel</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-mono font-medium text-white">Legal Brief</div>
+                                                <div class="text-[10px] font-mono text-gray-500">Court-ready documentation</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section Checklist -->
+                            <div class="space-y-4">
+                                <h3 class="text-sm font-mono font-bold text-white">Sections</h3>
+                                <div class="bg-dark-800 rounded-xl border border-dark-700 p-4">
+                                    <template x-if="!selectedTemplate">
+                                        <div class="text-center text-gray-500 py-8">
+                                            <span class="material-symbols-outlined text-3xl mb-2">checklist</span>
+                                            <p class="text-xs font-mono">Select a template to configure sections</p>
+                                        </div>
+                                    </template>
+                                    <template x-if="selectedTemplate">
+                                        <div class="space-y-2">
+                                            <template x-for="section in sections" :key="section">
+                                                <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-dark-700 cursor-pointer">
+                                                    <input type="checkbox" checked class="rounded bg-dark-600 border-dark-500 text-accent-brass focus:ring-accent-brass/50">
+                                                    <span class="text-sm font-mono text-white capitalize" x-text="section.replace('_', ' ')"></span>
+                                                </label>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Preview -->
+                            <div class="space-y-4">
+                                <h3 class="text-sm font-mono font-bold text-white">Preview</h3>
+                                <div class="bg-dark-800 rounded-xl border border-dark-700 p-6 h-96 overflow-y-auto">
+                                    <template x-if="!selectedTemplate">
+                                        <div class="text-center text-gray-500 py-12">
+                                            <span class="material-symbols-outlined text-4xl mb-2">preview</span>
+                                            <p class="text-xs font-mono">Report preview will appear here</p>
+                                        </div>
+                                    </template>
+                                    <template x-if="selectedTemplate">
+                                        <div class="space-y-4">
+                                            <div class="text-center border-b border-dark-600 pb-4">
+                                                <h2 class="text-lg font-mono font-bold text-white">Investigation Report</h2>
+                                                <p class="text-xs font-mono text-gray-500" x-text="$store.case.activeCase?.reference || 'PE23C50095'"></p>
+                                            </div>
+                                            <div class="text-xs font-mono text-gray-400 space-y-2">
+                                                <p><strong class="text-white">Case:</strong> <span x-text="$store.case.activeCase?.title"></span></p>
+                                                <p><strong class="text-white">Court:</strong> <span x-text="$store.case.activeCase?.court"></span></p>
+                                                <p><strong class="text-white">Generated:</strong> <span x-text="new Date().toLocaleDateString()"></span></p>
+                                            </div>
+                                            <p class="text-xs font-mono text-gray-500 italic">Full report content will be generated when the report engine is connected.</p>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Tone Analysis Page -->
+                <template x-if="!$store.case.loading && $store.app.currentPage === 'tone-analysis'">
+                    <div x-data="{ selectedDoc: null, mockTone: { positive: 25, negative: 45, neutral: 30 } }">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Tone Analysis</h1>
+                                <p class="text-xs font-mono text-gray-500">Sentiment analysis of communications</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <select x-model="selectedDoc" class="bg-dark-700 border border-dark-600 rounded-lg px-4 py-2 text-xs font-mono text-white min-w-[200px]">
+                                    <option :value="null">Select document...</option>
+                                    <template x-for="doc in $store.case.documents.filter(d => d.type === 'audio' || d.type === 'correspondence')" :key="doc.id">
+                                        <option :value="doc.id" x-text="doc.name"></option>
+                                    </template>
+                                </select>
+                                <button class="flex items-center gap-2 bg-accent-brass/20 text-accent-brass px-4 py-2 rounded-lg text-xs font-mono hover:bg-accent-brass/30 transition">
+                                    <span class="material-symbols-outlined text-sm">psychology</span>Analyze
+                                </button>
+                            </div>
+                        </div>
+
+                        <template x-if="!selectedDoc">
+                            <div class="flex flex-col items-center justify-center h-96 text-center">
+                                <div class="w-20 h-20 bg-dark-800 rounded-2xl flex items-center justify-center mb-6 border border-dark-600">
+                                    <span class="material-symbols-outlined text-4xl text-accent-bronze">psychology</span>
+                                </div>
+                                <h2 class="text-xl font-mono font-bold text-white mb-2">Select a Document</h2>
+                                <p class="text-sm font-mono text-gray-500">Choose a communication or transcript to analyze sentiment</p>
+                            </div>
+                        </template>
+
+                        <template x-if="selectedDoc">
+                            <div class="grid grid-cols-3 gap-6">
+                                <!-- Tone Overview -->
+                                <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                    <h3 class="text-sm font-mono font-bold text-white mb-6">Overall Tone</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono mb-2">
+                                                <span class="text-accent-green">Positive</span>
+                                                <span class="text-white" x-text="mockTone.positive + '%'"></span>
+                                            </div>
+                                            <div class="h-3 bg-dark-600 rounded-full overflow-hidden">
+                                                <div class="h-full bg-accent-green rounded-full transition-all" :style="'width: ' + mockTone.positive + '%'"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono mb-2">
+                                                <span class="text-accent-red">Negative</span>
+                                                <span class="text-white" x-text="mockTone.negative + '%'"></span>
+                                            </div>
+                                            <div class="h-3 bg-dark-600 rounded-full overflow-hidden">
+                                                <div class="h-full bg-accent-red rounded-full transition-all" :style="'width: ' + mockTone.negative + '%'"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono mb-2">
+                                                <span class="text-gray-400">Neutral</span>
+                                                <span class="text-white" x-text="mockTone.neutral + '%'"></span>
+                                            </div>
+                                            <div class="h-3 bg-dark-600 rounded-full overflow-hidden">
+                                                <div class="h-full bg-gray-500 rounded-full transition-all" :style="'width: ' + mockTone.neutral + '%'"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 p-4 bg-dark-700 rounded-lg">
+                                        <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Assessment</div>
+                                        <p class="text-sm font-mono text-accent-amber">Elevated Negative Sentiment</p>
+                                        <p class="text-xs font-mono text-gray-400 mt-1">Communication shows signs of tension and conflict</p>
+                                    </div>
+                                </div>
+
+                                <!-- Key Phrases -->
+                                <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                    <h3 class="text-sm font-mono font-bold text-white mb-4">Key Phrases</h3>
+                                    <div class="space-y-2">
+                                        <div class="flex items-center gap-2 p-2 bg-accent-red/10 rounded-lg border border-accent-red/20">
+                                            <span class="w-2 h-2 rounded-full bg-accent-red"></span>
+                                            <span class="text-xs font-mono text-gray-300">"tone was set"</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 p-2 bg-accent-red/10 rounded-lg border border-accent-red/20">
+                                            <span class="w-2 h-2 rounded-full bg-accent-red"></span>
+                                            <span class="text-xs font-mono text-gray-300">"not given opportunity"</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 p-2 bg-accent-amber/10 rounded-lg border border-accent-amber/20">
+                                            <span class="w-2 h-2 rounded-full bg-accent-amber"></span>
+                                            <span class="text-xs font-mono text-gray-300">"concerns raised"</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 p-2 bg-gray-500/10 rounded-lg border border-gray-500/20">
+                                            <span class="w-2 h-2 rounded-full bg-gray-500"></span>
+                                            <span class="text-xs font-mono text-gray-300">"as per procedure"</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 p-2 bg-accent-green/10 rounded-lg border border-accent-green/20">
+                                            <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+                                            <span class="text-xs font-mono text-gray-300">"best interests"</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Segment Analysis -->
+                                <div class="bg-dark-800 rounded-xl border border-dark-700 p-6">
+                                    <h3 class="text-sm font-mono font-bold text-white mb-4">Segment Analysis</h3>
+                                    <div class="space-y-3 max-h-80 overflow-y-auto">
+                                        <div class="p-3 rounded-lg border-l-2 border-accent-red bg-dark-700">
+                                            <p class="text-xs font-mono text-gray-300 mb-1">"The meeting felt rushed and I wasn't given a chance to explain..."</p>
+                                            <span class="text-[10px] font-mono text-accent-red">Negative · Frustration</span>
+                                        </div>
+                                        <div class="p-3 rounded-lg border-l-2 border-gray-500 bg-dark-700">
+                                            <p class="text-xs font-mono text-gray-300 mb-1">"The officer arrived at 10am as scheduled..."</p>
+                                            <span class="text-[10px] font-mono text-gray-400">Neutral · Factual</span>
+                                        </div>
+                                        <div class="p-3 rounded-lg border-l-2 border-accent-red bg-dark-700">
+                                            <p class="text-xs font-mono text-gray-300 mb-1">"I felt the tone was set from the very beginning..."</p>
+                                            <span class="text-[10px] font-mono text-accent-red">Negative · Bias concern</span>
+                                        </div>
+                                        <div class="p-3 rounded-lg border-l-2 border-accent-green bg-dark-700">
+                                            <p class="text-xs font-mono text-gray-300 mb-1">"Ryan has always been our priority..."</p>
+                                            <span class="text-[10px] font-mono text-accent-green">Positive · Child-focused</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Fallback Coming Soon Page (for any truly unimplemented pages) -->
+                <template x-if="!$store.case.loading && !['dashboard', 'subject-profiler', 'case-workflow', 'violation-matrix', 'forensic-timeline', 'evidence-drive', 'entity-map', 'data-sheets', 'data-visualizer', 'doc-comparator', 'report-docs', 'tone-analysis'].includes($store.app.currentPage)">
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <div class="w-20 h-20 bg-dark-800 rounded-2xl flex items-center justify-center mb-6 border border-dark-600">
+                            <span class="material-symbols-outlined text-4xl text-accent-brass">construction</span>
+                        </div>
+                        <h2 class="text-2xl font-display font-semibold text-white tracking-wide mb-2" x-text="$store.app.currentPage.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')"></h2>
+                        <p class="text-sm font-mono text-gray-500 mb-4">This module is under development</p>
+                        <div class="flex items-center gap-2 text-xs font-mono text-accent-brass">
+                            <span class="w-2 h-2 bg-accent-brass rounded-full pulse"></span>
+                            Coming Soon
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </main>
+
+        <!-- AI Assistant Panel -->
+        <aside class="w-80 bg-dark-900 border-l border-dark-700 flex flex-col" x-show="$store.app.assistantOpen" x-transition>
+            <div class="p-4 border-b border-dark-700">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-accent-brass to-accent-gold rounded flex items-center justify-center glow-brass">
+                            <span class="material-symbols-outlined text-dark-900 text-sm">psychology</span>
+                        </div>
+                        <div>
+                            <div class="font-display text-base"><span class="text-white">Counsel</span></div>
+                            <div class="text-[8px] text-accent-bronze tracking-[0.15em] italic">Ratio et Veritas</div>
+                        </div>
+                    </div>
+                    <button @click="$store.app.toggleAssistant()" class="text-gray-500 hover:text-accent-brass">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="mt-3 text-[9px] text-gray-500 uppercase tracking-widest">Reasoning Engine</div>
+                <select class="w-full mt-1 bg-dark-700 border border-dark-600 rounded px-3 py-2 text-xs focus:outline-none focus:border-accent-brass/50">
+                    <option value="claude">Claude 3.5 Sonnet</option>
+                    <option value="gemini">Gemini Pro 3</option>
+                </select>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                <template x-for="message in $store.chat.messages" :key="message.id">
+                    <div>
+                        <!-- System Message (Demo Notice) -->
+                        <template x-if="message.role === 'system'">
+                            <div class="bg-accent-amber/10 border border-accent-amber/30 rounded-lg p-2 text-[10px] text-center">
+                                <p class="font-mono text-accent-amber" x-text="message.content"></p>
+                            </div>
+                        </template>
+                        <!-- Assistant Message -->
+                        <template x-if="message.role === 'assistant'">
+                            <div class="flex gap-3">
+                                <div class="w-6 h-6 bg-accent-brass/20 rounded flex items-center justify-center flex-shrink-0">
+                                    <span class="text-accent-brass text-xs font-display">φ</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="bg-dark-700 rounded-lg p-3 text-xs border border-dark-600">
+                                        <p class="text-gray-300" x-text="message.content"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- User Message -->
+                        <template x-if="message.role === 'user'">
+                            <div class="flex gap-3 justify-end">
+                                <div class="bg-accent-brass/10 border border-accent-brass/30 rounded-lg p-3 text-xs max-w-[85%]">
+                                    <p class="font-mono" x-text="message.content"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Typing Indicator -->
+                <div x-show="$store.chat.isTyping" class="flex gap-3">
+                    <div class="w-6 h-6 bg-accent-brass/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-accent-brass text-xs font-mono">P</span>
+                    </div>
+                    <div class="bg-dark-700 rounded-lg p-3 border border-dark-600">
+                        <div class="flex gap-1">
+                            <span class="typing-dot w-2 h-2 bg-accent-brass rounded-full"></span>
+                            <span class="typing-dot w-2 h-2 bg-accent-brass rounded-full"></span>
+                            <span class="typing-dot w-2 h-2 bg-accent-brass rounded-full"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-dark-700">
+                <div class="relative">
+                    <input
+                        type="text"
+                        x-model="$store.chat.inputValue"
+                        @keypress.enter="$store.chat.sendMessage($store.chat.inputValue)"
+                        placeholder="Command Phronesis..."
+                        class="w-full bg-dark-800 border border-dark-600 rounded-lg px-4 py-3 pr-12 text-xs font-mono placeholder-gray-500 focus:outline-none focus:border-accent-brass/50"
+                    >
+                    <button
+                        @click="$store.chat.sendMessage($store.chat.inputValue)"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-accent-brass rounded-lg flex items-center justify-center hover:bg-accent-brass/80 transition"
+                    >
+                        <span class="material-symbols-outlined text-dark-900 text-sm">send</span>
+                    </button>
+                </div>
+                <div class="flex items-center justify-between mt-2 text-[9px] text-gray-500 font-mono">
+                    <span>Press Enter to send</span>
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">bolt</span> Powered by AI</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Floating Assistant Button -->
+        <button
+            @click="$store.app.toggleAssistant()"
+            x-show="!$store.app.assistantOpen"
+            class="fixed bottom-6 right-6 w-12 h-12 bg-accent-green rounded-full flex items-center justify-center glow-green hover:scale-110 transition-transform z-50"
+        >
+            <span class="material-symbols-outlined text-dark-900">smart_toy</span>
+        </button>
+
+        <!-- Modal Overlay -->
+        <div
+            x-show="$store.app.modal.open"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-dark-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            @click.self="$store.app.closeModal()"
+        >
+            <!-- Add Task Modal -->
+            <div x-show="$store.app.modal.type === 'task'" x-data="{ title: '', description: '', priority: 'medium', assignee: 'Analyst' }" class="bg-dark-800 rounded-xl border border-dark-600 w-full max-w-md shadow-2xl">
+                <div class="p-4 border-b border-dark-600 flex items-center justify-between">
+                    <h3 class="font-mono font-bold text-white">Add New Task</h3>
+                    <button @click="$store.app.closeModal()" class="text-gray-400 hover:text-white">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="p-4 space-y-4">
+                    <div>
+                        <label class="block text-xs font-mono text-gray-400 mb-1">Title</label>
+                        <input x-model="title" type="text" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50" placeholder="Task title...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-gray-400 mb-1">Description</label>
+                        <textarea x-model="description" rows="3" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50 resize-none" placeholder="Task description..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">Priority</label>
+                            <select x-model="priority" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">Assignee</label>
+                            <select x-model="assignee" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50">
+                                <option value="Analyst">Analyst</option>
+                                <option value="Legal">Legal</option>
+                                <option value="Expert">Expert</option>
+                                <option value="Lead">Lead</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-dark-600 flex justify-end gap-2">
+                    <button @click="$store.app.closeModal()" class="px-4 py-2 text-sm font-mono text-gray-400 hover:text-white transition">Cancel</button>
+                    <button @click="if(title.trim()) { $store.case.addTask({ title, description, priority, assignee, status: 'todo' }); $store.app.closeModal(); }" class="px-4 py-2 bg-accent-brass text-dark-900 rounded-lg text-sm font-mono font-medium hover:bg-accent-brass/90 transition">Add Task</button>
+                </div>
+            </div>
+
+            <!-- Add Violation Modal -->
+            <div x-show="$store.app.modal.type === 'violation'" x-data="{ code: '', title: '', description: '', severity: 'medium', subject: '', evidence: 1 }" class="bg-dark-800 rounded-xl border border-dark-600 w-full max-w-md shadow-2xl">
+                <div class="p-4 border-b border-dark-600 flex items-center justify-between">
+                    <h3 class="font-mono font-bold text-white">Log New Violation</h3>
+                    <button @click="$store.app.closeModal()" class="text-gray-400 hover:text-white">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="p-4 space-y-4">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">Code</label>
+                            <input x-model="code" type="text" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50" placeholder="XX-1.1">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-xs font-mono text-gray-400 mb-1">Title</label>
+                            <input x-model="title" type="text" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50" placeholder="Violation title...">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-gray-400 mb-1">Description</label>
+                        <textarea x-model="description" rows="2" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50 resize-none" placeholder="Describe the violation..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">Severity</label>
+                            <select x-model="severity" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50">
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">Evidence Items</label>
+                            <input x-model="evidence" type="number" min="0" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-gray-400 mb-1">Subject</label>
+                        <input x-model="subject" type="text" class="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-accent-brass/50" placeholder="Who/what is this violation against?">
+                    </div>
+                </div>
+                <div class="p-4 border-t border-dark-600 flex justify-end gap-2">
+                    <button @click="$store.app.closeModal()" class="px-4 py-2 text-sm font-mono text-gray-400 hover:text-white transition">Cancel</button>
+                    <button @click="if(title.trim() && code.trim()) { $store.case.addViolation({ code, title, description, severity, subject, evidence: parseInt(evidence), status: 'investigating' }); $store.app.closeModal(); }" class="px-4 py-2 bg-accent-red text-white rounded-lg text-sm font-mono font-medium hover:bg-accent-red/90 transition">Log Violation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Scripts -->
+    <!-- Data -->
+    <script src="js/data/mock-case.js"></script>
+    <script src="js/data/real-case-data.js"></script>
+    <script src="js/data/file-tree.js"></script>
+
+    <!-- API Service -->
+    <script src="js/services/api.js"></script>
+
+    <!-- Core -->
+    <script src="js/storage.js"></script>
+
+    <!-- Stores -->
+    <script src="js/stores/app.js"></script>
+    <script src="js/stores/case.js"></script>
+    <script src="js/stores/chat.js"></script>
+
+    <!-- Components -->
+    <script src="js/components/evidence-drive.js"></script>
+    <script src="js/components/entity-map.js"></script>
+    <script src="js/components/data-visualizer.js"></script>
+
+    <!-- App Initialization -->
+    <script src="js/app.js"></script>
+
+    <!-- Alpine.js - MUST load after stores are defined -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
+</body>
+</html>
