@@ -35,11 +35,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "ANTHROPIC_API_KEY": "@anthropic-api-key",
-    "DATABASE_URL": "@database-url",
-    "SUPABASE_URL": "@supabase-url",
-    "SUPABASE_KEY": "@supabase-key"
-  }
+  ]
 }
