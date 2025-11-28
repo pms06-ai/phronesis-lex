@@ -1,0 +1,20 @@
+# General
+.git
+__pycache__
+*.py[cod]
+*.log
+
+# Python envs
+.venv
+
+# Node
+node_modules
+frontend/node_modules
+
+# Data / uploads
+uploads
+data
+
+# OS
+.DS_Store
+Thumbs.db
