@@ -1,0 +1,71 @@
+<!-- Left Sidebar Component -->
+<aside class="w-64 bg-dark-900 border-r border-dark-700 flex flex-col" :class="{ 'w-16': $store.app.sidebarCollapsed }">
+    <!-- Logo -->
+    <div class="p-4 border-b border-dark-700">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-accent-brass to-accent-gold rounded flex items-center justify-center glow-brass">
+                <span class="material-symbols-outlined text-dark-900 text-xl">balance</span>
+            </div>
+            <div x-show="!$store.app.sidebarCollapsed">
+                <span class="font-display text-xl tracking-wide text-accent-brass">Phronesis</span><span class="font-display text-xl text-gray-400 tracking-wide">LEX</span>
+                <p class="text-[8px] text-accent-bronze tracking-[0.2em] uppercase italic">Veritas Per Rationem</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ask Phronesis Button -->
+    <div class="p-3" x-show="!$store.app.sidebarCollapsed">
+        <button @click="$store.app.toggleAssistant()" class="w-full bg-gradient-to-r from-accent-brass to-accent-gold p-3 rounded flex items-center gap-3 hover:opacity-90 transition glow-brass">
+            <span class="material-symbols-outlined text-dark-900">psychology</span>
+            <div class="text-left">
+                <div class="font-sans font-semibold text-sm text-dark-900">Ask Phronesis</div>
+                <div class="text-[10px] text-dark-700 font-sans">Forensic Counsel</div>
+            </div>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto p-2">
+        <template x-for="item in $store.app.navConfig" :key="item.id || item.section">
+            <div>
+                <!-- Section Header -->
+                <div x-show="item.section && !item.id" class="mt-4 mb-2 px-3 flex items-center justify-between" :class="{ 'hidden': $store.app.sidebarCollapsed }">
+                    <span class="text-[9px] font-mono text-gray-600 uppercase tracking-widest" x-text="item.section"></span>
+                    <span x-show="item.badge" class="text-[8px] bg-accent-green/20 text-accent-green px-1.5 py-0.5 rounded font-mono pulse" x-text="item.badge"></span>
+                </div>
+                <!-- Nav Item -->
+                <div
+                    x-show="item.id"
+                    class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer text-sm group"
+                    :class="{
+                        'active': $store.app.currentPage === item.id,
+                        'text-gray-400': $store.app.currentPage !== item.id
+                    }"
+                    @click="$store.app.navigateTo(item.id)"
+                    :title="item.status === 'live' ? 'Live data' : item.status === 'hybrid' ? 'Partial data' : item.status === 'mock' ? 'Demo data' : 'Coming soon'"
+                >
+                    <span class="material-symbols-outlined" :class="item.iconClass || ($store.app.currentPage === item.id ? 'text-accent-brass' : '')" x-text="item.icon"></span>
+                    <span class="font-mono text-xs flex-1" x-show="!$store.app.sidebarCollapsed" x-text="item.label"></span>
+                    <span x-show="!$store.app.sidebarCollapsed && item.status" class="w-1.5 h-1.5 rounded-full" :class="{
+                        'bg-accent-green': item.status === 'live',
+                        'bg-accent-amber': item.status === 'hybrid' || item.status === 'mock',
+                        'bg-gray-600': item.status === 'stub'
+                    }"></span>
+                </div>
+            </div>
+        </template>
+    </nav>
+
+    <!-- User Profile -->
+    <div class="p-3 border-t border-dark-700">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-accent-bronze to-accent-copper rounded-full flex items-center justify-center text-xs font-bold">JD</div>
+            <div class="flex-1" x-show="!$store.app.sidebarCollapsed">
+                <div class="text-xs font-mono font-medium">Officer Doe</div>
+                <div class="text-[9px] text-accent-green font-mono">UPLINK_STABLE</div>
+            </div>
+            <span class="material-symbols-outlined text-gray-500 cursor-pointer hover:text-accent-brass" x-show="!$store.app.sidebarCollapsed">settings</span>
+        </div>
+    </div>
+</aside>
+

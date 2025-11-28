@@ -1,0 +1,157 @@
+<!-- Entity Map Page -->
+<div x-data="entityMapComponent()" x-init="initNetwork()">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Entity Map</h1>
+            <p class="text-xs font-mono text-gray-500">Relationship visualization between case parties</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <!-- Search -->
+            <div class="relative">
+                <input type="text" x-model="searchQuery" @input.debounce.300ms="applySearch()" placeholder="Search entities..." class="bg-dark-700 border border-dark-600 rounded-lg pl-9 pr-8 py-2 text-xs font-mono text-white w-48 focus:border-accent-brass/50">
+                <span class="material-symbols-outlined text-gray-500 text-sm absolute left-3 top-1/2 -translate-y-1/2">search</span>
+                <button x-show="searchQuery" @click="clearSearch()" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
+            <!-- Filter -->
+            <select x-model="filterType" @change="applyFilter()" class="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-xs font-mono text-white">
+                <option value="all">All Entities</option>
+                <option value="subject">Subjects</option>
+                <option value="person">People</option>
+                <option value="organization">Organizations</option>
+                <option value="institution">Institutions</option>
+            </select>
+            <!-- Layout Selector -->
+            <select x-model="layoutType" @change="setLayout(layoutType)" class="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-xs font-mono text-white">
+                <option value="mindmap">Mind Map</option>
+                <option value="hierarchical">Hierarchy</option>
+                <option value="physics">Organic</option>
+            </select>
+            <!-- Zoom Controls -->
+            <div class="flex items-center border border-dark-600 rounded-lg overflow-hidden">
+                <button @click="zoomOut()" class="bg-dark-700 text-gray-300 px-2 py-2 hover:bg-dark-600 transition">
+                    <span class="material-symbols-outlined text-sm">remove</span>
+                </button>
+                <button @click="resetView()" class="bg-dark-700 text-gray-300 px-2 py-2 hover:bg-dark-600 transition border-x border-dark-600">
+                    <span class="material-symbols-outlined text-sm">center_focus_strong</span>
+                </button>
+                <button @click="zoomIn()" class="bg-dark-700 text-gray-300 px-2 py-2 hover:bg-dark-600 transition">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-6 h-[calc(100vh-200px)]">
+        <!-- Network Graph -->
+        <div class="col-span-3 bg-dark-800 rounded-xl border border-dark-700 relative overflow-hidden">
+            <div id="entity-network" class="w-full h-full"></div>
+            <!-- Node Legend -->
+            <div class="absolute bottom-4 left-4 bg-dark-900/95 rounded-lg p-3 border border-dark-600">
+                <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Nodes</div>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-3 h-3 rounded-full bg-accent-brass"></span>
+                        <span class="text-gray-400">Subject</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-3 h-3 rounded-full bg-accent-bronze"></span>
+                        <span class="text-gray-400">Organization</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-3 h-3 rounded-full bg-accent-copper"></span>
+                        <span class="text-gray-400">Institution</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-3 h-3 rounded-full bg-accent-silver"></span>
+                        <span class="text-gray-400">Person</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Relationship Legend -->
+            <div class="absolute bottom-4 left-36 bg-dark-900/95 rounded-lg p-3 border border-dark-600">
+                <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Relationships</div>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-4 h-0.5 bg-accent-brass"></span>
+                        <span class="text-gray-400">Familial</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-4 h-0.5 bg-accent-green"></span>
+                        <span class="text-gray-400">Legal</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-4 h-0.5 bg-accent-blue"></span>
+                        <span class="text-gray-400">Professional</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono">
+                        <span class="w-4 h-0.5 bg-accent-amber"></span>
+                        <span class="text-gray-400">Institutional</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Interaction Hint -->
+            <div class="absolute top-4 right-4 bg-dark-900/80 rounded-lg px-3 py-2 border border-dark-600">
+                <p class="text-[10px] font-mono text-gray-500">Double-click to focus • Scroll to zoom • Drag to pan</p>
+            </div>
+        </div>
+
+        <!-- Details Panel -->
+        <div class="bg-dark-800 rounded-xl border border-dark-700 p-4 overflow-y-auto">
+            <template x-if="!selectedNode">
+                <div class="text-center text-gray-500 py-8">
+                    <span class="material-symbols-outlined text-4xl mb-2">touch_app</span>
+                    <p class="text-xs font-mono">Click a node to view details</p>
+                </div>
+            </template>
+            <template x-if="selectedNode">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center" :class="getNodeColorClass(selectedNode.type)">
+                            <span class="material-symbols-outlined text-white" x-text="getNodeIcon(selectedNode.type)"></span>
+                        </div>
+                        <div>
+                            <h3 class="font-mono font-bold text-white" x-text="selectedNode.label"></h3>
+                            <p class="text-xs font-mono text-gray-500 capitalize" x-text="selectedNode.type"></p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-dark-700 rounded-lg p-3">
+                            <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Role</div>
+                            <div class="text-sm font-mono text-white" x-text="selectedNode.role || 'N/A'"></div>
+                        </div>
+                        <div class="bg-dark-700 rounded-lg p-3">
+                            <div class="text-[9px] font-mono text-gray-500 uppercase mb-1">Connection Strength</div>
+                            <div class="flex items-center gap-2">
+                                <div class="flex-1 h-2 bg-dark-600 rounded-full overflow-hidden">
+                                    <div class="h-full bg-accent-brass rounded-full" :style="'width: ' + (selectedNode.strength || 50) + '%'"></div>
+                                </div>
+                                <span class="text-xs font-mono text-accent-brass" x-text="(selectedNode.strength || 50) + '%'"></span>
+                            </div>
+                        </div>
+                        <!-- Connected Entities -->
+                        <div class="bg-dark-700 rounded-lg p-3">
+                            <div class="text-[9px] font-mono text-gray-500 uppercase mb-2">Relationships</div>
+                            <div class="space-y-2 max-h-48 overflow-y-auto">
+                                <template x-if="selectedNode.connections && selectedNode.connections.length > 0">
+                                    <template x-for="conn in selectedNode.connections" :key="conn.node.id">
+                                        <div class="flex items-center gap-2 text-xs">
+                                            <span class="material-symbols-outlined text-sm" :class="conn.direction === 'outgoing' ? 'text-accent-brass' : 'text-gray-500'" x-text="conn.direction === 'outgoing' ? 'arrow_forward' : 'arrow_back'"></span>
+                                            <span class="font-mono text-gray-400" x-text="conn.label"></span>
+                                            <span class="font-mono text-white truncate" x-text="conn.node.label"></span>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template x-if="!selectedNode.connections || selectedNode.connections.length === 0">
+                                    <p class="text-xs font-mono text-gray-500">No relationships</p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+

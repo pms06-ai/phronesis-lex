@@ -1,0 +1,99 @@
+<!-- Dashboard Page -->
+<div>
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-display font-semibold text-white tracking-wide">Investigation Dashboard</h1>
+            <p class="text-xs font-mono text-gray-500">
+                Overview for Case <span x-text="$store.case.activeCase?.reference || 'N/A'"></span> ·
+                <span x-text="$store.case.primarySubject?.name || 'N/A'"></span>
+            </p>
+        </div>
+        <button class="flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-accent-brass">
+            <span class="material-symbols-outlined">monitor_heart</span>
+            System Health
+        </button>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-4 gap-4 mb-6">
+        <!-- Documents Card -->
+        <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-dark-700">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-gray-400">description</span>
+                <span class="text-[9px] text-gray-500 font-mono uppercase">Processed</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-white mb-2" x-text="$store.case.dashboardStats.documents"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Documents</div>
+            <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                <div class="progress-bar h-full rounded-full" :style="'width:' + $store.case.dashboardStats.documentProgress + '%'"></div>
+            </div>
+        </div>
+
+        <!-- Extractions Card -->
+        <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-dark-700">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-accent-brass">data_object</span>
+                <span class="text-[9px] text-gray-500 font-mono uppercase">Extracted</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-accent-brass mb-2" x-text="$store.case.dashboardStats.totalExtractions"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Entity Extractions</div>
+            <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                <div class="progress-bar h-full rounded-full" style="width:100%"></div>
+            </div>
+        </div>
+
+        <!-- Unique Entities Card -->
+        <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-dark-700">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-accent-copper">hub</span>
+                <span class="text-[9px] text-gray-500 font-mono uppercase">Unique</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-white mb-2" x-text="$store.case.dashboardStats.uniqueEntityCount"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Entities</div>
+            <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                <div class="h-full rounded-full bg-accent-copper" style="width:100%"></div>
+            </div>
+        </div>
+
+        <!-- Relationships Card -->
+        <div class="bg-dark-800 rounded-xl p-4 card-hover transition-all cursor-pointer border border-accent-brass/30 glow-brass">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-accent-brass">share</span>
+                <span class="text-[9px] text-gray-500 font-mono uppercase">Connections</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-accent-brass text-glow-brass mb-2" x-text="$store.case.dashboardStats.relationshipCount"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Relationships</div>
+            <div class="h-1 bg-dark-600 rounded-full overflow-hidden mt-2">
+                <div class="progress-bar h-full rounded-full" style="width:100%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="bg-dark-800 rounded-xl border border-dark-700">
+        <div class="flex items-center justify-between p-4 border-b border-dark-700">
+            <h2 class="font-mono font-bold flex items-center gap-2 text-accent-brass">
+                <span class="material-symbols-outlined">history</span>
+                PROCESSED DOCUMENTS
+            </h2>
+            <button @click="$store.app.navigateTo('data-sheets')" class="text-xs font-mono text-accent-brass hover:underline">View All</button>
+        </div>
+        <div class="divide-y divide-dark-700">
+            <template x-for="doc in $store.case.documents.slice(0, 6)" :key="doc.id">
+                <div class="flex items-center justify-between p-4 hover:bg-dark-700/50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-dark-600 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-sm text-accent-brass">description</span>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs font-medium truncate max-w-xs" x-text="doc.name"></div>
+                            <div class="text-[10px] font-mono text-gray-500" x-text="(doc.folder || 'Unknown') + ' · ' + (doc.entityCount || 0) + ' entities'"></div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono text-accent-brass" x-text="doc.entityCount || 0"></span>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
