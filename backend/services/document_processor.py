@@ -28,6 +28,19 @@ try:
 except ImportError:
     HAS_OCR = False
 
+try:
+    import openai
+    HAS_OPENAI = True
+except ImportError:
+    HAS_OPENAI = False
+
+import subprocess
+import shutil
+import os
+import logging
+
+logger = logging.getLogger(__name__)
+
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from config import UPLOADS_DIR, TESSERACT_CMD, OCR_LANGUAGE
@@ -191,9 +204,11 @@ class DocumentProcessor:
             return text, page_count
 
         elif ext == '.doc':
-            # For .doc files, we'd need antiword or similar
-            # For now, return an error
-            raise NotImplementedError(".doc files require additional tools. Please convert to .docx")
+            # Try to convert .doc to text using LibreOffice or antiword
+            text = await self._extract_doc_legacy(file_path)
+            word_count = len(text.split())
+            page_count = max(1, word_count // 500)
+            return text, page_count
 
     async def _extract_text(self, file_path: Path) -> str:
         """Extract text from plain text files."""
@@ -227,27 +242,143 @@ class DocumentProcessor:
 
         return text, quality
 
+    async def _extract_doc_legacy(self, file_path: Path) -> str:
+        """
+        Extract text from legacy .doc files using available tools.
+        Tries: antiword, catdoc, LibreOffice (in order of preference).
+        """
+        # Try antiword first (fastest, most common)
+        if shutil.which('antiword'):
+            try:
+                result = subprocess.run(
+                    ['antiword', str(file_path)],
+                    capture_output=True,
+                    text=True,
+                    timeout=60
+                )
+                if result.returncode == 0:
+                    return result.stdout
+            except subprocess.TimeoutExpired:
+                logger.warning(f"antiword timeout for {file_path.name}")
+            except Exception as e:
+                logger.warning(f"antiword failed: {e}")
+
+        # Try catdoc
+        if shutil.which('catdoc'):
+            try:
+                result = subprocess.run(
+                    ['catdoc', str(file_path)],
+                    capture_output=True,
+                    text=True,
+                    timeout=60
+                )
+                if result.returncode == 0:
+                    return result.stdout
+            except subprocess.TimeoutExpired:
+                logger.warning(f"catdoc timeout for {file_path.name}")
+            except Exception as e:
+                logger.warning(f"catdoc failed: {e}")
+
+        # Try LibreOffice conversion
+        soffice = shutil.which('soffice') or shutil.which('libreoffice')
+        if soffice:
+            try:
+                import tempfile
+                with tempfile.TemporaryDirectory() as tmpdir:
+                    result = subprocess.run(
+                        [soffice, '--headless', '--convert-to', 'txt:Text',
+                         '--outdir', tmpdir, str(file_path)],
+                        capture_output=True,
+                        timeout=120
+                    )
+                    if result.returncode == 0:
+                        txt_file = Path(tmpdir) / (file_path.stem + '.txt')
+                        if txt_file.exists():
+                            return txt_file.read_text(encoding='utf-8', errors='ignore')
+            except subprocess.TimeoutExpired:
+                logger.warning(f"LibreOffice timeout for {file_path.name}")
+            except Exception as e:
+                logger.warning(f"LibreOffice conversion failed: {e}")
+
+        raise NotImplementedError(
+            f".doc file extraction requires antiword, catdoc, or LibreOffice. "
+            f"Install one of these tools or convert {file_path.name} to .docx"
+        )
+
     async def _transcribe_audio(self, file_path: Path) -> str:
         """
-        Transcribe audio file to text.
-        Placeholder - requires Whisper API or local Whisper model.
+        Transcribe audio file to text using OpenAI Whisper API.
+        Falls back to local whisper if available.
         """
-        # This would integrate with OpenAI Whisper API or local whisper
-        # For now, return a placeholder
-        return f"[Audio transcription not yet implemented for: {file_path.name}]"
+        # Try OpenAI Whisper API first
+        if HAS_OPENAI:
+            api_key = os.getenv('OPENAI_API_KEY')
+            if api_key:
+                try:
+                    client = openai.OpenAI(api_key=api_key)
+                    with open(file_path, 'rb') as audio_file:
+                        transcript = client.audio.transcriptions.create(
+                            model="whisper-1",
+                            file=audio_file,
+                            response_format="text"
+                        )
+                    return transcript
+                except Exception as e:
+                    logger.warning(f"OpenAI Whisper API failed: {e}")
+
+        # Try local whisper command
+        if shutil.which('whisper'):
+            try:
+                import tempfile
+                with tempfile.TemporaryDirectory() as tmpdir:
+                    result = subprocess.run(
+                        ['whisper', str(file_path), '--output_dir', tmpdir,
+                         '--output_format', 'txt', '--language', 'en'],
+                        capture_output=True,
+                        text=True,
+                        timeout=300  # 5 min timeout for audio
+                    )
+                    if result.returncode == 0:
+                        txt_file = Path(tmpdir) / (file_path.stem + '.txt')
+                        if txt_file.exists():
+                            return txt_file.read_text()
+            except subprocess.TimeoutExpired:
+                logger.warning(f"Local whisper timeout for {file_path.name}")
+            except Exception as e:
+                logger.warning(f"Local whisper failed: {e}")
+
+        raise NotImplementedError(
+            f"Audio transcription requires OpenAI API key (OPENAI_API_KEY env var) "
+            f"or local whisper installation. File: {file_path.name}"
+        )
 
     def get_capabilities(self) -> Dict[str, Any]:
         """Return current processing capabilities based on installed libraries."""
+        # Check for audio transcription capability
+        has_audio = (
+            (HAS_OPENAI and os.getenv('OPENAI_API_KEY')) or
+            shutil.which('whisper') is not None
+        )
+        # Check for .doc support
+        has_doc = (
+            shutil.which('antiword') or
+            shutil.which('catdoc') or
+            shutil.which('soffice') or
+            shutil.which('libreoffice')
+        )
         return {
             "pdf": HAS_PYMUPDF,
             "docx": HAS_DOCX,
+            "doc": has_doc is not None,
             "ocr": HAS_OCR,
-            "audio": False,  # Not yet implemented
+            "audio": has_audio,
             "supported_extensions": (
                 self.supported_text +
                 (self.supported_pdf if HAS_PYMUPDF else []) +
-                (self.supported_word if HAS_DOCX else []) +
-                (self.supported_image if HAS_OCR else [])
+                (['.docx'] if HAS_DOCX else []) +
+                (['.doc'] if has_doc else []) +
+                (self.supported_image if HAS_OCR else []) +
+                (self.supported_audio if has_audio else [])
             )
         }
 

@@ -55,7 +55,8 @@ class Database:
             await db.executescript(schema)
             await db.commit()
 
-        print(f"Database initialized at {self.db_path}")
+        import logging
+        logging.getLogger(__name__).info(f"Database initialized at {self.db_path}")
 
     @asynccontextmanager
     async def transaction(self):
@@ -132,5 +133,7 @@ def init_db_sync():
 
 if __name__ == "__main__":
     # Initialize database when run directly
+    import logging
+    logging.basicConfig(level=logging.INFO)
     init_db_sync()
-    print("Database setup complete!")
+    logging.getLogger(__name__).info("Database setup complete!")

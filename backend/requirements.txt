@@ -21,3 +21,11 @@ Pillow>=10.3.0
 # Utilities
 python-dotenv>=1.0.0
 pydantic>=2.5.0
+pydantic-settings>=2.0.0
+
+# FCIP Analysis Engine Dependencies
+rapidfuzz>=3.6.0
+parsedatetime>=2.6
+python-dateutil>=2.8.2
+scipy>=1.12.0
+numpy>=1.26.0

@@ -13,6 +13,8 @@ import uuid
 # Database
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+# CORS - defaults to * for development, set to specific origin in production
+CORS_ORIGIN = os.getenv("CORS_ORIGIN", "*")
 
 
 def json_serial(obj):
@@ -73,7 +75,7 @@ class handler(BaseHTTPRequestHandler):
     def send_json(self, data, status=200):
         self.send_response(status)
         self.send_header('Content-type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Origin', CORS_ORIGIN)
         self.end_headers()
         self.wfile.write(json.dumps(data, default=json_serial).encode())
 
@@ -219,7 +221,7 @@ class handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
         self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Origin', CORS_ORIGIN)
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
