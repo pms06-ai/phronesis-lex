@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     # Domain apps
-    "django_backend.cases",
+    "cases",
     # "documents", "analysis",  # to be created
 ]
 
