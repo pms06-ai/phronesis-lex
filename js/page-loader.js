@@ -22,7 +22,8 @@ const PageLoader = {
         'data-visualizer': 'templates/pages/data-visualizer.html',
         'doc-comparator': 'templates/pages/doc-comparator.html',
         'report-docs': 'templates/pages/report-docs.html',
-        'tone-analysis': 'templates/pages/tone-analysis.html'
+        'tone-analysis': 'templates/pages/tone-analysis.html',
+        'contradictions': 'templates/pages/contradictions.html'
     },
     
     /**
