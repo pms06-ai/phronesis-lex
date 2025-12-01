@@ -1,0 +1,32 @@
+# ---- Phronesis LEX Django Backend Dockerfile ----
+FROM python:3.11-slim
+
+# Install system deps (build-essential for some pip wheels)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential libmagic-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+# Copy requirements and install
+COPY backend/requirements.txt ./requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install django djangorestframework django-cors-headers
+
+# Copy source code
+COPY . /app
+
+# Django environment variables (override in compose/.env)
+ENV DJANGO_SETTINGS_MODULE=django_backend.settings \
+    DJANGO_DEBUG=1 \
+    DJANGO_ALLOWED_HOSTS=* \
+    DJANGO_CORS_ALLOW_ALL=1
+
+# Expose port
+EXPOSE 8000
+
+CMD ["python", "django_backend/manage.py", "runserver", "0.0.0.0:8000"]
