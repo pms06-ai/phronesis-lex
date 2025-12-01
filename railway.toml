@@ -1,12 +1,7 @@
 [build]
-builder = "nixpacks"
-watchPatterns = ["backend/**"]
-
-[build.nixpacks]
-# Only build from the backend directory
-buildRootPath = "backend"
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
