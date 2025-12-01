@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { documentsApi } from '../services/api';
-import type { Document } from '../types';
+// Document type is inferred from API response
 
 const StatusBadge = ({ status }: { status: string }) => {
   const classes: Record<string, string> = {

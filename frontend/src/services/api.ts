@@ -154,7 +154,7 @@ api.interceptors.response.use(
     };
 
     // Don't log sensitive auth errors in production
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.MODE !== 'production') {
       console.error('API Error:', apiError);
     }
 

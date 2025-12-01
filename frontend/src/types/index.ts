@@ -109,6 +109,7 @@ export interface Contradiction {
   resolved: boolean;
   resolution_note: string | null;
   resolved_at: string | null;
+  resolved_by: string | null;
   created_at: string;
 }
 

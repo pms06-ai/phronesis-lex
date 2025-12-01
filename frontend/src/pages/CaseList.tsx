@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { casesApi } from '../services/api';
-import type { Case } from '../types';
+// Type is inferred from API response
 
 export function CaseList() {
   const queryClient = useQueryClient();

@@ -91,7 +91,7 @@ export function CaseDetail() {
           { label: 'Timeline Events', value: stats?.timeline_events || 0, link: `/cases/${id}/timeline` },
           { label: 'Entities', value: stats?.entities || 0 },
           { label: 'Arguments', value: stats?.arguments || 0, link: `/cases/${id}/arguments` },
-        ].map((stat, i) => (
+        ].map((stat) => (
           <Link
             key={stat.label}
             to={stat.link || '#'}

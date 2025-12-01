@@ -6,7 +6,7 @@
  * 2. Copy prompts to Claude, ChatGPT, Grok, etc.
  * 3. Paste AI responses back to import structured data
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { promptsApi, documentsApi, claimsApi } from '../services/api';
 import type { GeneratedPrompt, ParseResult, WorkflowStatus } from '../services/api';
@@ -94,14 +94,18 @@ export default function AIWorkflow() {
       ]);
 
       setWorkflowStatus(status);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const docsResponse = docs as any;
       setDocuments(
-        (docs.documents || docs.results || []).map((d: { id: string; filename: string }) => ({
+        (docsResponse.documents || docsResponse.results || []).map((d: { id: string; filename: string }) => ({
           id: d.id,
           filename: d.filename,
         }))
       );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const claimsResponse = claimsData as any;
       setClaims(
-        (claimsData.claims || claimsData.results || []).map(
+        (claimsResponse.claims || claimsResponse.results || []).map(
           (c: { id: string; claim_text: string }) => ({
             id: c.id,
             claim_text: c.claim_text,
