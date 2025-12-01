@@ -25,6 +25,8 @@ from fcip.engines.entity_resolution import EntityResolutionEngine, EntityRoster
 from fcip.engines.argumentation import ArgumentationEngine, ArgumentPattern, LEGAL_RULES
 from fcip.engines.bias import BiasDetectionEngine
 from fcip.engines.temporal import TemporalParser
+from fcip.engines.contradiction import ContradictionDetectionEngine, ContradictionType, LEGAL_SIGNIFICANCE
+from fcip.models.core import Claim as FCIPClaim, ClaimType, Modality, Polarity, Confidence
 
 logger = logging.getLogger(__name__)
 
@@ -786,8 +788,6 @@ async def generate_arguments(case_id: str, finding_type: str = "welfare"):
 
     # Build arguments from claims
     # This is a simplified version - the full engine would do more
-    from fcip.models.core import Claim as FCIPClaim, ClaimType, Modality, Polarity, Confidence
-
     fcip_claims = []
     for c in claims[:5]:
         try:
@@ -916,6 +916,317 @@ async def create_baseline(
     )
 
     return {"baseline_id": baseline_id, "message": "Baseline saved"}
+
+
+# ============================================================================
+# Contradiction Detection Endpoints
+# ============================================================================
+
+@app.get("/api/cases/{case_id}/contradictions")
+async def detect_contradictions(case_id: str, refresh: bool = False):
+    """
+    Detect contradictions across all claims in a case.
+    
+    This is the revolutionary capability: systematic cross-referencing
+    of claims to find inconsistencies that would take humans hours.
+    
+    Args:
+        case_id: The case to analyze
+        refresh: If True, re-run analysis even if cached results exist
+    
+    Returns:
+        ContradictionReport with all detected contradictions
+    """
+    # Verify case exists
+    case = await db.fetch_one("SELECT id FROM cases WHERE id = ?", (case_id,))
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    
+    # Check for cached results
+    if not refresh:
+        cached = await db.fetch_all(
+            "SELECT * FROM contradictions WHERE case_id = ? ORDER BY severity ASC, confidence DESC",
+            (case_id,)
+        )
+        if cached:
+            return {
+                "case_id": case_id,
+                "source": "cached",
+                "total_contradictions": len(cached),
+                "contradictions": [dict(c) for c in cached]
+            }
+    
+    # Get all claims for the case
+    claims_data = await db.fetch_all(
+        """SELECT c.*, d.filename as source_document
+           FROM claims c
+           LEFT JOIN documents d ON c.document_id = d.id
+           WHERE c.case_id = ?""",
+        (case_id,)
+    )
+    
+    if not claims_data:
+        return {
+            "case_id": case_id,
+            "source": "analysis",
+            "total_contradictions": 0,
+            "message": "No claims found in case",
+            "contradictions": []
+        }
+    
+    # Convert to FCIP Claim objects
+    fcip_claims = []
+    for c in claims_data:
+        try:
+            fcip_claims.append(FCIPClaim(
+                claim_id=uuid.UUID(c["id"]) if c["id"] else uuid.uuid4(),
+                document_id=uuid.UUID(c["document_id"]) if c["document_id"] else uuid.uuid4(),
+                case_id=case_id,
+                text=c["claim_text"] or "",
+                claim_type=ClaimType(c["claim_type"]) if c["claim_type"] else ClaimType.ASSERTION,
+                source_quote=c.get("context"),
+                subject=c.get("target_entity"),
+                modality=Modality(c["modality"]) if c.get("modality") else Modality.ASSERTED,
+                polarity=Polarity(c["polarity"]) if c.get("polarity") else Polarity.AFFIRM,
+                certainty=c.get("certainty") or c.get("ai_confidence") or 0.5,
+                asserted_by=c.get("claimant_capacity"),
+                time_expression=c.get("time_expression"),
+                confidence=Confidence.llm_extracted(c.get("ai_confidence") or 0.5, "claude")
+            ))
+        except Exception as e:
+            logger.warning(f"Could not convert claim {c.get('id')}: {e}")
+            continue
+    
+    if not fcip_claims:
+        return {
+            "case_id": case_id,
+            "source": "analysis",
+            "total_contradictions": 0,
+            "message": "No valid claims to analyze",
+            "contradictions": []
+        }
+    
+    # Run contradiction detection
+    engine = ContradictionDetectionEngine(
+        semantic_threshold=0.6,
+        polarity_threshold=0.7,
+        enable_semantic=True
+    )
+    
+    report = engine.detect_contradictions(fcip_claims, case_id)
+    
+    # Store results in database
+    for c in report.contradictions:
+        try:
+            await db.execute(
+                """INSERT OR REPLACE INTO contradictions
+                   (id, case_id, claim_a_id, claim_b_id, contradiction_type, severity,
+                    claim_a_text, claim_b_text, claim_a_source, claim_b_source,
+                    claim_a_author, claim_b_author, same_author,
+                    semantic_similarity, confidence, explanation,
+                    legal_significance, recommended_action, case_law_reference,
+                    detection_method, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)""",
+                (
+                    str(c.contradiction_id), case_id,
+                    str(c.claim_a_id), str(c.claim_b_id),
+                    c.contradiction_type.value, c.severity.value,
+                    c.claim_a_text[:500], c.claim_b_text[:500],
+                    c.claim_a_source, c.claim_b_source,
+                    c.claim_a_author, c.claim_b_author, c.same_author,
+                    c.semantic_similarity, c.confidence, c.explanation,
+                    c.legal_significance, c.recommended_action, c.case_law_reference,
+                    c.detection_method
+                )
+            )
+        except Exception as e:
+            logger.warning(f"Could not store contradiction {c.contradiction_id}: {e}")
+    
+    return {
+        "case_id": case_id,
+        "source": "analysis",
+        "total_contradictions": report.total_contradictions,
+        "by_type": {k.value: v for k, v in report.by_type.items()},
+        "by_severity": {k.value: v for k, v in report.by_severity.items()},
+        "critical_count": len(report.critical_findings),
+        "self_contradiction_count": len(report.self_contradictions),
+        "authors_with_self_contradictions": report.authors_with_self_contradictions,
+        "documents_with_most_contradictions": report.documents_with_most_contradictions,
+        "contradictions": [
+            {
+                "id": str(c.contradiction_id),
+                "type": c.contradiction_type.value,
+                "severity": c.severity.value,
+                "claim_a": {
+                    "id": str(c.claim_a_id),
+                    "text": c.claim_a_text,
+                    "source": c.claim_a_source,
+                    "author": c.claim_a_author,
+                    "date": c.claim_a_date
+                },
+                "claim_b": {
+                    "id": str(c.claim_b_id),
+                    "text": c.claim_b_text,
+                    "source": c.claim_b_source,
+                    "author": c.claim_b_author,
+                    "date": c.claim_b_date
+                },
+                "same_author": c.same_author,
+                "semantic_similarity": round(c.semantic_similarity, 3),
+                "confidence": round(c.confidence, 3),
+                "explanation": c.explanation,
+                "legal_significance": c.legal_significance,
+                "recommended_action": c.recommended_action,
+                "case_law_reference": c.case_law_reference
+            }
+            for c in report.contradictions
+        ]
+    }
+
+
+@app.get("/api/cases/{case_id}/contradiction-summary")
+async def get_contradiction_summary(case_id: str):
+    """
+    Get a quick summary of contradictions for dashboard display.
+    
+    Returns counts and severity breakdown without full details.
+    """
+    # Check for cached results
+    contradictions = await db.fetch_all(
+        "SELECT * FROM contradictions WHERE case_id = ?",
+        (case_id,)
+    )
+    
+    if not contradictions:
+        return {
+            "case_id": case_id,
+            "total": 0,
+            "analyzed": False,
+            "by_severity": {},
+            "by_type": {},
+            "critical_issues": []
+        }
+    
+    # Count by severity
+    by_severity = {}
+    by_type = {}
+    critical_issues = []
+    
+    for c in contradictions:
+        severity = c.get("severity", "low")
+        ctype = c.get("contradiction_type", "direct")
+        
+        by_severity[severity] = by_severity.get(severity, 0) + 1
+        by_type[ctype] = by_type.get(ctype, 0) + 1
+        
+        if severity == "critical":
+            critical_issues.append({
+                "id": c["id"],
+                "type": ctype,
+                "explanation": c.get("explanation", "")[:100],
+                "same_author": c.get("same_author", False)
+            })
+    
+    return {
+        "case_id": case_id,
+        "total": len(contradictions),
+        "analyzed": True,
+        "by_severity": by_severity,
+        "by_type": by_type,
+        "critical_issues": critical_issues[:5]  # Top 5 critical
+    }
+
+
+@app.get("/api/contradiction-types")
+async def list_contradiction_types():
+    """
+    List all contradiction types with their legal significance.
+    
+    Useful for UI explanations and help text.
+    """
+    return {
+        "types": [
+            {
+                "type": ctype.value,
+                "severity": sig.get("severity", "medium").value if hasattr(sig.get("severity"), "value") else sig.get("severity", "medium"),
+                "case_law": sig.get("case_law", ""),
+                "explanation": sig.get("explanation", ""),
+                "recommended_action": sig.get("recommended_action", "")
+            }
+            for ctype, sig in LEGAL_SIGNIFICANCE.items()
+        ]
+    }
+
+
+@app.post("/api/claims/compare")
+async def compare_two_claims(
+    claim_a_id: str = Form(...),
+    claim_b_id: str = Form(...)
+):
+    """
+    Compare two specific claims for contradiction.
+    
+    Useful for targeted analysis or UI interactions.
+    """
+    # Fetch both claims
+    claim_a = await db.fetch_one("SELECT * FROM claims WHERE id = ?", (claim_a_id,))
+    claim_b = await db.fetch_one("SELECT * FROM claims WHERE id = ?", (claim_b_id,))
+    
+    if not claim_a or not claim_b:
+        raise HTTPException(status_code=404, detail="One or both claims not found")
+    
+    # Convert to FCIP Claims
+    try:
+        fcip_a = FCIPClaim(
+            claim_id=uuid.UUID(claim_a["id"]),
+            document_id=uuid.UUID(claim_a["document_id"]) if claim_a["document_id"] else uuid.uuid4(),
+            case_id=claim_a["case_id"],
+            text=claim_a["claim_text"] or "",
+            claim_type=ClaimType(claim_a["claim_type"]) if claim_a["claim_type"] else ClaimType.ASSERTION,
+            modality=Modality(claim_a["modality"]) if claim_a.get("modality") else Modality.ASSERTED,
+            polarity=Polarity(claim_a["polarity"]) if claim_a.get("polarity") else Polarity.AFFIRM,
+            certainty=claim_a.get("certainty") or claim_a.get("ai_confidence") or 0.5,
+            asserted_by=claim_a.get("claimant_capacity"),
+            confidence=Confidence.llm_extracted(0.5, "claude")
+        )
+        
+        fcip_b = FCIPClaim(
+            claim_id=uuid.UUID(claim_b["id"]),
+            document_id=uuid.UUID(claim_b["document_id"]) if claim_b["document_id"] else uuid.uuid4(),
+            case_id=claim_b["case_id"],
+            text=claim_b["claim_text"] or "",
+            claim_type=ClaimType(claim_b["claim_type"]) if claim_b["claim_type"] else ClaimType.ASSERTION,
+            modality=Modality(claim_b["modality"]) if claim_b.get("modality") else Modality.ASSERTED,
+            polarity=Polarity(claim_b["polarity"]) if claim_b.get("polarity") else Polarity.AFFIRM,
+            certainty=claim_b.get("certainty") or claim_b.get("ai_confidence") or 0.5,
+            asserted_by=claim_b.get("claimant_capacity"),
+            confidence=Confidence.llm_extracted(0.5, "claude")
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid claim data: {str(e)}")
+    
+    # Run comparison
+    engine = ContradictionDetectionEngine()
+    result = engine.compare_claims(fcip_a, fcip_b, claim_a["case_id"])
+    
+    if result:
+        return {
+            "is_contradiction": True,
+            "type": result.contradiction_type.value,
+            "severity": result.severity.value,
+            "confidence": round(result.confidence, 3),
+            "semantic_similarity": round(result.semantic_similarity, 3),
+            "same_author": result.same_author,
+            "explanation": result.explanation,
+            "legal_significance": result.legal_significance,
+            "recommended_action": result.recommended_action,
+            "case_law_reference": result.case_law_reference
+        }
+    else:
+        return {
+            "is_contradiction": False,
+            "message": "No contradiction detected between these claims"
+        }
 
 
 # ============================================================================

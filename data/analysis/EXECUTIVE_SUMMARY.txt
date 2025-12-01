@@ -1,0 +1,134 @@
+================================================================================
+EXECUTIVE SUMMARY - FORENSIC CASE INTELLIGENCE REPORT
+================================================================================
+
+Case: PE23C50095 - JFD vs SJS Family Proceedings
+Generated: 01 December 2025 01:48
+
+================================================================================
+CASE OVERVIEW
+================================================================================
+
+This case involves family court proceedings following the murders of Joshua 
+Dunmore (father) and Gary Dunmore (grandfather) on 29 March 2023. Stephen 
+Alderton (maternal grandfather) was convicted and sentenced to life with 
+30-year minimum tariff.
+
+Paul and Samantha Stephen (parents) were investigated for conspiracy to 
+murder for almost 2 years before receiving No Further Action on 12 Feb 2025.
+
+Care proceedings were initiated for the children (Ryan and Freya) in the 
+immediate aftermath of the murders.
+
+================================================================================
+KEY STATISTICS
+================================================================================
+
+  Documents analyzed:        566
+  Claims extracted:          3,539
+  Entities tracked:          33
+  Cases tracked:             7
+  Professionals identified:  7
+  Critical finding types:    5
+
+================================================================================
+CRITICAL FINDINGS
+================================================================================
+
+MOTIVE (5 instances)
+  What was the alleged motive?
+  Example: "The matters raised in the Family Court are known to be central to the murder enquiry and form the mo..."
+
+PREMEDITATION (101 instances)
+  Evidence of premeditation
+  Example: "I agree with assessment and plan as documented above...."
+
+POLICE_FAILURE (2 instances)
+  Police investigation failures
+  Example: "Family courts had 'at times failed to understand the risks they knew about. At other times, there ha..."
+
+CREDIBILITY (52 instances)
+  Credibility findings
+  Example: "Here in the UK ABA therapy is not funded through the NHS... In the US Ryan will be eligible to enrol..."
+
+COURT_PROCESS (1 instances)
+  Procedural unfairness
+  Example: "No opportunity for mediation. The applicant also stated he had no choice but to apply for a CAO. Des..."
+
+================================================================================
+ACCOUNTABILITY TARGETS
+================================================================================
+
+Police
+  Key individuals: DCI Katie Dounias, DC 2072 Atkinson
+  Issues: Investigation conduct, disclosure
+  Complaint route: IOPC
+
+Local Authority
+  Key individuals: Social Workers (multiple)
+  Issues: Threshold, candour, proportionality
+  Complaint route: LGSCO
+
+CAFCASS
+  Key individuals: Guardian
+  Issues: Independence, impartiality
+  Complaint route: CAFCASS Complaints
+
+Family Court
+  Key individuals: HHJ Gordon-Saker
+  Issues: Procedural fairness
+  Complaint route: JCIO / Appeal
+
+Channel 4
+  Key individuals: Unknown
+  Issues: s.97 identification, consent
+  Complaint route: Ofcom
+
+================================================================================
+TIMELINE OF KEY EVENTS
+================================================================================
+
+2021         | FAMILY_COURT       | PE21P30644 - Original private law proceedings
+
+2022         | FAMILY_COURT       | PE22P31058 - Peterborough proceedings
+
+2022-04      | MURDER_INVESTIGATION | Stephen Alderton texts "Panama"
+
+2022-05      | FAMILY_COURT       | PE22P00090 - Cambridge proceedings
+
+2022-06      | MURDER_INVESTIGATION | Alderton texts "Plan B", "Independence Day"
+
+2023         | FAMILY_COURT       | PE23P30344 - New private law (Seamark)
+
+2023-03-27   | MURDER_INVESTIGATION | Family Court - CAFCASS: Child NOT to leave UK
+
+2023-03-29   | MURDER_INVESTIGATION | MURDERS: Joshua & Gary Dunmore killed
+
+2023-03-30   | MURDER_INVESTIGATION | Paul & Samantha arrested (conspiracy)
+
+2023-03-31   | MURDER_INVESTIGATION | Released NFA
+
+2023-04      | FAMILY_COURT       | PE23C50063 - Initial care application
+
+2023-05-12   | MURDER_INVESTIGATION | Suspect status reinstated
+
+2023-06-07   | MURDER_INVESTIGATION | Re-arrested, "no comment" interviews
+
+2023-06-09   | FAMILY_COURT       | PE23C50095 - Urgent ICO hearing
+
+2024         | FAMILY_COURT       | CA-2024-001096 - Appeal refused
+
+2025-02-12   | MURDER_INVESTIGATION | Final NFA - insufficient evidence
+
+================================================================================
+RECOMMENDED ACTIONS
+================================================================================
+
+1. IOPC COMPLAINT - Police investigation failures
+2. LGSCO COMPLAINT - Local Authority maladministration
+3. CAFCASS COMPLAINT - Independence failures
+4. HCPC REFERRAL - Individual social worker conduct
+5. APPEAL/JUDICIAL REVIEW - Procedural unfairness
+6. OFCOM COMPLAINT - Channel 4 broadcasting (if applicable)
+7. HUMAN RIGHTS CLAIM - Article 6/8 violations
+8. PARLIAMENTARY OMBUDSMAN - Systemic failures

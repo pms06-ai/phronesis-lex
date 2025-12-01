@@ -1,0 +1,807 @@
+======================================================================
+LEGAL ARGUMENT PACK
+======================================================================
+
+Case: PE23C50095 - JFD vs SJS Family Proceedings
+Generated: 01 December 2025 01:57
+
+Total arguments: 58
+
+
+======================================================================
+POLICE - 15 ARGUMENTS
+======================================================================
+
+Complaint Route: IOPC under Police Reform Act 2002
+
+
+--- ARGUMENT 1: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'failure to investigate' found in 168 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 2: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'ignored evidence' found in 11 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 3: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'selective investigation' found in 36 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 4: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'predetermined outcome' found in 1 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 5: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'refused to consider' found in 168 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+======================================================================
+LOCAL_AUTHORITY - 15 ARGUMENTS
+======================================================================
+
+Complaint Route: LGSCO or Judicial Review
+
+
+--- ARGUMENT 1: THRESHOLD ---
+
+CLAIM:
+  The s.31 threshold criteria were not satisfied on the evidence presented
+
+GROUNDS (Evidence):
+  • Evidence of 'no evidence of harm' found in 93 documents
+
+WARRANT (Legal Principle):
+  A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give
+
+BACKING (Authority):
+  • Children Act 1989 s.31(2)
+  • Re B (Children) [2008] UKHL 35
+  • Re S-B (Children) [2009] UKSC 17
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Children at risk from family circumstances
+  Response: Risk must be evidenced and attributable to parental care, not external circumstances
+
+  Counter: Protective action necessary
+  Response: Protective measures must be proportionate and threshold must still be met
+
+
+--- ARGUMENT 2: THRESHOLD ---
+
+CLAIM:
+  The s.31 threshold criteria were not satisfied on the evidence presented
+
+GROUNDS (Evidence):
+  • Evidence of 'threshold not met' found in 48 documents
+
+WARRANT (Legal Principle):
+  A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give
+
+BACKING (Authority):
+  • Children Act 1989 s.31(2)
+  • Re B (Children) [2008] UKHL 35
+  • Re S-B (Children) [2009] UKSC 17
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Children at risk from family circumstances
+  Response: Risk must be evidenced and attributable to parental care, not external circumstances
+
+  Counter: Protective action necessary
+  Response: Protective measures must be proportionate and threshold must still be met
+
+
+--- ARGUMENT 3: THRESHOLD ---
+
+CLAIM:
+  The s.31 threshold criteria were not satisfied on the evidence presented
+
+GROUNDS (Evidence):
+  • Evidence of 'not significant' found in 42 documents
+
+WARRANT (Legal Principle):
+  A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give
+
+BACKING (Authority):
+  • Children Act 1989 s.31(2)
+  • Re B (Children) [2008] UKHL 35
+  • Re S-B (Children) [2009] UKSC 17
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Children at risk from family circumstances
+  Response: Risk must be evidenced and attributable to parental care, not external circumstances
+
+  Counter: Protective action necessary
+  Response: Protective measures must be proportionate and threshold must still be met
+
+
+--- ARGUMENT 4: THRESHOLD ---
+
+CLAIM:
+  The s.31 threshold criteria were not satisfied on the evidence presented
+
+GROUNDS (Evidence):
+  • Evidence of 'not attributable' found in 36 documents
+
+WARRANT (Legal Principle):
+  A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give
+
+BACKING (Authority):
+  • Children Act 1989 s.31(2)
+  • Re B (Children) [2008] UKHL 35
+  • Re S-B (Children) [2009] UKSC 17
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Children at risk from family circumstances
+  Response: Risk must be evidenced and attributable to parental care, not external circumstances
+
+  Counter: Protective action necessary
+  Response: Protective measures must be proportionate and threshold must still be met
+
+
+--- ARGUMENT 5: THRESHOLD ---
+
+CLAIM:
+  The s.31 threshold criteria were not satisfied on the evidence presented
+
+GROUNDS (Evidence):
+  • Evidence of 'no proof' found in 47 documents
+
+WARRANT (Legal Principle):
+  A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give
+
+BACKING (Authority):
+  • Children Act 1989 s.31(2)
+  • Re B (Children) [2008] UKHL 35
+  • Re S-B (Children) [2009] UKSC 17
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Children at risk from family circumstances
+  Response: Risk must be evidenced and attributable to parental care, not external circumstances
+
+  Counter: Protective action necessary
+  Response: Protective measures must be proportionate and threshold must still be met
+
+
+======================================================================
+CAFCASS - 9 ARGUMENTS
+======================================================================
+
+Complaint Route: CAFCASS Complaints then Parliamentary Ombudsman
+
+
+--- ARGUMENT 1: CAFCASS_INDEPENDENCE ---
+
+CLAIM:
+  The CAFCASS officer failed to maintain independence and adopted the Local Authority's position
+
+GROUNDS (Evidence):
+  • Evidence of 'adopted local authority position' found in 5 documents
+
+WARRANT (Legal Principle):
+  CAFCASS officers must maintain independence and form their own professional judgment, not simply adopt the position of any party (CJCS Act 2000 s.12)
+
+BACKING (Authority):
+  • Criminal Justice and Court Services Act 2000 s.12
+  • CAFCASS Operating Framework
+  • Re W (Children) [2009] EWCA Civ 59
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Officer formed independent view which happened to align with LA
+  Response: Pattern of alignment without critical analysis suggests lack of independence
+
+
+--- ARGUMENT 2: CAFCASS_INDEPENDENCE ---
+
+CLAIM:
+  The CAFCASS officer failed to maintain independence and adopted the Local Authority's position
+
+GROUNDS (Evidence):
+  • Evidence of 'agreed with social worker' found in 8 documents
+
+WARRANT (Legal Principle):
+  CAFCASS officers must maintain independence and form their own professional judgment, not simply adopt the position of any party (CJCS Act 2000 s.12)
+
+BACKING (Authority):
+  • Criminal Justice and Court Services Act 2000 s.12
+  • CAFCASS Operating Framework
+  • Re W (Children) [2009] EWCA Civ 59
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Officer formed independent view which happened to align with LA
+  Response: Pattern of alignment without critical analysis suggests lack of independence
+
+
+--- ARGUMENT 3: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'didn't see child' found in 6 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 4: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'didn't speak to' found in 22 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 5: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'only interviewed one parent' found in 7 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+======================================================================
+SOCIAL_WORKER - 4 ARGUMENTS
+======================================================================
+
+Complaint Route: HCPC Fitness to Practise
+
+
+--- ARGUMENT 1: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'failed to follow' found in 36 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 2: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'inadequate communication' found in 2 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 3: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'not what I said' found in 76 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 4: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'made up' found in 12 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+======================================================================
+FAMILY_COURT - 11 ARGUMENTS
+======================================================================
+
+Complaint Route: Appeal or JCIO
+
+
+--- ARGUMENT 1: FAIR_TRIAL ---
+
+CLAIM:
+  The proceedings violated Article 6 rights to a fair trial
+
+GROUNDS (Evidence):
+  • Evidence of 'wasn't heard' found in 3 documents
+
+WARRANT (Legal Principle):
+  Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)
+
+BACKING (Authority):
+  • Human Rights Act 1998
+  • ECHR Article 6
+  • Re K and H [2015] EWCA Civ 543
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: All parties had opportunity to be heard
+  Response: Opportunity alone is insufficient if evidence was not fairly considered
+
+  Counter: Court made findings on available evidence
+  Response: Evidence must be complete and fairly presented for findings to be sound
+
+
+--- ARGUMENT 2: FAIR_TRIAL ---
+
+CLAIM:
+  The proceedings violated Article 6 rights to a fair trial
+
+GROUNDS (Evidence):
+  • Evidence of 'didn't allow' found in 5 documents
+
+WARRANT (Legal Principle):
+  Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)
+
+BACKING (Authority):
+  • Human Rights Act 1998
+  • ECHR Article 6
+  • Re K and H [2015] EWCA Civ 543
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: All parties had opportunity to be heard
+  Response: Opportunity alone is insufficient if evidence was not fairly considered
+
+  Counter: Court made findings on available evidence
+  Response: Evidence must be complete and fairly presented for findings to be sound
+
+
+--- ARGUMENT 3: FAIR_TRIAL ---
+
+CLAIM:
+  The proceedings violated Article 6 rights to a fair trial
+
+GROUNDS (Evidence):
+  • Evidence of 'refused to consider' found in 179 documents
+
+WARRANT (Legal Principle):
+  Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)
+
+BACKING (Authority):
+  • Human Rights Act 1998
+  • ECHR Article 6
+  • Re K and H [2015] EWCA Civ 543
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: All parties had opportunity to be heard
+  Response: Opportunity alone is insufficient if evidence was not fairly considered
+
+  Counter: Court made findings on available evidence
+  Response: Evidence must be complete and fairly presented for findings to be sound
+
+
+--- ARGUMENT 4: FAIR_TRIAL ---
+
+CLAIM:
+  The proceedings violated Article 6 rights to a fair trial
+
+GROUNDS (Evidence):
+  • Evidence of 'no opportunity' found in 114 documents
+
+WARRANT (Legal Principle):
+  Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)
+
+BACKING (Authority):
+  • Human Rights Act 1998
+  • ECHR Article 6
+  • Re K and H [2015] EWCA Civ 543
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: All parties had opportunity to be heard
+  Response: Opportunity alone is insufficient if evidence was not fairly considered
+
+  Counter: Court made findings on available evidence
+  Response: Evidence must be complete and fairly presented for findings to be sound
+
+
+--- ARGUMENT 5: FAIR_TRIAL ---
+
+CLAIM:
+  The proceedings violated Article 6 rights to a fair trial
+
+GROUNDS (Evidence):
+  • Evidence of 'cut off' found in 14 documents
+
+WARRANT (Legal Principle):
+  Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)
+
+BACKING (Authority):
+  • Human Rights Act 1998
+  • ECHR Article 6
+  • Re K and H [2015] EWCA Civ 543
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: All parties had opportunity to be heard
+  Response: Opportunity alone is insufficient if evidence was not fairly considered
+
+  Counter: Court made findings on available evidence
+  Response: Evidence must be complete and fairly presented for findings to be sound
+
+
+======================================================================
+MEDIA - 2 ARGUMENTS
+======================================================================
+
+Complaint Route: Ofcom Broadcasting Code complaint
+
+
+--- ARGUMENT 1: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'documentary' found in 1 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 2: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'no consent' found in 12 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+======================================================================
+APPEAL_COURT - 2 ARGUMENTS
+======================================================================
+
+Complaint Route: Supreme Court / ECHR
+
+
+--- ARGUMENT 1: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'refused without reasons' found in 6 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset
+
+
+--- ARGUMENT 2: POLICE_INVESTIGATION ---
+
+CLAIM:
+  The police investigation was conducted with prejudice and failed to meet required standards
+
+GROUNDS (Evidence):
+  • Evidence of 'no proper consideration' found in 12 documents
+
+WARRANT (Legal Principle):
+  Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])
+
+BACKING (Authority):
+  • Police and Criminal Evidence Act 1984
+  • College of Policing Authorised Professional Practice
+  • Criminal Procedure and Investigations Act 1996
+
+STRENGTH: QUALIFIED
+
+POTENTIAL COUNTER-ARGUMENTS:
+
+  Counter: Investigation was complex and required careful consideration
+  Response: Complexity does not excuse failure to follow APP or statutory disclosure requirements
+
+  Counter: Suspects were released NFA proving fair process
+  Response: NFA after 23 months suggests flawed investigation from outset

@@ -201,10 +201,27 @@ class ModelRouter:
     async def _execute_claude_task(self, task: TaskType, **kwargs) -> Dict[str, Any]:
         """Execute a task using Claude."""
         if task == TaskType.CONTRADICTION_DETECTION:
-            contradictions = await self.claude.detect_contradictions(
-                claims=kwargs["claims"]
-            )
-            return {"contradictions": contradictions}
+            # Use FCIP contradiction engine instead of non-existent Claude method
+            from fcip.engines.contradiction import detect_contradictions_from_db
+            claims = kwargs.get("claims", [])
+            case_id = kwargs.get("case_id", "")
+            report = detect_contradictions_from_db(claims, case_id)
+            return {
+                "contradictions": [
+                    {
+                        "id": str(c.contradiction_id),
+                        "type": c.contradiction_type.value,
+                        "severity": c.severity.value,
+                        "description": c.description,
+                        "claim_a": c.claim_a_text,
+                        "claim_b": c.claim_b_text,
+                        "confidence": c.confidence
+                    }
+                    for c in report.contradictions
+                ],
+                "total": report.total_contradictions,
+                "self_contradictions": len(report.self_contradictions)
+            }
         
         elif task == TaskType.COMPETING_CLAIMS_ANALYSIS:
             return await self.claude.analyze_competing_claims(

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCIP - Interactive Evidence Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'IBM Plex Sans', sans-serif; }
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
+        body { background: #0f172a; color: #e2e8f0; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; }
+        .card-hover:hover { background: #273548; border-color: #475569; }
+        .evidence-quote { border-left: 3px solid #f59e0b; padding-left: 12px; background: rgba(245, 158, 11, 0.1); }
+        .loading { animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .scrollbar::-webkit-scrollbar { width: 8px; }
+        .scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        .scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen" x-data="explorer()" x-init="init()">
+    
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 px-6 py-4 sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-red-600 flex items-center justify-center font-bold">⚖</div>
+                <div>
+                    <h1 class="text-xl font-bold">FCIP Evidence Explorer</h1>
+                    <p class="text-xs text-slate-400">PE23C50095 - Real Data, Real Evidence</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-sm">
+                    <span class="text-slate-400">Documents:</span>
+                    <span class="font-bold text-white" x-text="stats.documents || '...'"></span>
+                </div>
+                <div class="text-sm">
+                    <span class="text-slate-400">Claims:</span>
+                    <span class="font-bold text-white" x-text="stats.claims || '...'"></span>
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">
+                    ● API Connected
+                </span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 h-[calc(100vh-64px)] bg-slate-800/50 border-r border-slate-700 p-4 sticky top-16">
+            <nav class="space-y-2">
+                <button @click="view = 'search'" :class="view === 'search' ? 'bg-amber-500/20 text-amber-400' : 'hover:bg-slate-700'" class="w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition-colors">
+                    <span>🔍</span> Search Evidence
+                </button>
+                <button @click="view = 'breaches'; loadBreaches()" :class="view === 'breaches' ? 'bg-amber-500/20 text-amber-400' : 'hover:bg-slate-700'" class="w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition-colors">
+                    <span>⚠️</span> Breach Evidence
+                </button>
+                <button @click="view = 'contradictions'; loadContradictions()" :class="view === 'contradictions' ? 'bg-amber-500/20 text-amber-400' : 'hover:bg-slate-700'" class="w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition-colors">
+                    <span>🔄</span> Contradictions
+                </button>
+                <button @click="view = 'documents'; loadDocuments()" :class="view === 'documents' ? 'bg-amber-500/20 text-amber-400' : 'hover:bg-slate-700'" class="w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition-colors">
+                    <span>📄</span> Documents
+                </button>
+                <button @click="view = 'persons'" :class="view === 'persons' ? 'bg-amber-500/20 text-amber-400' : 'hover:bg-slate-700'" class="w-full text-left px-4 py-3 rounded-lg flex items-center gap-3 transition-colors">
+                    <span>👤</span> Person Tracker
+                </button>
+            </nav>
+            
+            <!-- Quick Stats -->
+            <div class="mt-8 p-4 card">
+                <h4 class="text-xs uppercase text-slate-400 mb-3">Document Types</h4>
+                <div class="space-y-2 text-sm">
+                    <template x-for="(count, type) in stats.document_breakdown || {}" :key="type">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400 truncate" x-text="type"></span>
+                            <span class="font-mono text-white" x-text="count"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 p-6 h-[calc(100vh-64px)] overflow-y-auto scrollbar">
+            
+            <!-- Search View -->
+            <div x-show="view === 'search'" class="space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">🔍 Search Evidence</h2>
+                    <p class="text-slate-400 mb-4">Search across 3,539 claims from 566 documents</p>
+                    
+                    <div class="flex gap-4">
+                        <input 
+                            type="text" 
+                            x-model="searchQuery"
+                            @keyup.enter="searchClaims()"
+                            placeholder="Enter keywords (e.g., murder, threshold, disclosure, credibility)"
+                            class="flex-1 px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
+                        >
+                        <button @click="searchClaims()" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-lg transition-colors">
+                            Search
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="text-xs text-slate-400">Quick search:</span>
+                        <button @click="searchQuery = 'murder'; searchClaims()" class="px-3 py-1 text-xs bg-red-500/20 text-red-400 rounded hover:bg-red-500/30">murder</button>
+                        <button @click="searchQuery = 'conspiracy'; searchClaims()" class="px-3 py-1 text-xs bg-red-500/20 text-red-400 rounded hover:bg-red-500/30">conspiracy</button>
+                        <button @click="searchQuery = 'threshold'; searchClaims()" class="px-3 py-1 text-xs bg-amber-500/20 text-amber-400 rounded hover:bg-amber-500/30">threshold</button>
+                        <button @click="searchQuery = 'disclosure'; searchClaims()" class="px-3 py-1 text-xs bg-blue-500/20 text-blue-400 rounded hover:bg-blue-500/30">disclosure</button>
+                        <button @click="searchQuery = 'credibility'; searchClaims()" class="px-3 py-1 text-xs bg-purple-500/20 text-purple-400 rounded hover:bg-purple-500/30">credibility</button>
+                        <button @click="searchQuery = 'failed to'; searchClaims()" class="px-3 py-1 text-xs bg-orange-500/20 text-orange-400 rounded hover:bg-orange-500/30">failed to</button>
+                        <button @click="searchQuery = 'motive'; searchClaims()" class="px-3 py-1 text-xs bg-pink-500/20 text-pink-400 rounded hover:bg-pink-500/30">motive</button>
+                    </div>
+                </div>
+                
+                <!-- Search Results -->
+                <div x-show="searchResults.length > 0" class="card p-6">
+                    <h3 class="text-lg font-bold mb-4">
+                        Found <span class="text-amber-400" x-text="searchResults.length"></span> results for "<span x-text="lastQuery"></span>"
+                    </h3>
+                    <div class="space-y-4">
+                        <template x-for="(result, index) in searchResults" :key="index">
+                            <div class="evidence-quote p-4 rounded-lg">
+                                <p class="text-sm leading-relaxed" x-text="result.claim_text"></p>
+                                <div class="mt-3 flex items-center gap-4 text-xs text-slate-400">
+                                    <span x-show="result.asserted_by">
+                                        👤 <span x-text="result.asserted_by"></span>
+                                    </span>
+                                    <span>📄 <span x-text="result.filename || result.title || 'Unknown'"></span></span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-700" x-text="result.document_category || 'unknown'"></span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <div x-show="searching" class="card p-12 text-center">
+                    <div class="loading text-4xl mb-4">🔍</div>
+                    <p class="text-slate-400">Searching evidence...</p>
+                </div>
+            </div>
+            
+            <!-- Breaches View -->
+            <div x-show="view === 'breaches'" class="space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-2">⚠️ Accountability Breaches</h2>
+                    <p class="text-slate-400 mb-6">Click on any breach to see the ACTUAL evidence from the documents</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <button @click="selectedAgency = 'police'; loadBreachEvidence('police')" :class="selectedAgency === 'police' ? 'border-red-500 bg-red-500/10' : ''" class="card card-hover p-4 text-center border-2 border-transparent">
+                            <div class="text-2xl mb-2">🚔</div>
+                            <div class="font-medium">Police</div>
+                            <div class="text-red-400 font-bold">15 breaches</div>
+                        </button>
+                        <button @click="selectedAgency = 'local_authority'; loadBreachEvidence('local_authority')" :class="selectedAgency === 'local_authority' ? 'border-amber-500 bg-amber-500/10' : ''" class="card card-hover p-4 text-center border-2 border-transparent">
+                            <div class="text-2xl mb-2">🏛️</div>
+                            <div class="font-medium">Local Authority</div>
+                            <div class="text-amber-400 font-bold">15 breaches</div>
+                        </button>
+                        <button @click="selectedAgency = 'cafcass'; loadBreachEvidence('cafcass')" :class="selectedAgency === 'cafcass' ? 'border-green-500 bg-green-500/10' : ''" class="card card-hover p-4 text-center border-2 border-transparent">
+                            <div class="text-2xl mb-2">👨‍👧</div>
+                            <div class="font-medium">CAFCASS</div>
+                            <div class="text-green-400 font-bold">9 breaches</div>
+                        </button>
+                        <button @click="selectedAgency = 'family_court'; loadBreachEvidence('family_court')" :class="selectedAgency === 'family_court' ? 'border-purple-500 bg-purple-500/10' : ''" class="card card-hover p-4 text-center border-2 border-transparent">
+                            <div class="text-2xl mb-2">⚖️</div>
+                            <div class="font-medium">Court</div>
+                            <div class="text-purple-400 font-bold">11 breaches</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Breach List -->
+                <div x-show="breaches.length > 0" class="card p-6">
+                    <h3 class="text-lg font-bold mb-4 capitalize" x-text="selectedAgency.replace('_', ' ') + ' Breaches'"></h3>
+                    <div class="space-y-4">
+                        <template x-for="(breach, index) in breaches" :key="index">
+                            <div 
+                                class="p-4 rounded-lg cursor-pointer transition-all"
+                                :class="selectedBreach === breach ? 'bg-amber-500/20 border border-amber-500' : 'bg-slate-800 hover:bg-slate-700'"
+                                @click="selectedBreach = breach; loadEvidenceForBreach(breach)"
+                            >
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <h4 class="font-medium" x-text="breach.duty_title"></h4>
+                                        <p class="text-xs text-slate-400 mt-1" x-text="breach.legal_basis"></p>
+                                    </div>
+                                    <span class="px-2 py-1 rounded text-xs font-medium" :class="breach.severity === 'critical' ? 'bg-red-500/20 text-red-400' : 'bg-amber-500/20 text-amber-400'" x-text="breach.severity"></span>
+                                </div>
+                                <p class="text-sm text-slate-300 mt-2">
+                                    Indicator: <span class="text-amber-400" x-text="breach.indicator"></span>
+                                </p>
+                                <p class="text-xs text-slate-500 mt-1">
+                                    <span x-text="breach.evidence_count"></span> instances found in documents
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <!-- Evidence for selected breach -->
+                <div x-show="breachEvidence.length > 0" class="card p-6 border-2 border-amber-500/50">
+                    <h3 class="text-lg font-bold mb-2 text-amber-400">📜 Actual Evidence</h3>
+                    <p class="text-sm text-slate-400 mb-4">These quotes are extracted directly from your case documents:</p>
+                    <div class="space-y-4 max-h-96 overflow-y-auto scrollbar">
+                        <template x-for="(evidence, index) in breachEvidence" :key="index">
+                            <div class="evidence-quote p-4 rounded-lg">
+                                <p class="text-sm leading-relaxed" x-text="evidence.quote"></p>
+                                <div class="mt-3 flex items-center gap-4 text-xs text-slate-400">
+                                    <span x-show="evidence.author">👤 <span x-text="evidence.author"></span></span>
+                                    <span>📄 <span x-text="evidence.document"></span></span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-700" x-text="evidence.category"></span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <div x-show="loadingEvidence" class="card p-12 text-center">
+                    <div class="loading text-4xl mb-4">📄</div>
+                    <p class="text-slate-400">Loading evidence from documents...</p>
+                </div>
+            </div>
+            
+            <!-- Contradictions View -->
+            <div x-show="view === 'contradictions'" class="space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-2">🔄 True Contradictions</h2>
+                    <p class="text-slate-400 mb-6">Real factual disputes and internal inconsistencies</p>
+                </div>
+                
+                <!-- True Contradictions by Topic -->
+                <div x-show="trueContradictions.length > 0" class="space-y-4">
+                    <template x-for="(c, index) in trueContradictions" :key="index">
+                        <div class="card p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-bold" x-text="c.topic"></h3>
+                                <span class="px-3 py-1 rounded text-xs font-medium" :class="{
+                                    'bg-red-500/20 text-red-400': c.significance === 'CRITICAL',
+                                    'bg-amber-500/20 text-amber-400': c.significance === 'HIGH',
+                                    'bg-blue-500/20 text-blue-400': c.significance === 'MEDIUM'
+                                }" x-text="c.significance"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 mb-2" x-text="c.description"></p>
+                            <p class="text-xs text-slate-500 mb-4">Legal Basis: <span x-text="c.legal_basis"></span></p>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="text-sm font-medium text-green-400 mb-2">
+                                        ✓ Claims ASSERTING (<span x-text="c.positive_count"></span>)
+                                    </h4>
+                                    <div class="space-y-2">
+                                        <template x-for="claim in c.positive_claims?.slice(0,3)" :key="claim.text">
+                                            <div class="evidence-quote p-3 rounded-lg text-sm" style="border-color: #22c55e;">
+                                                <p x-text="claim.text.substring(0, 200) + '...'"></p>
+                                                <p class="text-xs text-slate-500 mt-2">
+                                                    <span x-show="claim.author">👤 <span x-text="claim.author"></span> • </span>
+                                                    📄 <span x-text="claim.source"></span>
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-red-400 mb-2">
+                                        ✗ Claims DENYING (<span x-text="c.negative_count"></span>)
+                                    </h4>
+                                    <div class="space-y-2">
+                                        <template x-for="claim in c.negative_claims?.slice(0,3)" :key="claim.text">
+                                            <div class="evidence-quote p-3 rounded-lg text-sm" style="border-color: #ef4444;">
+                                                <p x-text="claim.text.substring(0, 200) + '...'"></p>
+                                                <p class="text-xs text-slate-500 mt-2">
+                                                    <span x-show="claim.author">👤 <span x-text="claim.author"></span> • </span>
+                                                    📄 <span x-text="claim.source"></span>
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                
+                <!-- Source Consistency -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-bold mb-4">📊 Internal Consistency by Source</h3>
+                    <p class="text-slate-400 mb-4">When the same source makes contradictory claims</p>
+                    
+                    <div class="space-y-4" x-show="sourceConsistency.length > 0">
+                        <template x-for="source in sourceConsistency" :key="source.source">
+                            <div class="p-4 rounded-lg bg-slate-800" x-show="source.inconsistencies?.length > 0">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="font-medium capitalize" x-text="source.source"></h4>
+                                    <span class="text-xs text-slate-400" x-text="source.total_claims + ' claims'"></span>
+                                </div>
+                                <template x-for="inc in source.inconsistencies?.slice(0,2)" :key="inc.topic">
+                                    <div class="mb-3 p-3 bg-slate-900 rounded">
+                                        <p class="text-sm font-medium text-amber-400 mb-2 capitalize" x-text="inc.topic"></p>
+                                        <div class="grid grid-cols-2 gap-2 text-xs">
+                                            <div class="text-green-400">
+                                                ✓ <span x-text="inc.positive_examples?.[0]?.substring(0,80) + '...'"></span>
+                                            </div>
+                                            <div class="text-red-400">
+                                                ✗ <span x-text="inc.negative_examples?.[0]?.substring(0,80) + '...'"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Documents View -->
+            <div x-show="view === 'documents'" class="space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">📄 Document Browser</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="doc in documents" :key="doc.id">
+                            <div class="card card-hover p-4 cursor-pointer" @click="loadDocument(doc.id)">
+                                <div class="text-2xl mb-2">📄</div>
+                                <h4 class="font-medium text-sm truncate" x-text="doc.filename || doc.title"></h4>
+                                <p class="text-xs text-slate-400 mt-1" x-text="doc.document_category"></p>
+                                <p class="text-xs text-slate-500 mt-1" x-text="doc.word_count + ' words'"></p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <!-- Document Detail -->
+                <div x-show="selectedDocument" class="card p-6">
+                    <h3 class="text-lg font-bold mb-2" x-text="selectedDocument?.filename || selectedDocument?.title"></h3>
+                    <p class="text-sm text-slate-400 mb-4">
+                        <span x-text="selectedDocument?.document_category"></span> • 
+                        <span x-text="selectedDocument?.word_count"></span> words •
+                        <span x-text="selectedDocument?.claims?.length || 0"></span> claims extracted
+                    </p>
+                    
+                    <div x-show="selectedDocument?.claims?.length > 0">
+                        <h4 class="font-medium mb-3">Claims from this document:</h4>
+                        <div class="space-y-3 max-h-96 overflow-y-auto scrollbar">
+                            <template x-for="claim in selectedDocument?.claims || []" :key="claim.id">
+                                <div class="evidence-quote p-3 rounded-lg">
+                                    <p class="text-sm" x-text="claim.claim_text"></p>
+                                    <p class="text-xs text-slate-500 mt-2" x-text="'By: ' + (claim.asserted_by || 'Unknown')"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Person Tracker View -->
+            <div x-show="view === 'persons'" class="space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">👤 Person Tracker</h2>
+                    <p class="text-slate-400 mb-4">Find all claims made by or about a specific person</p>
+                    
+                    <div class="flex gap-4 mb-4">
+                        <input 
+                            type="text" 
+                            x-model="personQuery"
+                            @keyup.enter="searchPerson()"
+                            placeholder="Enter name (e.g., Dounias, Alderton, Samantha)"
+                            class="flex-1 px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:border-amber-500 focus:outline-none"
+                        >
+                        <button @click="searchPerson()" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-lg">
+                            Search
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs text-slate-400">Quick search:</span>
+                        <button @click="personQuery = 'Dounias'; searchPerson()" class="px-3 py-1 text-xs bg-blue-500/20 text-blue-400 rounded hover:bg-blue-500/30">DCI Dounias</button>
+                        <button @click="personQuery = 'Alderton'; searchPerson()" class="px-3 py-1 text-xs bg-red-500/20 text-red-400 rounded hover:bg-red-500/30">Alderton</button>
+                        <button @click="personQuery = 'Samantha'; searchPerson()" class="px-3 py-1 text-xs bg-purple-500/20 text-purple-400 rounded hover:bg-purple-500/30">Samantha</button>
+                        <button @click="personQuery = 'Duggan'; searchPerson()" class="px-3 py-1 text-xs bg-green-500/20 text-green-400 rounded hover:bg-green-500/30">Duggan</button>
+                        <button @click="personQuery = 'Dunmore'; searchPerson()" class="px-3 py-1 text-xs bg-amber-500/20 text-amber-400 rounded hover:bg-amber-500/30">Dunmore</button>
+                    </div>
+                </div>
+                
+                <div x-show="personResults" class="grid grid-cols-2 gap-6">
+                    <div class="card p-6">
+                        <h3 class="text-lg font-bold mb-4">
+                            Claims BY <span class="text-amber-400" x-text="personResults?.name"></span>
+                            <span class="text-sm text-slate-400 font-normal ml-2">(<span x-text="personResults?.authored_count || 0"></span>)</span>
+                        </h3>
+                        <div class="space-y-3 max-h-80 overflow-y-auto scrollbar">
+                            <template x-for="claim in personResults?.claims_authored || []" :key="claim.claim_text">
+                                <div class="evidence-quote p-3 rounded-lg">
+                                    <p class="text-sm" x-text="claim.claim_text"></p>
+                                    <p class="text-xs text-slate-500 mt-2">📄 <span x-text="claim.filename"></span></p>
+                                </div>
+                            </template>
+                            <p x-show="!personResults?.claims_authored?.length" class="text-slate-500 text-sm">No claims found</p>
+                        </div>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-lg font-bold mb-4">
+                            Claims ABOUT <span class="text-amber-400" x-text="personResults?.name"></span>
+                            <span class="text-sm text-slate-400 font-normal ml-2">(<span x-text="personResults?.about_count || 0"></span>)</span>
+                        </h3>
+                        <div class="space-y-3 max-h-80 overflow-y-auto scrollbar">
+                            <template x-for="claim in personResults?.claims_about || []" :key="claim.claim_text">
+                                <div class="evidence-quote p-3 rounded-lg">
+                                    <p class="text-sm" x-text="claim.claim_text"></p>
+                                    <p class="text-xs text-slate-500 mt-2">
+                                        <span x-show="claim.asserted_by">👤 <span x-text="claim.asserted_by"></span> • </span>
+                                        📄 <span x-text="claim.filename"></span>
+                                    </p>
+                                </div>
+                            </template>
+                            <p x-show="!personResults?.claims_about?.length" class="text-slate-500 text-sm">No claims found</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        const API_BASE = 'http://localhost:9000';
+        
+        function explorer() {
+            return {
+                view: 'search',
+                stats: {},
+                
+                // Search
+                searchQuery: '',
+                lastQuery: '',
+                searchResults: [],
+                searching: false,
+                
+                // Breaches
+                selectedAgency: null,
+                breaches: [],
+                selectedBreach: null,
+                breachEvidence: [],
+                loadingEvidence: false,
+                
+                // Contradictions
+                contradictions: [],
+                contradictionStats: {},
+                trueContradictions: [],
+                sourceConsistency: [],
+                
+                // Documents
+                documents: [],
+                selectedDocument: null,
+                
+                // Persons
+                personQuery: '',
+                personResults: null,
+                
+                async init() {
+                    // Load stats
+                    try {
+                        const res = await fetch(`${API_BASE}/api/stats`);
+                        this.stats = await res.json();
+                    } catch (e) {
+                        console.error('Failed to load stats:', e);
+                    }
+                },
+                
+                async searchClaims() {
+                    if (!this.searchQuery.trim()) return;
+                    
+                    this.searching = true;
+                    this.searchResults = [];
+                    this.lastQuery = this.searchQuery;
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/api/claims/search?q=${encodeURIComponent(this.searchQuery)}&limit=30`);
+                        const data = await res.json();
+                        this.searchResults = data.claims || [];
+                    } catch (e) {
+                        console.error('Search failed:', e);
+                    }
+                    
+                    this.searching = false;
+                },
+                
+                async loadBreaches() {
+                    // Just switch view, actual loading happens when agency selected
+                },
+                
+                async loadBreachEvidence(agency) {
+                    try {
+                        const res = await fetch(`${API_BASE}/api/breaches?agency=${agency}`);
+                        const data = await res.json();
+                        this.breaches = data.breaches || [];
+                        this.breachEvidence = [];
+                        this.selectedBreach = null;
+                    } catch (e) {
+                        console.error('Failed to load breaches:', e);
+                    }
+                },
+                
+                async loadEvidenceForBreach(breach) {
+                    this.loadingEvidence = true;
+                    this.breachEvidence = [];
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/api/breach/evidence?indicator=${encodeURIComponent(breach.indicator)}&agency=${this.selectedAgency}&limit=20`);
+                        const data = await res.json();
+                        this.breachEvidence = data.evidence || [];
+                    } catch (e) {
+                        console.error('Failed to load evidence:', e);
+                    }
+                    
+                    this.loadingEvidence = false;
+                },
+                
+                async loadContradictions() {
+                    try {
+                        const res = await fetch(`${API_BASE}/api/contradictions`);
+                        const data = await res.json();
+                        this.trueContradictions = data.true_contradictions || [];
+                        this.sourceConsistency = data.source_consistency || [];
+                        this.contradictionStats = data.summary || {};
+                    } catch (e) {
+                        console.error('Failed to load contradictions:', e);
+                    }
+                },
+                
+                async loadDocuments() {
+                    try {
+                        const res = await fetch(`${API_BASE}/api/documents?limit=20`);
+                        const data = await res.json();
+                        this.documents = data.documents || [];
+                    } catch (e) {
+                        console.error('Failed to load documents:', e);
+                    }
+                },
+                
+                async loadDocument(id) {
+                    try {
+                        const res = await fetch(`${API_BASE}/api/document?id=${id}`);
+                        this.selectedDocument = await res.json();
+                    } catch (e) {
+                        console.error('Failed to load document:', e);
+                    }
+                },
+                
+                async searchPerson() {
+                    if (!this.personQuery.trim()) return;
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/api/person?name=${encodeURIComponent(this.personQuery)}&limit=30`);
+                        this.personResults = await res.json();
+                    } catch (e) {
+                        console.error('Failed to search person:', e);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

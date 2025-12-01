@@ -1,0 +1,160 @@
+======================================================================
+ENTITY RELATIONSHIP REPORT
+======================================================================
+
+Generated: 01 December 2025 02:17
+
+
+VICTIM
+----------------------------------------
+
+  Joshua Dunmore
+    Role: Father
+    Status: deceased
+    Relationships: Gary Dunmore, Ryan, Freya, Samantha Stephen
+
+  Gary Dunmore
+    Role: Grandfather (Paternal)
+    Status: deceased
+    Relationships: Joshua Dunmore, Ryan, Freya
+
+
+PARTY
+----------------------------------------
+
+  Samantha Stephen
+    Role: Mother
+    Status: respondent
+    Relationships: Paul Stephen, Ryan, Freya, Stephen Alderton, Joshua Dunmore
+
+  Paul Stephen
+    Role: Step-Father
+    Status: respondent
+    Relationships: Samantha Stephen, Ryan, Freya
+
+  Mandy Seamark
+    Role: Paternal Grandmother
+    Status: applicant
+    Relationships: Joshua Dunmore, Ryan, Freya
+
+
+PERPETRATOR
+----------------------------------------
+
+  Stephen Alderton
+    Role: Grandfather (Maternal)
+    Status: convicted
+    Relationships: Samantha Stephen, Ryan, Freya
+
+
+CHILD
+----------------------------------------
+
+  Ryan
+    Role: Child (subject of proceedings)
+    Status: subject
+    Relationships: Joshua Dunmore, Samantha Stephen, Paul Stephen, Freya, Mandy Seamark
+
+  Freya
+    Role: Child (subject of proceedings)
+    Status: subject
+    Relationships: Joshua Dunmore, Samantha Stephen, Paul Stephen, Ryan, Mandy Seamark
+
+
+POLICE
+----------------------------------------
+
+  DCI Katie Dounias
+    Role: Senior Investigating Officer
+    Organization: BCH Major Crime Unit
+    Relationships: DC Atkinson, Samantha Stephen, Paul Stephen
+
+  DC Atkinson
+    Role: Officer in Case
+    Organization: Cambridgeshire Constabulary
+    Relationships: DCI Katie Dounias, Family Court
+
+
+SOCIAL WORKER
+----------------------------------------
+
+  Paul Duggan
+    Role: Allocated Social Worker
+    Organization: Cambridgeshire CC
+    Relationships: Lucy Ardern, Local Authority, Ryan, Freya
+
+  Lucy Ardern
+    Role: Social Worker
+    Organization: Cambridgeshire CC
+    Relationships: Paul Duggan, Local Authority
+
+
+CAFCASS
+----------------------------------------
+
+  Guardian
+    Role: Children's Guardian
+    Organization: CAFCASS
+    Relationships: Ryan, Freya, Family Court
+
+
+JUDGE
+----------------------------------------
+
+  HHJ Gordon-Saker
+    Role: Circuit Judge
+    Organization: Family Court Peterborough
+    Relationships: Family Court
+
+
+AGENCY
+----------------------------------------
+
+  Local Authority
+    Role: Applicant in Care Proceedings
+    Organization: Cambridgeshire County Council
+    Relationships: Paul Duggan, Lucy Ardern, Family Court, CAFCASS
+
+  CAFCASS
+    Role: Court Advisor
+    Organization: CAFCASS East
+    Relationships: Guardian, Family Court, Local Authority
+
+  Cambridgeshire Police
+    Role: Investigating Force
+    Organization: Cambridgeshire Constabulary
+    Relationships: DCI Katie Dounias, DC Atkinson
+
+
+MEDIA
+----------------------------------------
+
+  Channel 4
+    Role: Broadcaster
+    Organization: Channel 4
+
+
+======================================================================
+KEY RELATIONSHIPS
+======================================================================
+
+  Stephen Alderton ←→ Samantha Stephen
+    Father → Daughter
+
+  Samantha Stephen ←→ Joshua Dunmore
+    Co-Parents (never married)
+
+  Ryan/Freya ←→ Joshua Dunmore
+    Children → Father
+
+  Ryan/Freya ←→ Stephen Alderton
+    Grandchildren → Convicted Grandfather
+
+  Local Authority ←→ Family Court
+    Applicant → Court
+
+  CAFCASS ←→ Family Court
+    Advisor → Court
+
+  DCI Dounias ←→ Murder Investigation
+    SIO → Investigation

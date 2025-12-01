@@ -1,0 +1,440 @@
+{
+  "nodes": [
+    {
+      "id": "Joshua Dunmore",
+      "label": "Joshua Dunmore",
+      "type": "victim",
+      "role": "Father",
+      "organization": "",
+      "status": "deceased",
+      "group": 1
+    },
+    {
+      "id": "Gary Dunmore",
+      "label": "Gary Dunmore",
+      "type": "victim",
+      "role": "Grandfather (Paternal)",
+      "organization": "",
+      "status": "deceased",
+      "group": 1
+    },
+    {
+      "id": "Samantha Stephen",
+      "label": "Samantha Stephen",
+      "type": "party",
+      "role": "Mother",
+      "organization": "",
+      "status": "respondent",
+      "group": 2
+    },
+    {
+      "id": "Paul Stephen",
+      "label": "Paul Stephen",
+      "type": "party",
+      "role": "Step-Father",
+      "organization": "",
+      "status": "respondent",
+      "group": 2
+    },
+    {
+      "id": "Stephen Alderton",
+      "label": "Stephen Alderton",
+      "type": "perpetrator",
+      "role": "Grandfather (Maternal)",
+      "organization": "",
+      "status": "convicted",
+      "group": 4
+    },
+    {
+      "id": "Ryan",
+      "label": "Ryan",
+      "type": "child",
+      "role": "Child (subject of proceedings)",
+      "organization": "",
+      "status": "subject",
+      "group": 3
+    },
+    {
+      "id": "Freya",
+      "label": "Freya",
+      "type": "child",
+      "role": "Child (subject of proceedings)",
+      "organization": "",
+      "status": "subject",
+      "group": 3
+    },
+    {
+      "id": "Mandy Seamark",
+      "label": "Mandy Seamark",
+      "type": "party",
+      "role": "Paternal Grandmother",
+      "organization": "",
+      "status": "applicant",
+      "group": 2
+    },
+    {
+      "id": "DCI Katie Dounias",
+      "label": "DCI Katie Dounias",
+      "type": "police",
+      "role": "Senior Investigating Officer",
+      "organization": "BCH Major Crime Unit",
+      "status": "",
+      "group": 5
+    },
+    {
+      "id": "DC Atkinson",
+      "label": "DC Atkinson",
+      "type": "police",
+      "role": "Officer in Case",
+      "organization": "Cambridgeshire Constabulary",
+      "status": "",
+      "group": 5
+    },
+    {
+      "id": "Paul Duggan",
+      "label": "Paul Duggan",
+      "type": "social_worker",
+      "role": "Allocated Social Worker",
+      "organization": "Cambridgeshire CC",
+      "status": "",
+      "group": 6
+    },
+    {
+      "id": "Lucy Ardern",
+      "label": "Lucy Ardern",
+      "type": "social_worker",
+      "role": "Social Worker",
+      "organization": "Cambridgeshire CC",
+      "status": "",
+      "group": 6
+    },
+    {
+      "id": "Guardian",
+      "label": "Guardian",
+      "type": "cafcass",
+      "role": "Children's Guardian",
+      "organization": "CAFCASS",
+      "status": "",
+      "group": 7
+    },
+    {
+      "id": "HHJ Gordon-Saker",
+      "label": "HHJ Gordon-Saker",
+      "type": "judge",
+      "role": "Circuit Judge",
+      "organization": "Family Court Peterborough",
+      "status": "",
+      "group": 8
+    },
+    {
+      "id": "Local Authority",
+      "label": "Local Authority",
+      "type": "agency",
+      "role": "Applicant in Care Proceedings",
+      "organization": "Cambridgeshire County Council",
+      "status": "",
+      "group": 9
+    },
+    {
+      "id": "CAFCASS",
+      "label": "CAFCASS",
+      "type": "agency",
+      "role": "Court Advisor",
+      "organization": "CAFCASS East",
+      "status": "",
+      "group": 9
+    },
+    {
+      "id": "Cambridgeshire Police",
+      "label": "Cambridgeshire Police",
+      "type": "agency",
+      "role": "Investigating Force",
+      "organization": "Cambridgeshire Constabulary",
+      "status": "",
+      "group": 9
+    },
+    {
+      "id": "Channel 4",
+      "label": "Channel 4",
+      "type": "media",
+      "role": "Broadcaster",
+      "organization": "Channel 4",
+      "status": "",
+      "group": 10
+    }
+  ],
+  "links": [
+    {
+      "source": "Joshua Dunmore",
+      "target": "Gary Dunmore",
+      "type": "relation",
+      "strength": 20
+    },
+    {
+      "source": "Joshua Dunmore",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 11
+    },
+    {
+      "source": "Joshua Dunmore",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Joshua Dunmore",
+      "target": "Samantha Stephen",
+      "type": "relation",
+      "strength": 4
+    },
+    {
+      "source": "Gary Dunmore",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 8
+    },
+    {
+      "source": "Gary Dunmore",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 2
+    },
+    {
+      "source": "Samantha Stephen",
+      "target": "Paul Stephen",
+      "type": "relation",
+      "strength": 11
+    },
+    {
+      "source": "Samantha Stephen",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 12
+    },
+    {
+      "source": "Samantha Stephen",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 3
+    },
+    {
+      "source": "Samantha Stephen",
+      "target": "Stephen Alderton",
+      "type": "relation",
+      "strength": 6
+    },
+    {
+      "source": "Paul Stephen",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 21
+    },
+    {
+      "source": "Paul Stephen",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 5
+    },
+    {
+      "source": "Stephen Alderton",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 6
+    },
+    {
+      "source": "Stephen Alderton",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 3
+    },
+    {
+      "source": "Ryan",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 91
+    },
+    {
+      "source": "Ryan",
+      "target": "Mandy Seamark",
+      "type": "relation",
+      "strength": 2
+    },
+    {
+      "source": "Freya",
+      "target": "Mandy Seamark",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Mandy Seamark",
+      "target": "Joshua Dunmore",
+      "type": "relation",
+      "strength": 2
+    },
+    {
+      "source": "DCI Katie Dounias",
+      "target": "DC Atkinson",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "DCI Katie Dounias",
+      "target": "Samantha Stephen",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "DCI Katie Dounias",
+      "target": "Paul Stephen",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Paul Duggan",
+      "target": "Lucy Ardern",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Paul Duggan",
+      "target": "Local Authority",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Paul Duggan",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Paul Duggan",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Lucy Ardern",
+      "target": "Local Authority",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Guardian",
+      "target": "Ryan",
+      "type": "relation",
+      "strength": 9
+    },
+    {
+      "source": "Guardian",
+      "target": "Freya",
+      "type": "relation",
+      "strength": 6
+    },
+    {
+      "source": "Local Authority",
+      "target": "CAFCASS",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "CAFCASS",
+      "target": "Guardian",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Cambridgeshire Police",
+      "target": "DCI Katie Dounias",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Cambridgeshire Police",
+      "target": "DC Atkinson",
+      "type": "relation",
+      "strength": 1
+    },
+    {
+      "source": "Freya",
+      "target": "Local Authority",
+      "type": "co_occurrence",
+      "strength": 17
+    },
+    {
+      "source": "Local Authority",
+      "target": "Ryan",
+      "type": "co_occurrence",
+      "strength": 17
+    },
+    {
+      "source": "Guardian",
+      "target": "Local Authority",
+      "type": "co_occurrence",
+      "strength": 9
+    },
+    {
+      "source": "Paul Stephen",
+      "target": "Stephen Alderton",
+      "type": "co_occurrence",
+      "strength": 8
+    },
+    {
+      "source": "CAFCASS",
+      "target": "Ryan",
+      "type": "co_occurrence",
+      "strength": 8
+    }
+  ],
+  "events": {
+    "murder_2023-03-29": {
+      "date": "2023-03-29",
+      "type": "crime",
+      "description": "Murders of Joshua and Gary Dunmore",
+      "severity": "critical"
+    },
+    "arrest_2023-03-30": {
+      "date": "2023-03-30",
+      "type": "arrest",
+      "description": "Paul & Samantha arrested for conspiracy",
+      "severity": "high"
+    },
+    "nfa_2023-03-31": {
+      "date": "2023-03-31",
+      "type": "police",
+      "description": "Released NFA",
+      "severity": "medium"
+    },
+    "arrest_2023-06-07": {
+      "date": "2023-06-07",
+      "type": "arrest",
+      "description": "Re-arrested",
+      "severity": "high"
+    },
+    "nfa_2025-02-12": {
+      "date": "2025-02-12",
+      "type": "police",
+      "description": "Final NFA - insufficient evidence",
+      "severity": "high"
+    },
+    "care_proceedings": {
+      "date": "2023-06-09",
+      "type": "court",
+      "description": "PE23C50095 - Care Proceedings",
+      "severity": "critical"
+    },
+    "murder_investigation": {
+      "date": "2023-03-29",
+      "type": "investigation",
+      "description": "Operation Scan",
+      "severity": "critical"
+    },
+    "sentenced_2024": {
+      "date": "2024",
+      "type": "court",
+      "description": "Stephen Alderton sentenced to life",
+      "severity": "critical"
+    }
+  }
+}

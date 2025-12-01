@@ -1,0 +1,84 @@
+{
+  "generated_at": "2025-12-01T01:47:10.236383",
+  "total_professionals": 3,
+  "professionals": [
+    {
+      "name": "DC ATKINSON",
+      "normalized": "dc atkinson",
+      "role": "police_officer",
+      "organization": "Cambridgeshire Constabulary",
+      "claim_count": 16,
+      "self_contradictions": 1,
+      "bias_indicators": 1,
+      "accountability_score": 18.0,
+      "complaint_routes": [
+        "IOPC",
+        "Police Professional Standards"
+      ],
+      "contradiction_examples": [
+        {
+          "claim_1": "The DP's wife and Joshua Dunmore were going through a family Court case to decide on where their 7 year old son was to live",
+          "claim_2": "On Monday 27th March 2023 there was a planned Interim Family Court hearing, in which a CAFCASS report recommended that the child was NOT to be removed from the UK whilst proceedings were in place",
+          "doc_1": "Document_2025-11-30_225038.pdf",
+          "doc_2": "Document_2025-11-30_225038.pdf"
+        }
+      ],
+      "bias_examples": [
+        {
+          "type": "extreme_quantifiers",
+          "claim_text": "Text messages sent to Samantha as far back as April/June 2022 where Alderton referred to \"Fleeing to Panama\", \"There is always a Plan B\", and \"Independence Day\"",
+          "document": "Document_2025-11-30_225038.pdf"
+        }
+      ],
+      "documents": [
+        "Document_2025-11-30_225038.pdf"
+      ]
+    },
+    {
+      "name": "DCI Katie DOUNIAS",
+      "normalized": "dci katie dounias",
+      "role": "police_officer",
+      "organization": "Beds, Cambs & Herts Major Crime Unit",
+      "claim_count": 1,
+      "self_contradictions": 0,
+      "bias_indicators": 0,
+      "accountability_score": 0.0,
+      "complaint_routes": [
+        "IOPC",
+        "Police Professional Standards"
+      ],
+      "contradiction_examples": [],
+      "bias_examples": [],
+      "documents": [
+        "Document_2025-11-30_225038.pdf"
+      ]
+    },
+    {
+      "name": "DC 2072 ATKINSON",
+      "normalized": "dc 2072 atkinson",
+      "role": "police_officer",
+      "organization": "Cambridgeshire Constabulary",
+      "claim_count": 1,
+      "self_contradictions": 0,
+      "bias_indicators": 0,
+      "accountability_score": 0.0,
+      "complaint_routes": [
+        "IOPC",
+        "Police Professional Standards"
+      ],
+      "contradiction_examples": [],
+      "bias_examples": [],
+      "documents": [
+        "Document_2025-11-30_225038.pdf"
+      ]
+    }
+  ],
+  "role_summary": {
+    "police_officer": {
+      "count": 3,
+      "total_score": 18.0,
+      "contradictions": 1,
+      "bias": 1
+    }
+  }
+}

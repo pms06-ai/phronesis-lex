@@ -1,0 +1,226 @@
+{
+  "generated_at": "2025-12-01T02:06:11.142594",
+  "case_reference": "PE23C50095",
+  "phases_completed": 8,
+  "phase_results": {
+    "intake": {
+      "documents": 566,
+      "claims": 3539,
+      "entities": 33,
+      "cases": 7,
+      "document_breakdown": {
+        "email_correspondence": 88,
+        "medical_records": 78,
+        "police_report": 70,
+        "other": 59,
+        "court_order": 55,
+        "legislation": 49,
+        "position_statement": 47,
+        "social_work_report": 37,
+        "expert_report": 23,
+        "cafcass_report": 23,
+        "text_messages": 12,
+        "school_records": 9,
+        "court_application_c2": 7,
+        "court_application_c100": 4,
+        "bundle_index": 2,
+        "witness_statement": 1,
+        "skeleton_argument": 1,
+        "POLICE_DISCLOSURE": 1
+      }
+    },
+    "timeline": {
+      "key_events": [
+        {
+          "date": "2021",
+          "event": "Original private law proceedings begin",
+          "type": "COURT",
+          "ref": "PE21P30644"
+        },
+        {
+          "date": "2022-04",
+          "event": "Stephen Alderton texts \"Panama\"",
+          "type": "PREMEDITATION",
+          "source": "Police disclosure"
+        },
+        {
+          "date": "2022-06",
+          "event": "Alderton texts \"Plan B\", \"Independence Day\"",
+          "type": "PREMEDITATION",
+          "source": "Police disclosure"
+        },
+        {
+          "date": "2023-03-27",
+          "event": "CAFCASS recommends child NOT to leave UK",
+          "type": "COURT",
+          "source": "CAFCASS report"
+        },
+        {
+          "date": "2023-03-29",
+          "event": "MURDERS: Joshua & Gary Dunmore killed",
+          "type": "CRIME",
+          "source": "Police"
+        },
+        {
+          "date": "2023-03-30",
+          "event": "Paul & Samantha arrested for conspiracy",
+          "type": "ARREST",
+          "source": "Police"
+        },
+        {
+          "date": "2023-03-31",
+          "event": "Released NFA",
+          "type": "POLICE",
+          "source": "Police"
+        },
+        {
+          "date": "2023-05-12",
+          "event": "Suspect status reinstated",
+          "type": "POLICE",
+          "source": "DCI Dounias letter"
+        },
+        {
+          "date": "2023-06-07",
+          "event": "Re-arrested, no comment interviews",
+          "type": "ARREST",
+          "source": "Police"
+        },
+        {
+          "date": "2023-06-09",
+          "event": "Care proceedings ICO hearing",
+          "type": "COURT",
+          "ref": "PE23C50095"
+        },
+        {
+          "date": "2024",
+          "event": "Appeal refused",
+          "type": "APPEAL",
+          "ref": "CA-2024-001096"
+        },
+        {
+          "date": "2025-02-12",
+          "event": "Final NFA - insufficient evidence",
+          "type": "POLICE",
+          "source": "Police"
+        }
+      ],
+      "temporal_claims_count": 0,
+      "timeline_span": "2021 - 2025",
+      "critical_date": "2023-03-29"
+    },
+    "evidence_mapping": {
+      "total_evidence_claims": 91,
+      "topic_mapping": {
+        "contact": 4,
+        "threshold": 3,
+        "welfare": 8,
+        "conspiracy": 16,
+        "credibility": 4
+      },
+      "sample_claims": [
+        {
+          "claim_text": "Ryan demonstrates some positive cognitive skills. However he does have an unusual pattern of language development... and his social interaction skills and social interest was definitely impaired.",
+          "asserted_by": null,
+          "certainty": 0.5,
+          "filename": "Ryan_NHS_Letter.pdf"
+        },
+        {
+          "claim_text": "You are a Senior Forensic Document Intelligence Analyst (FDIA), specializing in comprehensive document analysis, evidence extraction, and cross-source verification.",
+          "asserted_by": null,
+          "certainty": 0.5,
+          "filename": "Forensic Intelligence Analysis Space with Document.docx"
+        },
+        {
+          "claim_text": "Treat uploaded files as critical evidence requiring careful examination, contextual interpretation, and systematic cross-referencing.",
+          "asserted_by": null,
+          "certainty": 0.5,
+          "filename": "Forensic Intelligence Analysis Space with Document.docx"
+        },
+        {
+          "claim_text": "Priority 1: Uploaded Internal Documents - Treat as primary evidence sources",
+          "asserted_by": null,
+          "certainty": 0.5,
+          "filename": "Forensic Intelligence Analysis Space with Document.docx"
+        },
+        {
+          "claim_text": "An appeal would have no prospect of success. The findings of fact in respect were legally valid, procedurally fair and supported by abundant evidence.",
+          "asserted_by": null,
+          "certainty": 0.5,
+          "filename": "CA-2024-001096 SEALED ORDER.pdf"
+        }
+      ]
+    },
+    "contradiction": {
+      "total": 1903,
+      "by_severity": {
+        "critical": 26,
+        "high": 7,
+        "medium": 1870
+      },
+      "by_type": {
+        "self_contradiction": 26,
+        "direct": 7,
+        "value": 1860,
+        "attribution": 10
+      },
+      "self_contradictions": 26
+    },
+    "bias": {
+      "total_bias_indicators": 149,
+      "by_type": {
+        "certainty_language": 25,
+        "negative_attribution": 25,
+        "extreme_quantifiers": 90,
+        "dismissive_language": 9
+      }
+    },
+    "accountability": {
+      "total_breaches": 58,
+      "by_agency": {
+        "police": 15,
+        "local_authority": 15,
+        "cafcass": 9,
+        "social_worker": 4,
+        "family_court": 11,
+        "media": 2,
+        "appeal_court": 2
+      },
+      "agencies_audited": 7
+    },
+    "argument": {
+      "total_arguments": 58,
+      "by_agency": {
+        "police": 15,
+        "local_authority": 15,
+        "cafcass": 9,
+        "social_worker": 4,
+        "family_court": 11,
+        "media": 2,
+        "appeal_court": 2
+      }
+    },
+    "network": {
+      "total_nodes": 18,
+      "total_links": 37,
+      "node_types": {
+        "victim": 2,
+        "party": 3,
+        "perpetrator": 1,
+        "child": 2,
+        "police": 2,
+        "social_worker": 2,
+        "cafcass": 1,
+        "judge": 1,
+        "agency": 3,
+        "media": 1
+      },
+      "strong_connections": 8
+    }
+  },
+  "executive_summary": {
+    "documents_analyzed": 566,
+    "claims_extracted": 3539,
+    "contradictions_found": 1903,
+    "breaches_identified": 58
+  }
+}

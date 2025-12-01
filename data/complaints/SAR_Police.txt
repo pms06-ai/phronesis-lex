@@ -1,0 +1,96 @@
+
+================================================================================
+SUBJECT ACCESS REQUEST
+CAMBRIDGESHIRE CONSTABULARY
+================================================================================
+
+To: Data Protection Officer
+    Cambridgeshire Constabulary
+    Police Headquarters
+    Hinchingbrooke Park
+    Huntingdon
+    PE29 6NP
+    
+    Email: dataprotection@cambs.police.uk
+
+Date: 01 December 2025
+
+SUBJECT ACCESS REQUEST UNDER UK GDPR ARTICLE 15 AND DATA PROTECTION ACT 2018
+
+Dear Sir/Madam,
+
+I am writing to make a Subject Access Request under Article 15 of the UK 
+General Data Protection Regulation and the Data Protection Act 2018.
+
+APPLICANT DETAILS
+-----------------
+Full Name: [YOUR FULL NAME]
+Date of Birth: [YOUR DOB]
+Address: [YOUR CURRENT ADDRESS]
+Previous Addresses (last 5 years): [LIST]
+
+IDENTIFICATION
+--------------
+I enclose copies of the following identification documents:
+☐ Passport / Driving Licence (photo ID)
+☐ Utility bill / Bank statement (proof of address)
+
+INFORMATION REQUESTED
+---------------------
+I request copies of ALL personal data held about me, including but not 
+limited to:
+
+1. OPERATION SCAN (Murder Investigation)
+   - URN: 35/KL/392/23
+   - All intelligence reports mentioning me
+   - All witness statements mentioning me
+   - Interview recordings and transcripts
+   - Custody records
+   - Decision logs (charging decisions, NFA decisions)
+   - Disclosure schedules
+   - Communications about me (internal and external)
+   - Risk assessments
+
+2. POLICE NATIONAL COMPUTER (PNC) RECORDS
+   - Any entries relating to me
+   - Arrest records
+   - Bail records
+
+3. INTELLIGENCE SYSTEMS
+   - Any intelligence entries
+   - Any markers or flags
+
+4. COMMUNICATIONS
+   - Any correspondence with other agencies about me
+   - Any correspondence with the Crown Prosecution Service
+   - Any correspondence with the Family Court
+
+5. BODY WORN VIDEO
+   - Any footage featuring me
+
+6. OTHER RECORDS
+   - Any other records containing my personal data
+
+THIRD PARTY DATA
+----------------
+I understand that third party data may need to be redacted. However, I 
+request that you provide as much information as possible, and that any 
+redactions are clearly marked with the exemption relied upon.
+
+RESPONSE TIMEFRAME
+------------------
+I understand you must respond within one calendar month of receiving this 
+request, or provide a valid reason for extension.
+
+Please acknowledge receipt of this request within 5 working days.
+
+Yours faithfully,
+
+[SIGNATURE]
+[PRINT NAME]
+
+Enclosures:
+- Copy of photo ID
+- Copy of proof of address
+
+================================================================================

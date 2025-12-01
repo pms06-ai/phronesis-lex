@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCIP - Unified Forensic Intelligence Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-start: #1a1a2e;
+            --gradient-end: #0f0f1a;
+            --accent-primary: #6366f1;
+            --accent-secondary: #ec4899;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(30, 30, 50, 0.8);
+            --card-border: rgba(100, 100, 140, 0.2);
+        }
+        
+        * {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+        
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+        }
+        
+        .glass-card-hover:hover {
+            background: rgba(40, 40, 60, 0.9);
+            border-color: rgba(120, 120, 160, 0.3);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 50%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, #6366f1, #ec4899, #f59e0b);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .stat-glow {
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
+        }
+        
+        .stat-glow-danger {
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.2);
+        }
+        
+        .stat-glow-warning {
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+        }
+        
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .nav-item.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-left: 3px solid #6366f1;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 32px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #6366f1, #ec4899);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid var(--gradient-end);
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: rgba(100, 100, 140, 0.3);
+            border-radius: 3px;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 20px currentColor; }
+            50% { opacity: 0.7; box-shadow: 0 0 40px currentColor; }
+        }
+        
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-slide-in {
+            animation: slide-in 0.5s ease-out forwards;
+        }
+        
+        .severity-critical { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .severity-high { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .severity-medium { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+        .severity-low { background: linear-gradient(135deg, #10b981, #059669); }
+    </style>
+</head>
+<body x-data="platform()" class="min-h-screen">
+    
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-64 glass-card rounded-none border-l-0 border-t-0 border-b-0 p-6 z-50">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 via-pink-500 to-amber-500 flex items-center justify-center text-2xl">
+                ⚖
+            </div>
+            <div>
+                <h1 class="text-xl font-bold gradient-text">FCIP</h1>
+                <p class="text-xs text-slate-400">Forensic Intelligence</p>
+            </div>
+        </div>
+        
+        <nav class="space-y-1">
+            <button @click="activeView = 'dashboard'" :class="{'active': activeView === 'dashboard'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">📊</span>
+                <span>Dashboard</span>
+            </button>
+            <button @click="activeView = 'timeline'" :class="{'active': activeView === 'timeline'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">📅</span>
+                <span>Timeline</span>
+            </button>
+            <button @click="activeView = 'breaches'" :class="{'active': activeView === 'breaches'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">⚠️</span>
+                <span>Breaches</span>
+            </button>
+            <button @click="activeView = 'contradictions'" :class="{'active': activeView === 'contradictions'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">🔄</span>
+                <span>Contradictions</span>
+            </button>
+            <button @click="activeView = 'network'" :class="{'active': activeView === 'network'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">🕸️</span>
+                <span>Network</span>
+            </button>
+            <button @click="activeView = 'arguments'" :class="{'active': activeView === 'arguments'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">⚖️</span>
+                <span>Arguments</span>
+            </button>
+            <button @click="activeView = 'complaints'" :class="{'active': activeView === 'complaints'}" class="nav-item w-full text-left px-4 py-3 rounded-lg flex items-center gap-3">
+                <span class="text-lg">📋</span>
+                <span>Complaints</span>
+            </button>
+        </nav>
+        
+        <div class="absolute bottom-6 left-6 right-6">
+            <div class="glass-card p-4 rounded-xl">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-xs text-slate-400">System Active</span>
+                </div>
+                <p class="text-xs font-mono text-slate-500">PE23C50095</p>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="ml-64 p-8">
+        
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl font-bold" x-text="viewTitles[activeView]"></h2>
+                <p class="text-slate-400">JFD vs SJS Family Proceedings (2021-2025)</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="px-4 py-2 rounded-full text-sm font-medium bg-red-500/20 text-red-400 animate-pulse-glow" style="color: #ef4444;">
+                    ACTIVE INVESTIGATION
+                </span>
+            </div>
+        </header>
+        
+        <!-- Dashboard View -->
+        <div x-show="activeView === 'dashboard'" class="space-y-6">
+            
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="glass-card p-6 stat-glow animate-slide-in" style="animation-delay: 0.1s">
+                    <div class="text-4xl font-bold text-indigo-400">566</div>
+                    <div class="text-sm text-slate-400 mt-1">Documents</div>
+                </div>
+                <div class="glass-card p-6 animate-slide-in" style="animation-delay: 0.2s">
+                    <div class="text-4xl font-bold text-pink-400">3,539</div>
+                    <div class="text-sm text-slate-400 mt-1">Claims</div>
+                </div>
+                <div class="glass-card p-6 stat-glow-danger animate-slide-in" style="animation-delay: 0.3s">
+                    <div class="text-4xl font-bold text-red-400">58</div>
+                    <div class="text-sm text-slate-400 mt-1">Breaches</div>
+                </div>
+                <div class="glass-card p-6 stat-glow-warning animate-slide-in" style="animation-delay: 0.4s">
+                    <div class="text-4xl font-bold text-amber-400">1,903</div>
+                    <div class="text-sm text-slate-400 mt-1">Contradictions</div>
+                </div>
+                <div class="glass-card p-6 animate-slide-in" style="animation-delay: 0.5s">
+                    <div class="text-4xl font-bold text-emerald-400">58</div>
+                    <div class="text-sm text-slate-400 mt-1">Arguments</div>
+                </div>
+                <div class="glass-card p-6 animate-slide-in" style="animation-delay: 0.6s">
+                    <div class="text-4xl font-bold text-purple-400">7</div>
+                    <div class="text-sm text-slate-400 mt-1">Agencies</div>
+                </div>
+            </div>
+            
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Critical Timeline -->
+                <div class="lg:col-span-2 glass-card p-6 gradient-border">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <span class="text-xl">⏱️</span> Critical Timeline
+                    </h3>
+                    <div class="space-y-4 max-h-96 overflow-y-auto scrollbar-thin pr-2">
+                        <template x-for="(event, index) in timeline" :key="index">
+                            <div class="timeline-item pb-4">
+                                <div class="timeline-dot" :class="{
+                                    'bg-red-500': event.type === 'CRIME' || event.type === 'ARREST',
+                                    'bg-indigo-500': event.type === 'COURT',
+                                    'bg-amber-500': event.type === 'PREMEDITATION',
+                                    'bg-blue-500': event.type === 'POLICE',
+                                    'bg-purple-500': event.type === 'APPEAL'
+                                }"></div>
+                                <div class="glass-card glass-card-hover p-4">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <span class="font-mono text-xs text-slate-500" x-text="event.date"></span>
+                                            <p class="text-sm mt-1" x-text="event.event"></p>
+                                        </div>
+                                        <span class="px-2 py-1 rounded text-xs font-medium" :class="{
+                                            'bg-red-500/20 text-red-400': event.type === 'CRIME' || event.type === 'ARREST',
+                                            'bg-indigo-500/20 text-indigo-400': event.type === 'COURT',
+                                            'bg-amber-500/20 text-amber-400': event.type === 'PREMEDITATION',
+                                            'bg-blue-500/20 text-blue-400': event.type === 'POLICE'
+                                        }" x-text="event.type"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+                <!-- Key Facts -->
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <span class="text-xl">🎯</span> Key Facts
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                            <p class="text-xs text-red-400 uppercase tracking-wide">Murder Date</p>
+                            <p class="text-2xl font-bold font-mono mt-1">29 Mar 2023</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                            <p class="text-xs text-amber-400 uppercase tracking-wide">Investigation</p>
+                            <p class="text-2xl font-bold font-mono mt-1">~23 months</p>
+                            <p class="text-xs text-slate-500 mt-1">Finally NFA Feb 2025</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+                            <p class="text-xs text-indigo-400 uppercase tracking-wide">Police Statement</p>
+                            <p class="text-sm mt-2 italic text-slate-300">"The motive is known to be centred around the matters heard in the family court"</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20">
+                            <p class="text-xs text-purple-400 uppercase tracking-wide">Premeditation Evidence</p>
+                            <p class="text-sm font-mono mt-2">"Panama" - Apr 2022</p>
+                            <p class="text-sm font-mono">"Plan B" - Jun 2022</p>
+                            <p class="text-sm font-mono">"Independence Day"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Accountability Overview -->
+            <div class="glass-card p-6 gradient-border">
+                <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                    <span class="text-xl">🎯</span> Accountability by Agency
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                    <template x-for="agency in agencies" :key="agency.name">
+                        <div class="glass-card glass-card-hover p-4 text-center cursor-pointer" @click="selectedAgency = agency">
+                            <div class="text-3xl mb-2" x-text="agency.icon"></div>
+                            <div class="text-sm font-medium" x-text="agency.name"></div>
+                            <div class="text-2xl font-bold mt-2" :class="{
+                                'text-red-400': agency.critical > 10,
+                                'text-amber-400': agency.critical > 5 && agency.critical <= 10,
+                                'text-emerald-400': agency.critical <= 5
+                            }" x-text="agency.breaches"></div>
+                            <div class="text-xs text-slate-500">breaches</div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline View -->
+        <div x-show="activeView === 'timeline'" class="space-y-6">
+            <div class="glass-card p-6 gradient-border">
+                <h3 class="text-lg font-semibold mb-6">Complete Case Timeline</h3>
+                <div class="relative">
+                    <template x-for="(event, index) in timeline" :key="index">
+                        <div class="flex items-start gap-6 mb-6">
+                            <div class="w-32 text-right">
+                                <span class="font-mono text-sm text-slate-400" x-text="event.date"></span>
+                            </div>
+                            <div class="relative">
+                                <div class="w-4 h-4 rounded-full" :class="{
+                                    'bg-red-500': event.type === 'CRIME' || event.type === 'ARREST',
+                                    'bg-indigo-500': event.type === 'COURT',
+                                    'bg-amber-500': event.type === 'PREMEDITATION',
+                                    'bg-blue-500': event.type === 'POLICE'
+                                }"></div>
+                                <div class="absolute top-4 left-1.5 w-0.5 h-12 bg-slate-700" x-show="index < timeline.length - 1"></div>
+                            </div>
+                            <div class="flex-1 glass-card p-4">
+                                <div class="flex items-start justify-between">
+                                    <p class="text-sm" x-text="event.event"></p>
+                                    <span class="px-2 py-1 rounded text-xs" :class="{
+                                        'bg-red-500/20 text-red-400': event.type === 'CRIME',
+                                        'bg-amber-500/20 text-amber-400': event.type === 'ARREST'
+                                    }" x-text="event.type"></span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-2" x-text="event.ref || event.source || ''"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Breaches View -->
+        <div x-show="activeView === 'breaches'" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="agency in agencies" :key="agency.name">
+                    <div class="glass-card p-6 glass-card-hover cursor-pointer" @click="selectedAgency = agency">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="text-3xl" x-text="agency.icon"></span>
+                                <div>
+                                    <h4 class="font-semibold" x-text="agency.name"></h4>
+                                    <p class="text-xs text-slate-500" x-text="agency.route"></p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-bold" :class="{
+                                'bg-red-500/20 text-red-400': agency.critical > 10,
+                                'bg-amber-500/20 text-amber-400': agency.critical <= 10
+                            }" x-text="agency.breaches + ' breaches'"></span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Critical</span>
+                                <span class="text-red-400 font-mono" x-text="agency.critical"></span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Serious</span>
+                                <span class="text-amber-400 font-mono" x-text="agency.serious"></span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        
+        <!-- Contradictions View -->
+        <div x-show="activeView === 'contradictions'" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="glass-card p-6 stat-glow-danger">
+                    <div class="text-5xl font-bold text-red-400">26</div>
+                    <div class="text-sm text-slate-400 mt-2">Self-Contradictions</div>
+                    <div class="text-xs text-slate-500 mt-1">Same person, opposite statements</div>
+                </div>
+                <div class="glass-card p-6">
+                    <div class="text-5xl font-bold text-amber-400">7</div>
+                    <div class="text-sm text-slate-400 mt-2">Direct Contradictions</div>
+                    <div class="text-xs text-slate-500 mt-1">Different people, same facts</div>
+                </div>
+                <div class="glass-card p-6">
+                    <div class="text-5xl font-bold text-indigo-400">1,860</div>
+                    <div class="text-sm text-slate-400 mt-2">Value Conflicts</div>
+                    <div class="text-xs text-slate-500 mt-1">Opposing assessments</div>
+                </div>
+                <div class="glass-card p-6">
+                    <div class="text-5xl font-bold text-purple-400">10</div>
+                    <div class="text-sm text-slate-400 mt-2">Attribution Disputes</div>
+                    <div class="text-xs text-slate-500 mt-1">Who said/did what</div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4">Self-Contradictions (Most Significant)</h3>
+                <div class="space-y-4">
+                    <template x-for="person in selfContradictors" :key="person.name">
+                        <div class="glass-card p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium" x-text="person.name"></span>
+                                <span class="px-2 py-1 rounded bg-red-500/20 text-red-400 text-xs" x-text="person.count + ' contradictions'"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Network View -->
+        <div x-show="activeView === 'network'" class="space-y-6">
+            <div class="glass-card p-6 gradient-border">
+                <h3 class="text-lg font-semibold mb-4">Entity Network</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-indigo-400">18</div>
+                        <div class="text-xs text-slate-400">Entities</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-pink-400">37</div>
+                        <div class="text-xs text-slate-400">Relationships</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-amber-400">8</div>
+                        <div class="text-xs text-slate-400">Strong Links</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-red-400">2</div>
+                        <div class="text-xs text-slate-400">Victims</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-emerald-400">2</div>
+                        <div class="text-xs text-slate-400">Children</div>
+                    </div>
+                </div>
+                
+                <h4 class="text-sm font-semibold text-slate-400 mb-4">Entity Types</h4>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <template x-for="(count, type) in entityTypes" :key="type">
+                        <div class="glass-card p-3 text-center">
+                            <div class="text-lg font-bold" x-text="count"></div>
+                            <div class="text-xs text-slate-400 capitalize" x-text="type.replace('_', ' ')"></div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Arguments View -->
+        <div x-show="activeView === 'arguments'" class="space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4">Toulmin Legal Arguments by Agency</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <template x-for="agency in agencies" :key="agency.name">
+                        <div class="glass-card p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-2xl" x-text="agency.icon"></span>
+                                    <span class="font-medium" x-text="agency.name"></span>
+                                </div>
+                                <span class="text-indigo-400 font-bold" x-text="agency.arguments + ' arguments'"></span>
+                            </div>
+                            <p class="text-xs text-slate-500">Complaint route: <span class="text-slate-400" x-text="agency.route"></span></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Complaints View -->
+        <div x-show="activeView === 'complaints'" class="space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4">Generated Complaint Templates</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <template x-for="complaint in complaints" :key="complaint.file">
+                        <div class="glass-card glass-card-hover p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <div>
+                                    <h4 class="font-medium" x-text="complaint.name"></h4>
+                                    <p class="text-xs text-slate-500" x-text="complaint.target"></p>
+                                </div>
+                                <span class="text-emerald-400">✓</span>
+                            </div>
+                            <p class="text-xs font-mono text-slate-400" x-text="complaint.file"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4">Subject Access Requests</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <template x-for="sar in sars" :key="sar.agency">
+                        <div class="glass-card glass-card-hover p-4">
+                            <h4 class="font-medium text-sm" x-text="sar.agency"></h4>
+                            <p class="text-xs text-slate-500 mt-1" x-text="sar.email"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-2 border-amber-500/30">
+                <h3 class="text-lg font-semibold mb-4 text-amber-400">⚡ Recommended Action Sequence</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">1</span>
+                        <div>
+                            <p class="font-medium">Submit Subject Access Requests</p>
+                            <p class="text-xs text-slate-500">All 5 agencies - 30 day deadline</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">2</span>
+                        <div>
+                            <p class="font-medium">Exhaust LA Internal Complaints</p>
+                            <p class="text-xs text-slate-500">Required before LGSCO</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">3</span>
+                        <div>
+                            <p class="font-medium">Submit Formal Complaints</p>
+                            <p class="text-xs text-slate-500">IOPC, LGSCO, CAFCASS, HCPC, Ofcom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    
+    <script>
+        function platform() {
+            return {
+                activeView: 'dashboard',
+                selectedAgency: null,
+                
+                viewTitles: {
+                    'dashboard': 'Intelligence Dashboard',
+                    'timeline': 'Case Timeline',
+                    'breaches': 'Accountability Breaches',
+                    'contradictions': 'Contradiction Analysis',
+                    'network': 'Entity Network',
+                    'arguments': 'Legal Arguments',
+                    'complaints': 'Complaint Center'
+                },
+                
+                timeline: [
+                    { date: '2021', event: 'PE21P30644 - Original private law proceedings', type: 'COURT', ref: 'PE21P30644' },
+                    { date: '2022-04', event: 'Stephen Alderton texts "Panama"', type: 'PREMEDITATION', source: 'Police disclosure' },
+                    { date: '2022-06', event: 'Alderton texts "Plan B", "Independence Day"', type: 'PREMEDITATION', source: 'Police disclosure' },
+                    { date: '2023-03-27', event: 'CAFCASS recommends child NOT to leave UK', type: 'COURT', source: 'CAFCASS report' },
+                    { date: '2023-03-29', event: 'MURDERS: Joshua & Gary Dunmore killed', type: 'CRIME', source: 'Police' },
+                    { date: '2023-03-30', event: 'Paul & Samantha arrested for conspiracy', type: 'ARREST', source: 'Police' },
+                    { date: '2023-03-31', event: 'Released NFA', type: 'POLICE', source: 'Police' },
+                    { date: '2023-05-12', event: 'Suspect status reinstated', type: 'POLICE', source: 'DCI Dounias' },
+                    { date: '2023-06-07', event: 'Re-arrested, no comment interviews', type: 'ARREST', source: 'Police' },
+                    { date: '2023-06-09', event: 'Care proceedings ICO hearing', type: 'COURT', ref: 'PE23C50095' },
+                    { date: '2024', event: 'Appeal refused', type: 'APPEAL', ref: 'CA-2024-001096' },
+                    { date: '2025-02-12', event: 'Final NFA - insufficient evidence', type: 'POLICE', source: 'Police' },
+                ],
+                
+                agencies: [
+                    { name: 'Police', icon: '🚔', breaches: 15, critical: 15, serious: 0, arguments: 15, route: 'IOPC' },
+                    { name: 'Local Auth', icon: '🏛️', breaches: 15, critical: 11, serious: 4, arguments: 15, route: 'LGSCO' },
+                    { name: 'CAFCASS', icon: '👨‍👧', breaches: 9, critical: 2, serious: 7, arguments: 9, route: 'CAFCASS Complaints' },
+                    { name: 'Social Work', icon: '📋', breaches: 4, critical: 0, serious: 4, arguments: 4, route: 'HCPC' },
+                    { name: 'Court', icon: '⚖️', breaches: 11, critical: 6, serious: 5, arguments: 11, route: 'JCIO/Appeal' },
+                    { name: 'Media', icon: '📺', breaches: 2, critical: 1, serious: 1, arguments: 2, route: 'Ofcom' },
+                    { name: 'Appeal', icon: '🏛️', breaches: 2, critical: 0, serious: 2, arguments: 2, route: 'Supreme Court' },
+                ],
+                
+                selfContradictors: [
+                    { name: 'Samantha Stephen', count: 7 },
+                    { name: 'Paul Duggan (SCW)', count: 3 },
+                    { name: 'Local Authority', count: 3 },
+                    { name: 'Lucy Ardern', count: 2 },
+                ],
+                
+                entityTypes: {
+                    'victim': 2,
+                    'party': 3,
+                    'perpetrator': 1,
+                    'child': 2,
+                    'police': 2,
+                    'social_worker': 2,
+                    'cafcass': 1,
+                    'judge': 1,
+                    'agency': 3,
+                    'media': 1
+                },
+                
+                complaints: [
+                    { name: 'IOPC Complaint', target: 'Police misconduct', file: 'IOPC_complaint.txt' },
+                    { name: 'LGSCO Complaint', target: 'Local Authority', file: 'LGSCO_complaint.txt' },
+                    { name: 'CAFCASS Complaint', target: 'CAFCASS', file: 'CAFCASS_complaint.txt' },
+                    { name: 'HCPC Referral', target: 'Social Worker', file: 'HCPC_referral.txt' },
+                    { name: 'Ofcom Complaint', target: 'Channel 4', file: 'Ofcom_complaint.txt' },
+                ],
+                
+                sars: [
+                    { agency: 'Police', email: 'dataprotection@cambs.police.uk' },
+                    { agency: 'Local Authority', email: 'dataprotection@cambridgeshire.gov.uk' },
+                    { agency: 'CAFCASS', email: 'dataprotection@cafcass.gov.uk' },
+                    { agency: 'Court', email: 'data.access@justice.gov.uk' },
+                    { agency: 'Channel 4', email: 'dpo@channel4.co.uk' },
+                ],
+            }
+        }
+    </script>
+</body>
+</html>
+

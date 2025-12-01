@@ -1,0 +1,2318 @@
+{
+  "case_reference": "PE23C50095",
+  "generated_at": "2025-12-01T01:36:24.720134",
+  "total_breaches": 58,
+  "agency_results": {
+    "police": {
+      "total_breaches": 15,
+      "critical": 15,
+      "serious": 0,
+      "breaches": [
+        {
+          "duty_id": "POLICE_001",
+          "duty_title": "Duty to Investigate Without Prejudice",
+          "legal_basis": "PACE 1984; College of Policing APP",
+          "indicator": "failure to investigate",
+          "severity": "critical",
+          "complaint_route": "IOPC or Police Professional Standards",
+          "evidence_count": 168,
+          "evidence": [
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2.pdf"
+            },
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2 Signed 1.pdf"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Mr Stephen Alderton, maternal grandfather is considered by the police to be solely responsible for the alleged murders",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "The only change in circumstances leading to the re-issue of care proceedings was the police decision to investigate Mr and Mrs Stephen in relation to possible conspiracy to murder.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_001",
+          "duty_title": "Duty to Investigate Without Prejudice",
+          "legal_basis": "PACE 1984; College of Policing APP",
+          "indicator": "ignored evidence",
+          "severity": "critical",
+          "complaint_route": "IOPC or Police Professional Standards",
+          "evidence_count": 11,
+          "evidence": [
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "It is understood that the police will be required to attend the hearing on the 9th February, at which both they and the Local Authority will need to provide specific filing dates for the outstanding evidence",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            },
+            {
+              "claim_text": "my wife and I were rearrested for conspiracy to murder on the premise that new evidence had come to light.",
+              "author": null,
+              "date": null,
+              "document": "Congress draft.docx"
+            },
+            {
+              "claim_text": "police review of their devices showed no evidence of conspiracy or involvement in the alleged murders",
+              "author": null,
+              "date": null,
+              "document": "F PS for fact-findingPosition Statement-Opening note on behalf of Paul Stephen.docx"
+            },
+            {
+              "claim_text": "Information from a friend of Joshua informed police that in October/November 2022, Joshua told him that Samantha and Paul had offered him financial incentive to stop court proceedings - I can find no evidence of this in SAH/02.",
+              "author": null,
+              "date": null,
+              "document": "1 - Review of SAH02 - Paul STEPHEN phone 1st SRU6.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_001",
+          "duty_title": "Duty to Investigate Without Prejudice",
+          "legal_basis": "PACE 1984; College of Policing APP",
+          "indicator": "selective investigation",
+          "severity": "critical",
+          "complaint_route": "IOPC or Police Professional Standards",
+          "evidence_count": 36,
+          "evidence": [
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2.pdf"
+            },
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2 Signed 1.pdf"
+            },
+            {
+              "claim_text": "Family courts had 'at times failed to understand the risks they knew about. At other times, there had been inadequate investigation of the history of those concerned.'",
+              "author": null,
+              "date": null,
+              "document": "conduct an investigative research evaluation into.docx"
+            },
+            {
+              "claim_text": "It is suggested that on the part of the mother, that this is single issue case... but for the police’s investigation the local authority would not have brought these proceedings.",
+              "author": null,
+              "date": null,
+              "document": "Stephen PS 27 Oct 2023_.pdf"
+            },
+            {
+              "claim_text": "we remain under investigation, have not been charged with any crimes, and remain separated from our children.",
+              "author": null,
+              "date": null,
+              "document": "Congress draft.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_001",
+          "duty_title": "Duty to Investigate Without Prejudice",
+          "legal_basis": "PACE 1984; College of Policing APP",
+          "indicator": "predetermined outcome",
+          "severity": "critical",
+          "complaint_route": "IOPC or Police Professional Standards",
+          "evidence_count": 1,
+          "evidence": [
+            {
+              "claim_text": "the proposed care plan for our daughter is for her to remain in long-term foster care in the United Kingdom regardless of the outcome of the police investigation.",
+              "author": null,
+              "date": null,
+              "document": "Congress draft.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_001",
+          "duty_title": "Duty to Investigate Without Prejudice",
+          "legal_basis": "PACE 1984; College of Policing APP",
+          "indicator": "refused to consider",
+          "severity": "critical",
+          "complaint_route": "IOPC or Police Professional Standards",
+          "evidence_count": 168,
+          "evidence": [
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2.pdf"
+            },
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2 Signed 1.pdf"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Mr Stephen Alderton, maternal grandfather is considered by the police to be solely responsible for the alleged murders",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "The only change in circumstances leading to the re-issue of care proceedings was the police decision to investigate Mr and Mrs Stephen in relation to possible conspiracy to murder.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_001",
+          "duty_title": "Duty to Investigate Without Prejudice",
+          "legal_basis": "PACE 1984; College of Policing APP",
+          "indicator": "wouldn't look at",
+          "severity": "critical",
+          "complaint_route": "IOPC or Police Professional Standards",
+          "evidence_count": 194,
+          "evidence": [
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2.pdf"
+            },
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2 Signed 1.pdf"
+            },
+            {
+              "claim_text": "ACRO will not accept responsibility for Police Certificates that are rejected by the relevant embassy, high commission or requesting authority of a country.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Mr Stephen Alderton, maternal grandfather is considered by the police to be solely responsible for the alleged murders",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_002",
+          "duty_title": "Disclosure Duty",
+          "legal_basis": "CPIA 1996",
+          "indicator": "not disclosed",
+          "severity": "critical",
+          "complaint_route": "IOPC; s.78 PACE application",
+          "evidence_count": 39,
+          "evidence": [
+            {
+              "claim_text": "ACRO will not accept responsibility for Police Certificates that are rejected by the relevant embassy, high commission or requesting authority of a country.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "It is suggested that on the part of the mother, that this is single issue case... but for the police’s investigation the local authority would not have brought these proceedings.",
+              "author": null,
+              "date": null,
+              "document": "Stephen PS 27 Oct 2023_.pdf"
+            },
+            {
+              "claim_text": "Ms. Seamark Leaked The Police Disclosure... Ms. Seamark disclosed extracts of phone downloads that were only to be used for the intent of the care proceedings to individuals who are not partied to the proceedings.",
+              "author": null,
+              "date": null,
+              "document": "paul's Notebook.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_002",
+          "duty_title": "Disclosure Duty",
+          "legal_basis": "CPIA 1996",
+          "indicator": "late disclosure",
+          "severity": "critical",
+          "complaint_route": "IOPC; s.78 PACE application",
+          "evidence_count": 12,
+          "evidence": [
+            {
+              "claim_text": "Importantly this included the directions relating to the provision of the Private Law Proceedings, Police Disclosure, additional documents to be obtained and filed by the Local Authority and unredacted witness statements",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            },
+            {
+              "claim_text": "Ms. Seamark Leaked The Police Disclosure... Ms. Seamark disclosed extracts of phone downloads that were only to be used for the intent of the care proceedings to individuals who are not partied to the proceedings.",
+              "author": null,
+              "date": null,
+              "document": "paul's Notebook.pdf"
+            },
+            {
+              "claim_text": "I was arrested on suspicion of murder... and later released without charge.",
+              "author": null,
+              "date": null,
+              "document": "Paul witness statement.docx"
+            },
+            {
+              "claim_text": "initially presented last year for severe stress, anxiety, and low mood related to false accusation of conspiracy to commit murder, as well as removal of children from the home by British social services.",
+              "author": null,
+              "date": null,
+              "document": "Mental Health Outpt Note 04-30-2025.pdf"
+            },
+            {
+              "claim_text": "severe stress, anxiety, and low mood related to false accusation of conspiracy to commit murder, as well as removal of children from the home by British social services",
+              "author": null,
+              "date": null,
+              "document": "Mental Health Outpt Note 03-31-2025.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_002",
+          "duty_title": "Disclosure Duty",
+          "legal_basis": "CPIA 1996",
+          "indicator": "failed to provide",
+          "severity": "critical",
+          "complaint_route": "IOPC; s.78 PACE application",
+          "evidence_count": 169,
+          "evidence": [
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2.pdf"
+            },
+            {
+              "claim_text": "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate with local law enforcement and the Major Crimes Unit to aid them in their ongoing investigation of said incident.",
+              "author": null,
+              "date": null,
+              "document": "SSgt Stephen OOC DEROS Ext v.2 Signed 1.pdf"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Mr Stephen Alderton, maternal grandfather is considered by the police to be solely responsible for the alleged murders",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "The only change in circumstances leading to the re-issue of care proceedings was the police decision to investigate Mr and Mrs Stephen in relation to possible conspiracy to murder.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_002",
+          "duty_title": "Disclosure Duty",
+          "legal_basis": "CPIA 1996",
+          "indicator": "didn't receive",
+          "severity": "critical",
+          "complaint_route": "IOPC; s.78 PACE application",
+          "evidence_count": 6,
+          "evidence": [
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Maternal Grandfather has been convicted for the murder of Ryans paternal grandfather and received a Life sentence.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "we have now received confirmation from the officer in charge of your case that you no longer need to attend to answer your bail on 7 June 2024 at 11:00",
+              "author": null,
+              "date": null,
+              "document": "RUI  LETTER.pdf"
+            },
+            {
+              "claim_text": "I don't know anything about the murder itself... I didn't know anything prior to being... pulled out of the room obviously",
+              "author": null,
+              "date": null,
+              "document": "PMS-Police_interrogations.pdf"
+            },
+            {
+              "claim_text": "Maternal Grandfather has been convicted for the murder of Ryans paternal grandfather and received a Life sentence.",
+              "author": null,
+              "date": null,
+              "document": "Supervised Contact Notes - Ryan - November 2023_redacted 1st check SKA.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_002",
+          "duty_title": "Disclosure Duty",
+          "legal_basis": "CPIA 1996",
+          "indicator": "wasn't given",
+          "severity": "critical",
+          "complaint_route": "IOPC; s.78 PACE application",
+          "evidence_count": 7,
+          "evidence": [
+            {
+              "claim_text": "Discussed possible move to reduce to one worker. However given upcoming parents reporting to court for bail conditions, this could be potential high risk for abduction. Therefore no changes to risk assessment.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "Discussed possible move to reduce to one worker. However given upcoming parents reporting to court for bail conditions, this could be potential high risk for abduction. Therefore no changes to risk assessment.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "However given upcoming parents reporting to court for bail conditions, this could be potential high risk for abduction. Therefore no changes to risk assessment.",
+              "author": null,
+              "date": null,
+              "document": "Case Notes for Ryan - August 2023_redacted 1.pdf"
+            },
+            {
+              "claim_text": "The suspect's further release on bail is necessary and proportionate given all the circumstances.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "The suspect's further release on bail is necessary and proportionate given all the circumstances.",
+              "author": null,
+              "date": null,
+              "document": "Adobe Scan 29 Feb 2024.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_003",
+          "duty_title": "PACE Code C Compliance",
+          "legal_basis": "PACE 1984 Code C",
+          "indicator": "no solicitor",
+          "severity": "critical",
+          "complaint_route": "IOPC; evidence exclusion application",
+          "evidence_count": 59,
+          "evidence": [
+            {
+              "claim_text": "ACRO will not accept responsibility for Police Certificates that are rejected by the relevant embassy, high commission or requesting authority of a country.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "It is suggested that on the part of the mother, that this is single issue case... but for the police’s investigation the local authority would not have brought these proceedings.",
+              "author": null,
+              "date": null,
+              "document": "Stephen PS 27 Oct 2023_.pdf"
+            },
+            {
+              "claim_text": "Ms. Seamark Leaked The Police Disclosure... Ms. Seamark disclosed extracts of phone downloads that were only to be used for the intent of the care proceedings to individuals who are not partied to the proceedings.",
+              "author": null,
+              "date": null,
+              "document": "paul's Notebook.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_003",
+          "duty_title": "PACE Code C Compliance",
+          "legal_basis": "PACE 1984 Code C",
+          "indicator": "without legal advice",
+          "severity": "critical",
+          "complaint_route": "IOPC; evidence exclusion application",
+          "evidence_count": 8,
+          "evidence": [
+            {
+              "claim_text": "\"I just think that could be less... the interviews... you can still come to conclusions through what police say without our interviews\"",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "I was arrested on suspicion of murder... and later released without charge.",
+              "author": null,
+              "date": null,
+              "document": "Paul witness statement.docx"
+            },
+            {
+              "claim_text": "SM expressed frustration regarding legal complexities of having children in the foster care system and extending bail condition with the local police.",
+              "author": null,
+              "date": null,
+              "document": "Mental Health Note 12-05-2023.pdf"
+            },
+            {
+              "claim_text": "The contents of this document are covered by Legal Professional Privilege and cannot be used as part of any investigation.",
+              "author": null,
+              "date": null,
+              "document": "This confidential document is prepared by the solicitors for Paul Stephen for the purposes of Legal Proceedings.docx"
+            },
+            {
+              "claim_text": "The contents of this document are covered by Legal Professional Privilege and cannot be used as part of any investigation.",
+              "author": null,
+              "date": null,
+              "document": "Paul Stephen - PS Interview notes.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_003",
+          "duty_title": "PACE Code C Compliance",
+          "legal_basis": "PACE 1984 Code C",
+          "indicator": "interview records",
+          "severity": "critical",
+          "complaint_route": "IOPC; evidence exclusion application",
+          "evidence_count": 10,
+          "evidence": [
+            {
+              "claim_text": "the court is assisted by police interviews, police statement, and response to threshold in this case",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            },
+            {
+              "claim_text": "\"just the police interviews... just gives them more people chance to talk... I just dont like it\"",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "\"I just think that could be less... the interviews... you can still come to conclusions through what police say without our interviews\"",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "In the course of those [Family Court] proceedings, we understand various messages and police interviews have been disclosed. If that is right... then that would suggest that the download of any digital devices has taken place.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "The police in interview told me the conversation that was recorded on the custody CCTV, which did not contain the conversation as I remembered it.",
+              "author": null,
+              "date": null,
+              "document": null
+            }
+          ]
+        },
+        {
+          "duty_id": "POLICE_003",
+          "duty_title": "PACE Code C Compliance",
+          "legal_basis": "PACE 1984 Code C",
+          "indicator": "not cautioned properly",
+          "severity": "critical",
+          "complaint_route": "IOPC; evidence exclusion application",
+          "evidence_count": 37,
+          "evidence": [
+            {
+              "claim_text": "ACRO will not accept responsibility for Police Certificates that are rejected by the relevant embassy, high commission or requesting authority of a country.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "If you fail to complete your application in English you will not receive your Police Certificate and you will not be refunded.",
+              "author": null,
+              "date": null,
+              "document": "Police Certificate Application Form - Samantha Stephen.docx"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "It is suggested that on the part of the mother, that this is single issue case... but for the police’s investigation the local authority would not have brought these proceedings.",
+              "author": null,
+              "date": null,
+              "document": "Stephen PS 27 Oct 2023_.pdf"
+            },
+            {
+              "claim_text": "Ms. Seamark Leaked The Police Disclosure... Ms. Seamark disclosed extracts of phone downloads that were only to be used for the intent of the care proceedings to individuals who are not partied to the proceedings.",
+              "author": null,
+              "date": null,
+              "document": "paul's Notebook.pdf"
+            }
+          ]
+        }
+      ]
+    },
+    "local_authority": {
+      "total_breaches": 15,
+      "critical": 11,
+      "serious": 4,
+      "breaches": [
+        {
+          "duty_id": "LA_001",
+          "duty_title": "Section 31 Threshold",
+          "legal_basis": "Children Act 1989 s.31(2)",
+          "indicator": "no evidence of harm",
+          "severity": "critical",
+          "complaint_route": "Challenge in proceedings; judicial review",
+          "evidence_count": 93,
+          "evidence": [
+            {
+              "claim_text": "Freya’s baby sister is living with her parents, with the support of Suffolk County Council.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "Unfortunately, it appears that the Local Authority now seeks to work back from these killings to formulate a narrative which locates responsibility (at least in part) on Paul and Samantha Stephen.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "The only change in circumstances leading to the re-issue of care proceedings was the police decision to investigate Mr and Mrs Stephen in relation to possible conspiracy to murder.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_001",
+          "duty_title": "Section 31 Threshold",
+          "legal_basis": "Children Act 1989 s.31(2)",
+          "indicator": "threshold not met",
+          "severity": "critical",
+          "complaint_route": "Challenge in proceedings; judicial review",
+          "evidence_count": 48,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_001",
+          "duty_title": "Section 31 Threshold",
+          "legal_basis": "Children Act 1989 s.31(2)",
+          "indicator": "not significant",
+          "severity": "critical",
+          "complaint_route": "Challenge in proceedings; judicial review",
+          "evidence_count": 42,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_001",
+          "duty_title": "Section 31 Threshold",
+          "legal_basis": "Children Act 1989 s.31(2)",
+          "indicator": "not attributable",
+          "severity": "critical",
+          "complaint_route": "Challenge in proceedings; judicial review",
+          "evidence_count": 36,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_001",
+          "duty_title": "Section 31 Threshold",
+          "legal_basis": "Children Act 1989 s.31(2)",
+          "indicator": "no proof",
+          "severity": "critical",
+          "complaint_route": "Challenge in proceedings; judicial review",
+          "evidence_count": 47,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "Unfortunately, it appears that the Local Authority now seeks to work back from these killings to formulate a narrative which locates responsibility (at least in part) on Paul and Samantha Stephen.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_002",
+          "duty_title": "Duty of Candour",
+          "legal_basis": "Working Together 2023; Re W (Children)",
+          "indicator": "didn't disclose",
+          "severity": "critical",
+          "complaint_route": "Raise in proceedings; LGSCO",
+          "evidence_count": 3,
+          "evidence": [
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "Ms. Seamark Leaked The Police Disclosure... Ms. Seamark disclosed extracts of phone downloads that were only to be used for the intent of the care proceedings to individuals who are not partied to the proceedings.",
+              "author": null,
+              "date": null,
+              "document": "paul's Notebook.pdf"
+            },
+            {
+              "claim_text": "Permission is granted for Cambridgeshire Police to disclose a copy of the documents to the CPS and defence... in accordance with the provisions of CPIA 1996.",
+              "author": null,
+              "date": null,
+              "document": "Police disclosure order re private law 19.06.23.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_002",
+          "duty_title": "Duty of Candour",
+          "legal_basis": "Working Together 2023; Re W (Children)",
+          "indicator": "failed to inform",
+          "severity": "critical",
+          "complaint_route": "Raise in proceedings; LGSCO",
+          "evidence_count": 84,
+          "evidence": [
+            {
+              "claim_text": "Unfortunately, it appears that the Local Authority now seeks to work back from these killings to formulate a narrative which locates responsibility (at least in part) on Paul and Samantha Stephen.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "The only change in circumstances leading to the re-issue of care proceedings was the police decision to investigate Mr and Mrs Stephen in relation to possible conspiracy to murder.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Importantly this included the directions relating to the provision of the Private Law Proceedings, Police Disclosure, additional documents to be obtained and filed by the Local Authority and unredacted witness statements",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            },
+            {
+              "claim_text": "the Local Authority has, due to technical difficulties, been unable to provide an updated bundle.",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            },
+            {
+              "claim_text": "It is understood that the police will be required to attend the hearing on the 9th February, at which both they and the Local Authority will need to provide specific filing dates for the outstanding evidence",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_003",
+          "duty_title": "Article 8 Proportionality",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 8",
+          "indicator": "unnecessary",
+          "severity": "critical",
+          "complaint_route": "Raise in proceedings; HRA claim",
+          "evidence_count": 2,
+          "evidence": [
+            {
+              "claim_text": "In relation to the making of a Supervision Order for Freya should the court decide, she should return to her parents’ care, Suffolk County Council deem this to be unnecessary based on our involvement and work with the parents and the positive assessment of their ability to care for a child.",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.pdf"
+            },
+            {
+              "claim_text": "In relation to the making of a Supervision Order for Freya should the court decide, she should return to her parents’ care, Suffolk County Council deem this to be unnecessary",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_003",
+          "duty_title": "Article 8 Proportionality",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 8",
+          "indicator": "didn't consider alternatives",
+          "severity": "critical",
+          "complaint_route": "Raise in proceedings; HRA claim",
+          "evidence_count": 6,
+          "evidence": [
+            {
+              "claim_text": "The Local Authority therefore consider this concern of Sam's currently unfounded.",
+              "author": null,
+              "date": null,
+              "document": "la.docx"
+            },
+            {
+              "claim_text": "In the event that a Supervision Order is made to Suffolk County Council we would ask the court to strongly reconsider the suggested Transition Plan submitted by Cambridgeshire Local authority",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.pdf"
+            },
+            {
+              "claim_text": "we would ask the court to strongly reconsider the suggested Transition Plan submitted by Cambridgeshire Local authority as in my view this does not in any way consider the impact upon Freya",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.docx"
+            },
+            {
+              "claim_text": "Given the charges that Mr and Mrs Stephen face, they are considered by the Local Authority to be a high flight risk",
+              "author": null,
+              "date": null,
+              "document": "03.05.24 Sophie Bradley.pdf"
+            },
+            {
+              "claim_text": "Mr and Mrs Stephen have asked the Local Authority to consider how Ryan and Freya’s physical safety can be assured in Ms Seamark’s care and to assess whether she and Mr Cochrane are physically able to intervene",
+              "author": null,
+              "date": null,
+              "document": "FRAN Safety Plan 13.06.2023.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_003",
+          "duty_title": "Article 8 Proportionality",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 8",
+          "indicator": "not necessary",
+          "severity": "critical",
+          "complaint_route": "Raise in proceedings; HRA claim",
+          "evidence_count": 38,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_003",
+          "duty_title": "Article 8 Proportionality",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 8",
+          "indicator": "could have",
+          "severity": "critical",
+          "complaint_route": "Raise in proceedings; HRA claim",
+          "evidence_count": 14,
+          "evidence": [
+            {
+              "claim_text": "It is suggested that on the part of the mother, that this is single issue case... but for the police’s investigation the local authority would not have brought these proceedings.",
+              "author": null,
+              "date": null,
+              "document": "Stephen PS 27 Oct 2023_.pdf"
+            },
+            {
+              "claim_text": "The Local Authority has failed to provide evidence that Samantha and I harmed the children; they appear to be so desperate to find a way to support their claims that they have in turn neglected their actual purpose.",
+              "author": null,
+              "date": null,
+              "document": "paul's Notebook.pdf"
+            },
+            {
+              "claim_text": "The Local Authority are concerned that Ryan would be at ongoing risk of emotional harm if returned to Mr and Mrs Stephen’s care due to the nature of the crimes for which they are alleged to have committed.",
+              "author": null,
+              "date": null,
+              "document": "Connected persons assessment.docx"
+            },
+            {
+              "claim_text": "The Local Authority have assessed Mr and Mrs Stephen as being able to meet Ryan’s needs at this time.",
+              "author": null,
+              "date": null,
+              "document": "Second Statement of Fran Balmford Social Worker dated 13.06.23.pdf"
+            },
+            {
+              "claim_text": "The Local Authority have assessed Mr and Mrs Stephen as being able to meet Ryan’s needs at this time.",
+              "author": null,
+              "date": null,
+              "document": "Second Statement of Fran Balmford Social Worker dated 13.06.23.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_004",
+          "duty_title": "PLO Pre-Proceedings",
+          "legal_basis": "Public Law Outline 2014; PD12A",
+          "indicator": "no letter before",
+          "severity": "serious",
+          "complaint_route": "Challenge timetable in proceedings",
+          "evidence_count": 47,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "Unfortunately, it appears that the Local Authority now seeks to work back from these killings to formulate a narrative which locates responsibility (at least in part) on Paul and Samantha Stephen.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_004",
+          "duty_title": "PLO Pre-Proceedings",
+          "legal_basis": "Public Law Outline 2014; PD12A",
+          "indicator": "no pre-proceedings",
+          "severity": "serious",
+          "complaint_route": "Challenge timetable in proceedings",
+          "evidence_count": 47,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "Unfortunately, it appears that the Local Authority now seeks to work back from these killings to formulate a narrative which locates responsibility (at least in part) on Paul and Samantha Stephen.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_004",
+          "duty_title": "PLO Pre-Proceedings",
+          "legal_basis": "Public Law Outline 2014; PD12A",
+          "indicator": "emergency when not emergency",
+          "severity": "serious",
+          "complaint_route": "Challenge timetable in proceedings",
+          "evidence_count": 37,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+              "author": null,
+              "date": null,
+              "document": "PMS PS for 9.2.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "LA_004",
+          "duty_title": "PLO Pre-Proceedings",
+          "legal_basis": "Public Law Outline 2014; PD12A",
+          "indicator": "no family meeting",
+          "severity": "serious",
+          "complaint_route": "Challenge timetable in proceedings",
+          "evidence_count": 50,
+          "evidence": [
+            {
+              "claim_text": "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "Unfortunately, it appears that the Local Authority now seeks to work back from these killings to formulate a narrative which locates responsibility (at least in part) on Paul and Samantha Stephen.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "the Local Authority cannot establish a causal link between his behaviour and the killings",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Finding 3 is not a valid threshold allegation.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            }
+          ]
+        }
+      ]
+    },
+    "cafcass": {
+      "total_breaches": 9,
+      "critical": 2,
+      "serious": 7,
+      "breaches": [
+        {
+          "duty_id": "CAFCASS_001",
+          "duty_title": "Independence and Impartiality",
+          "legal_basis": "CJCS Act 2000 s.12; CAFCASS Operating Framework",
+          "indicator": "adopted local authority position",
+          "severity": "critical",
+          "complaint_route": "CAFCASS complaints; Parliamentary Ombudsman",
+          "evidence_count": 5,
+          "evidence": [
+            {
+              "claim_text": "The guardian’s recommendation is that Ryan remains in the care of the PGM and Mr Cochrane but that Freya is removed into local authority foster care.",
+              "author": null,
+              "date": null,
+              "document": "Statments of SJS.pdf"
+            },
+            {
+              "claim_text": "Nor does the Guardian consider that there is any need for further or other assessment of Freya, notwithstanding Dr Hunnisett’s position... of being unable to give a definitive opinion on Freya’s care needs",
+              "author": null,
+              "date": null,
+              "document": "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf"
+            },
+            {
+              "claim_text": "The Guardian would invite the local authority to produce – even if it is not the local authority’s plan – a transition plan for the alternative of Freya returning to her parents’ care",
+              "author": null,
+              "date": null,
+              "document": "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf"
+            },
+            {
+              "claim_text": "the Children’s Guardian does not present a separate case or intend to prosecute the local authority’s case.",
+              "author": null,
+              "date": null,
+              "document": "CCC v D ps 26 Feb 24.pdf"
+            },
+            {
+              "claim_text": "The Children’s Guardian was not in agreement with the Local Authority’s wish to withdraw... and felt that Interim Supervisions Orders were necessary",
+              "author": null,
+              "date": null,
+              "document": "Oslers Closure Letter (01.06.2023).docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_001",
+          "duty_title": "Independence and Impartiality",
+          "legal_basis": "CJCS Act 2000 s.12; CAFCASS Operating Framework",
+          "indicator": "agreed with social worker",
+          "severity": "critical",
+          "complaint_route": "CAFCASS complaints; Parliamentary Ombudsman",
+          "evidence_count": 8,
+          "evidence": [
+            {
+              "claim_text": "CAFCASS operates as an independent executive non-departmental public body, separate from courts, social services, and other authorities.",
+              "author": null,
+              "date": null,
+              "document": "conduct an investigative research evaluation into.docx"
+            },
+            {
+              "claim_text": "I refer to paragraph 22 of the Section 7, where the Cafcass worker states that the only stability Ryan would have in the US is his mother.",
+              "author": null,
+              "date": null,
+              "document": "Statement-Respondent-Mother-FINAL1.docx"
+            },
+            {
+              "claim_text": "Nor does the Guardian consider that there is any need for further or other assessment of Freya, notwithstanding Dr Hunnisett’s position... of being unable to give a definitive opinion on Freya’s care needs",
+              "author": null,
+              "date": null,
+              "document": "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf"
+            },
+            {
+              "claim_text": "The Guardian concludes that Ryan should remain placed with Mandy Seamark and Steve Cochrane and that a Special Guardianship Order should be made in their favour.",
+              "author": null,
+              "date": null,
+              "document": "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf"
+            },
+            {
+              "claim_text": "THE SOCIAL WORKER CLEARLY HAS NOT CONSIDERED THE CONFLICTING STATEMENT MADE BY JOSHUA DENMORE, WHEREIN HE ADVISED SAMANTHA STEPHEN HE DID NOT HIT RYAN AND THEN ADVISED CAFCASS HE DID INDEED HIT RYAN BUT 'WAS PLAY FIGHTING'",
+              "author": null,
+              "date": null,
+              "document": "S Alderton - 30.10.23 Family Court.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_002",
+          "duty_title": "Section 7 Report Requirements",
+          "legal_basis": "Children Act 1989 s.7",
+          "indicator": "didn't see child",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; raise with court",
+          "evidence_count": 6,
+          "evidence": [
+            {
+              "claim_text": "Initial Analysis of the Children's Guardian",
+              "author": null,
+              "date": null,
+              "document": "BUNDLE FACT FINDING.pdf"
+            },
+            {
+              "claim_text": "The Guardian does not find the report to be deficient and would not seek a further assessment.",
+              "author": null,
+              "date": null,
+              "document": "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf"
+            },
+            {
+              "claim_text": "the Children’s Guardian does not present a separate case or intend to prosecute the local authority’s case.",
+              "author": null,
+              "date": null,
+              "document": "CCC v D ps 26 Feb 24.pdf"
+            },
+            {
+              "claim_text": "The Children’s Guardian was not in agreement with the Local Authority’s wish to withdraw... and felt that Interim Supervisions Orders were necessary",
+              "author": null,
+              "date": null,
+              "document": "Oslers Closure Letter (01.06.2023).docx"
+            },
+            {
+              "claim_text": "Cafcass had not had any concerns of your care of the children through your private proceedings",
+              "author": null,
+              "date": null,
+              "document": "Oslers Closure Letter (01.06.2023).docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_002",
+          "duty_title": "Section 7 Report Requirements",
+          "legal_basis": "Children Act 1989 s.7",
+          "indicator": "didn't speak to",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; raise with court",
+          "evidence_count": 22,
+          "evidence": [
+            {
+              "claim_text": "The Guardian recommends the return of Freya to the parents and her sister.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "The Guardian recommends the return of Freya to the parents and her sister.",
+              "author": null,
+              "date": null,
+              "document": "F PS for 23.9.24.docx"
+            },
+            {
+              "claim_text": "Because the Court and Cafcass would want to know if I spoke to Josh about it & what he said.",
+              "author": null,
+              "date": null,
+              "document": "12. 24 August 2022.pdf"
+            },
+            {
+              "claim_text": "This [military obligation] is clearly not understood by the CAFCASS report writer.",
+              "author": null,
+              "date": null,
+              "document": "Statement-Respondent-Mother-FINAL1.docx"
+            },
+            {
+              "claim_text": "I refer to paragraph 22 of the Section 7, where the Cafcass worker states that the only stability Ryan would have in the US is his mother.",
+              "author": null,
+              "date": null,
+              "document": "Statement-Respondent-Mother-FINAL1.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_002",
+          "duty_title": "Section 7 Report Requirements",
+          "legal_basis": "Children Act 1989 s.7",
+          "indicator": "only interviewed one parent",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; raise with court",
+          "evidence_count": 7,
+          "evidence": [
+            {
+              "claim_text": "The Guardian recommends the return of Freya to the parents and her sister.",
+              "author": null,
+              "date": null,
+              "document": "September 23 2024.docx"
+            },
+            {
+              "claim_text": "The Guardian recommends the return of Freya to the parents and her sister.",
+              "author": null,
+              "date": null,
+              "document": "F PS for 23.9.24.docx"
+            },
+            {
+              "claim_text": "I have been made [aware] by A/ Gary MAY that on Gary DUNMORE's handset review, there are 4 emails apparently sent by Joshua DUNMORE containing legal privilege information plus images of Ryan DUNMORE's CAFCASS report. I have not located these images.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "I have been made by AI Gary MAY that on Gary DUNMORE's handset review, there are 4 emails apparently sent by Joshua DUNMORE containing legal privilege information plus images of Ryan DUNMORE’s CAFCASS report. I have not located these images.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "I refer to paragraph 22 of the Section 7, where the Cafcass worker states that the only stability Ryan would have in the US is his mother.",
+              "author": null,
+              "date": null,
+              "document": "Statement-Respondent-Mother-FINAL1.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_002",
+          "duty_title": "Section 7 Report Requirements",
+          "legal_basis": "Children Act 1989 s.7",
+          "indicator": "no recommendation",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; raise with court",
+          "evidence_count": 24,
+          "evidence": [
+            {
+              "claim_text": "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ryan.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "CAFCASS operates as an independent executive non-departmental public body, separate from courts, social services, and other authorities.",
+              "author": null,
+              "date": null,
+              "document": "conduct an investigative research evaluation into.docx"
+            },
+            {
+              "claim_text": "As a family we have had multiple reports from Cafcass stating that there are no safeguarding concerns.",
+              "author": null,
+              "date": null,
+              "document": "Position Statement - P Stephen-sam's draft June 2023.pdf"
+            },
+            {
+              "claim_text": "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ryan.",
+              "author": null,
+              "date": null,
+              "document": "F PS for fact-findingPosition Statement-Opening note on behalf of Paul Stephen.docx"
+            },
+            {
+              "claim_text": "I have been made [aware] by A/ Gary MAY that on Gary DUNMORE's handset review, there are 4 emails apparently sent by Joshua DUNMORE containing legal privilege information plus images of Ryan DUNMORE's CAFCASS report. I have not located these images.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_003",
+          "duty_title": "Ascertain Child's Wishes",
+          "legal_basis": "Children Act 1989 s.1(3)(a); UNCRC Article 12",
+          "indicator": "didn't ask child",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; challenge report",
+          "evidence_count": 5,
+          "evidence": [
+            {
+              "claim_text": "Initial Analysis of the Children's Guardian",
+              "author": null,
+              "date": null,
+              "document": "BUNDLE FACT FINDING.pdf"
+            },
+            {
+              "claim_text": "the Children’s Guardian does not present a separate case or intend to prosecute the local authority’s case.",
+              "author": null,
+              "date": null,
+              "document": "CCC v D ps 26 Feb 24.pdf"
+            },
+            {
+              "claim_text": "The Children’s Guardian was not in agreement with the Local Authority’s wish to withdraw... and felt that Interim Supervisions Orders were necessary",
+              "author": null,
+              "date": null,
+              "document": "Oslers Closure Letter (01.06.2023).docx"
+            },
+            {
+              "claim_text": "Cafcass had not had any concerns of your care of the children through your private proceedings",
+              "author": null,
+              "date": null,
+              "document": "Oslers Closure Letter (01.06.2023).docx"
+            },
+            {
+              "claim_text": "On Monday 27th March 2023 there was a planned Interim Family Court hearing, in which a CAFCASS report recommended that the child was NOT to be removed from the UK whilst proceedings were in place",
+              "author": "DC ATKINSON",
+              "date": "2024-02-27",
+              "document": "Document_2025-11-30_225038.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_003",
+          "duty_title": "Ascertain Child's Wishes",
+          "legal_basis": "Children Act 1989 s.1(3)(a); UNCRC Article 12",
+          "indicator": "child not seen",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; challenge report",
+          "evidence_count": 19,
+          "evidence": [
+            {
+              "claim_text": "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ryan.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ryan.",
+              "author": null,
+              "date": null,
+              "document": "F PS for fact-findingPosition Statement-Opening note on behalf of Paul Stephen.docx"
+            },
+            {
+              "claim_text": "I have been made [aware] by A/ Gary MAY that on Gary DUNMORE's handset review, there are 4 emails apparently sent by Joshua DUNMORE containing legal privilege information plus images of Ryan DUNMORE's CAFCASS report. I have not located these images.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "I have been made by AI Gary MAY that on Gary DUNMORE's handset review, there are 4 emails apparently sent by Joshua DUNMORE containing legal privilege information plus images of Ryan DUNMORE’s CAFCASS report. I have not located these images.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "This [military obligation] is clearly not understood by the CAFCASS report writer.",
+              "author": null,
+              "date": null,
+              "document": "Statement-Respondent-Mother-FINAL1.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "CAFCASS_003",
+          "duty_title": "Ascertain Child's Wishes",
+          "legal_basis": "Children Act 1989 s.1(3)(a); UNCRC Article 12",
+          "indicator": "didn't represent child's views",
+          "severity": "serious",
+          "complaint_route": "CAFCASS complaints; challenge report",
+          "evidence_count": 2,
+          "evidence": [
+            {
+              "claim_text": "the Guardian through her representation has been proactive in trying to ensure the all potentially relevant material has been gathered for the forthcoming hearing",
+              "author": null,
+              "date": null,
+              "document": "CCC v D ps 26 Feb 24.pdf"
+            },
+            {
+              "claim_text": "Ryan was going to be harmed by more interviews with Cafcass.",
+              "author": null,
+              "date": null,
+              "document": "Respondent M PS 27.04.23 (1).pdf"
+            }
+          ]
+        }
+      ]
+    },
+    "social_worker": {
+      "total_breaches": 4,
+      "critical": 0,
+      "serious": 4,
+      "breaches": [
+        {
+          "duty_id": "SW_001",
+          "duty_title": "HCPC Standards",
+          "legal_basis": "HCPC Standards of Proficiency",
+          "indicator": "failed to follow",
+          "severity": "serious",
+          "complaint_route": "HCPC Fitness to Practise",
+          "evidence_count": 36,
+          "evidence": [
+            {
+              "claim_text": "Milestones assessment was normal - 7-10 years",
+              "author": null,
+              "date": null,
+              "document": "TOL_Health_Record_Document_2023-06-15_083740CDT.pdf"
+            },
+            {
+              "claim_text": "Needs a Hearing Assessment to complete a holistic assessment of the above",
+              "author": null,
+              "date": null,
+              "document": "Ryan_NHS_Letter.pdf"
+            },
+            {
+              "claim_text": "Children's social workers serve as the cornerstone of child protection efforts, responsible for conducting comprehensive assessments of children and their families",
+              "author": null,
+              "date": null,
+              "document": "conduct an investigative research evaluation into.docx"
+            },
+            {
+              "claim_text": "A visit was made to [Redacted] on 20:51 on 27/03/2023 and shows a visit to a BP Petrol Station on Station Road, Bluntisham",
+              "author": null,
+              "date": null,
+              "document": "1 - Review of SAH02 - Paul STEPHEN phone 1st SRU6.pdf"
+            },
+            {
+              "claim_text": "A systematic pattern of exculpatory evidence suppression combined with methodologically flawed expert assessment created a false evidentiary foundation that may have led to an unjust outcome.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "SW_001",
+          "duty_title": "HCPC Standards",
+          "legal_basis": "HCPC Standards of Proficiency",
+          "indicator": "inadequate communication",
+          "severity": "serious",
+          "complaint_route": "HCPC Fitness to Practise",
+          "evidence_count": 2,
+          "evidence": [
+            {
+              "claim_text": "None of that evidence (relating to telecommunications with the alleged murderer, ‘stalking’ behaviour and inquiries about leaving the jurisdiction) is before the court at this stage other than as reported by the social worker.",
+              "author": null,
+              "date": null,
+              "document": "Guardian position statement 8Jun23.pdf"
+            },
+            {
+              "claim_text": "No, maybe there was a miscommunication, you're welcome to visit Ryan Friday afternoon.",
+              "author": null,
+              "date": null,
+              "document": null
+            }
+          ]
+        },
+        {
+          "duty_id": "SW_002",
+          "duty_title": "Accurate Recording",
+          "legal_basis": "Working Together 2023; HCPC Standards",
+          "indicator": "not what I said",
+          "severity": "serious",
+          "complaint_route": "Employer; HCPC",
+          "evidence_count": 76,
+          "evidence": [
+            {
+              "claim_text": "I agree with assessment and plan as documented above.",
+              "author": null,
+              "date": null,
+              "document": "TOL_Health_Record_Document_2023-06-15_083755CDT.pdf"
+            },
+            {
+              "claim_text": "Milestones assessment was normal - 7-10 years",
+              "author": null,
+              "date": null,
+              "document": "TOL_Health_Record_Document_2023-06-15_083740CDT.pdf"
+            },
+            {
+              "claim_text": "Recommend evaluation by Devo Peds upon arrival at next base for assessment and consideration of additional services if indicated.",
+              "author": null,
+              "date": null,
+              "document": "TOL_Health_Record_Document_2023-06-15_083740CDT.pdf"
+            },
+            {
+              "claim_text": "Needs a Hearing Assessment to complete a holistic assessment of the above",
+              "author": null,
+              "date": null,
+              "document": "Ryan_NHS_Letter.pdf"
+            },
+            {
+              "claim_text": "I agree with assessment and plan as documented above.",
+              "author": null,
+              "date": null,
+              "document": "TOL_Health_Record_Document_2023-06-15_084006CDT.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "SW_002",
+          "duty_title": "Accurate Recording",
+          "legal_basis": "Working Together 2023; HCPC Standards",
+          "indicator": "made up",
+          "severity": "serious",
+          "complaint_route": "Employer; HCPC",
+          "evidence_count": 12,
+          "evidence": [
+            {
+              "claim_text": "Recommend evaluation by Devo Peds upon arrival at next base for assessment and consideration of additional services if indicated.",
+              "author": null,
+              "date": null,
+              "document": "TOL_Health_Record_Document_2023-06-15_083740CDT.pdf"
+            },
+            {
+              "claim_text": "A visit was made to [Redacted] on 20:51 on 27/03/2023 and shows a visit to a BP Petrol Station on Station Road, Bluntisham",
+              "author": null,
+              "date": null,
+              "document": "1 - Review of SAH02 - Paul STEPHEN phone 1st SRU6.pdf"
+            },
+            {
+              "claim_text": "A systematic pattern of exculpatory evidence suppression combined with methodologically flawed expert assessment created a false evidentiary foundation that may have led to an unjust outcome.",
+              "author": null,
+              "date": null,
+              "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx"
+            },
+            {
+              "claim_text": "Discussed possible move to reduce to one worker. However given upcoming parents reporting to court for bail conditions, this could be potential high risk for abduction. Therefore no changes to risk assessment.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "In relation to the making of a Supervision Order for Freya should the court decide, she should return to her parents’ care, Suffolk County Council deem this to be unnecessary based on our involvement and work with the parents and the positive assessment of their ability to care for a child.",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.pdf"
+            }
+          ]
+        }
+      ]
+    },
+    "family_court": {
+      "total_breaches": 11,
+      "critical": 6,
+      "serious": 5,
+      "breaches": [
+        {
+          "duty_id": "COURT_001",
+          "duty_title": "Article 6 Fair Trial",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 6",
+          "indicator": "wasn't heard",
+          "severity": "critical",
+          "complaint_route": "Appeal; JCIO",
+          "evidence_count": 3,
+          "evidence": [
+            {
+              "claim_text": "Cambridgeshire Police seek permission to obtain a transcript of the directions hearing in PE22P31058 heard on 27 March 2023.",
+              "author": null,
+              "date": null,
+              "document": "C2 Application-c.pdf"
+            },
+            {
+              "claim_text": "The motive for these offences is known to be centred around the matters heard in the family court.",
+              "author": null,
+              "date": null,
+              "document": "Adobe Scan 29 Feb 2024.pdf"
+            },
+            {
+              "claim_text": "The motive for these offences is known to be centred around the matters heard in the family court",
+              "author": "DC ATKINSON",
+              "date": "2024-02-27",
+              "document": "Document_2025-11-30_225038.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_001",
+          "duty_title": "Article 6 Fair Trial",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 6",
+          "indicator": "didn't allow",
+          "severity": "critical",
+          "complaint_route": "Appeal; JCIO",
+          "evidence_count": 5,
+          "evidence": [
+            {
+              "claim_text": "This is RAF Lakenheath saying you have to get I-130 visa in order to go back to the US... Command Sponsorship... doesn’t allow me to live in the U.S. I still need a visa.",
+              "author": null,
+              "date": null,
+              "document": "full conversations of all disclosed messages.pdf"
+            },
+            {
+              "claim_text": "The application for a copy of the order made by the Court of Appeal is allowed.",
+              "author": null,
+              "date": null,
+              "document": "c21_blank_order 20.11.24-c.pdf"
+            },
+            {
+              "claim_text": "I think it very likely that a court would allow for there to be 10 consecutive days with the father.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "As all items in our store are made to order, please allow 5-7 working days for your order to be dispatched.",
+              "author": null,
+              "date": null,
+              "document": "Privacy Policy - Dogley and Co.docx"
+            },
+            {
+              "claim_text": "Given the lack of safeguarding concerns, and the shared belief of the parties that spending time with the father is beneficial to the child, I think it very likely that a court would allow for there to be 10 consecutive days with the father.",
+              "author": null,
+              "date": null,
+              "document": "Solicitor Threat - Order Feb 22.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_001",
+          "duty_title": "Article 6 Fair Trial",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 6",
+          "indicator": "refused to consider",
+          "severity": "critical",
+          "complaint_route": "Appeal; JCIO",
+          "evidence_count": 179,
+          "evidence": [
+            {
+              "claim_text": "Needs a Hearing Assessment to complete a holistic assessment of the above",
+              "author": null,
+              "date": null,
+              "document": "Ryan_NHS_Letter.pdf"
+            },
+            {
+              "claim_text": "Joshua told us the Judge asked Sam where she was living, and she lied and said they were living in Mildenhall. They were never in Mildenhall, they were at the Holiday Inn.",
+              "author": null,
+              "date": null,
+              "document": "MS stmt.docx"
+            },
+            {
+              "claim_text": "As Paul walked through the court doors, he then tried to slam the door behind him as Josh was walking through.",
+              "author": null,
+              "date": null,
+              "document": "MS stmt police 1stm.docx"
+            },
+            {
+              "claim_text": "As Paul walked through the court doors, he then tried to slam the door behind him as Josh was walking through.",
+              "author": null,
+              "date": null,
+              "document": "MS stmt police 1st.docx"
+            },
+            {
+              "claim_text": "There is therefore, inevitably, a confirmatory bias within the messages selected and produced for Court.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_001",
+          "duty_title": "Article 6 Fair Trial",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 6",
+          "indicator": "no opportunity",
+          "severity": "critical",
+          "complaint_route": "Appeal; JCIO",
+          "evidence_count": 114,
+          "evidence": [
+            {
+              "claim_text": "I have not changed my name through any court or other legal procedure",
+              "author": null,
+              "date": null,
+              "document": "usaf contract and stuff.pdf"
+            },
+            {
+              "claim_text": "at the court hearing in September 2021 Mr Dunmore's barrister said, 'we don't even know if he is even autistic'.",
+              "author": null,
+              "date": null,
+              "document": "Ryan School.pdf"
+            },
+            {
+              "claim_text": "THIS CLEARANCE LETTER DOES NOT AFFECT ANY DISPUTE WITH THE DEPOSIT PROTECTION SCHEME, THE INSURANCE BASED DEPOSIT SCHEME OR ANY COURT PROCEEDINGS, CIVIL COURT OR SMALL CLAIMS.",
+              "author": null,
+              "date": null,
+              "document": "Landlord memo.pdf"
+            },
+            {
+              "claim_text": "Hearing test normal",
+              "author": null,
+              "date": null,
+              "document": "MHS health summary.pdf"
+            },
+            {
+              "claim_text": "Mr Stephen cannot be found to have been, “planning to move to the US with both children without the consent of the court” on the basis of these searches conducted by the mother.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_001",
+          "duty_title": "Article 6 Fair Trial",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 6",
+          "indicator": "cut off",
+          "severity": "critical",
+          "complaint_route": "Appeal; JCIO",
+          "evidence_count": 14,
+          "evidence": [
+            {
+              "claim_text": "Information from a friend of Joshua informed police that in October/November 2022, Joshua told him that Samantha and Paul had offered him financial incentive to stop court proceedings - I can find no evidence of this in SAH/02.",
+              "author": null,
+              "date": null,
+              "document": "1 - Review of SAH02 - Paul STEPHEN phone 1st SRU6.pdf"
+            },
+            {
+              "claim_text": "Information from a friend of Joshua informed police that in October/November 2022, Joshua told him that Samantha and Paul had offered him financial incentive to stop court proceedings - I can find no evidence of this in SAH/02.",
+              "author": null,
+              "date": null,
+              "document": "1 - Review of SAH02 - Paul STEPHEN phone 1st SRU6.pdf"
+            },
+            {
+              "claim_text": "The matters raised in the Family Court are known to be central to the murder enquiry and form the motive for the offences.",
+              "author": null,
+              "date": null,
+              "document": "katie denunes 20082024 v1-c.pdf"
+            },
+            {
+              "claim_text": "I would have liked to have probably uh, offer a statement but on advice... that I've had today... it is, that there will be plenty of opportunity to uh present information when one gets to the whether it's the Crown Court",
+              "author": null,
+              "date": null,
+              "document": "Alderton interviews.pdf"
+            },
+            {
+              "claim_text": "On the 29th March 2023 the mother and Mr Stephen were planning to move to the US with both children without the consent of the court, even though this would have been a criminal offence",
+              "author": null,
+              "date": null,
+              "document": "Threshold Schedule refs.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_001",
+          "duty_title": "Article 6 Fair Trial",
+          "legal_basis": "Human Rights Act 1998; ECHR Article 6",
+          "indicator": "not enough time",
+          "severity": "critical",
+          "complaint_route": "Appeal; JCIO",
+          "evidence_count": 88,
+          "evidence": [
+            {
+              "claim_text": "I have not changed my name through any court or other legal procedure",
+              "author": null,
+              "date": null,
+              "document": "usaf contract and stuff.pdf"
+            },
+            {
+              "claim_text": "THIS CLEARANCE LETTER DOES NOT AFFECT ANY DISPUTE WITH THE DEPOSIT PROTECTION SCHEME, THE INSURANCE BASED DEPOSIT SCHEME OR ANY COURT PROCEEDINGS, CIVIL COURT OR SMALL CLAIMS.",
+              "author": null,
+              "date": null,
+              "document": "Landlord memo.pdf"
+            },
+            {
+              "claim_text": "Mr Stephen cannot be found to have been, “planning to move to the US with both children without the consent of the court” on the basis of these searches conducted by the mother.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            },
+            {
+              "claim_text": "Family Court Advisers and Children's Guardians are 'not sufficiently resourced or trained' and they 'prioritise children spending time with a parent, even when a child says they don't want to.'",
+              "author": null,
+              "date": null,
+              "document": "conduct an investigative research evaluation into.docx"
+            },
+            {
+              "claim_text": "The judge unfairly made findings that had not been sought or considered at trial (13 examples given).",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_002",
+          "duty_title": "Welfare Checklist",
+          "legal_basis": "Children Act 1989 s.1(3)",
+          "indicator": "didn't consider",
+          "severity": "serious",
+          "complaint_route": "Appeal",
+          "evidence_count": 6,
+          "evidence": [
+            {
+              "claim_text": "The judge unfairly made findings that had not been sought or considered at trial (13 examples given).",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "My concern is that at no point has the family court considered our daughter's best interests.",
+              "author": null,
+              "date": null,
+              "document": "Congress draft.docx"
+            },
+            {
+              "claim_text": "On the 29th March 2023 the mother and Mr Stephen were considering moving to the US with both children without the consent of the court, even though this would have been a criminal offence",
+              "author": null,
+              "date": null,
+              "document": "CCC v Dunmore Stephen Threshold Findings 15 March 2024.docx"
+            },
+            {
+              "claim_text": "In the event that a Supervision Order is made to Suffolk County Council we would ask the court to strongly reconsider the suggested Transition Plan submitted by Cambridgeshire Local authority",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.pdf"
+            },
+            {
+              "claim_text": "we would ask the court to strongly reconsider the suggested Transition Plan submitted by Cambridgeshire Local authority as in my view this does not in any way consider the impact upon Freya",
+              "author": null,
+              "date": null,
+              "document": "Statement of Leon Gillings Suffolk County Council Social Worker dated 13.9.24.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_002",
+          "duty_title": "Welfare Checklist",
+          "legal_basis": "Children Act 1989 s.1(3)",
+          "indicator": "no analysis",
+          "severity": "serious",
+          "complaint_route": "Appeal",
+          "evidence_count": 113,
+          "evidence": [
+            {
+              "claim_text": "I have not changed my name through any court or other legal procedure",
+              "author": null,
+              "date": null,
+              "document": "usaf contract and stuff.pdf"
+            },
+            {
+              "claim_text": "at the court hearing in September 2021 Mr Dunmore's barrister said, 'we don't even know if he is even autistic'.",
+              "author": null,
+              "date": null,
+              "document": "Ryan School.pdf"
+            },
+            {
+              "claim_text": "THIS CLEARANCE LETTER DOES NOT AFFECT ANY DISPUTE WITH THE DEPOSIT PROTECTION SCHEME, THE INSURANCE BASED DEPOSIT SCHEME OR ANY COURT PROCEEDINGS, CIVIL COURT OR SMALL CLAIMS.",
+              "author": null,
+              "date": null,
+              "document": "Landlord memo.pdf"
+            },
+            {
+              "claim_text": "Hearing test normal",
+              "author": null,
+              "date": null,
+              "document": "MHS health summary.pdf"
+            },
+            {
+              "claim_text": "Mr Stephen cannot be found to have been, “planning to move to the US with both children without the consent of the court” on the basis of these searches conducted by the mother.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_002",
+          "duty_title": "Welfare Checklist",
+          "legal_basis": "Children Act 1989 s.1(3)",
+          "indicator": "failed to address",
+          "severity": "serious",
+          "complaint_route": "Appeal",
+          "evidence_count": 179,
+          "evidence": [
+            {
+              "claim_text": "Needs a Hearing Assessment to complete a holistic assessment of the above",
+              "author": null,
+              "date": null,
+              "document": "Ryan_NHS_Letter.pdf"
+            },
+            {
+              "claim_text": "Joshua told us the Judge asked Sam where she was living, and she lied and said they were living in Mildenhall. They were never in Mildenhall, they were at the Holiday Inn.",
+              "author": null,
+              "date": null,
+              "document": "MS stmt.docx"
+            },
+            {
+              "claim_text": "As Paul walked through the court doors, he then tried to slam the door behind him as Josh was walking through.",
+              "author": null,
+              "date": null,
+              "document": "MS stmt police 1stm.docx"
+            },
+            {
+              "claim_text": "As Paul walked through the court doors, he then tried to slam the door behind him as Josh was walking through.",
+              "author": null,
+              "date": null,
+              "document": "MS stmt police 1st.docx"
+            },
+            {
+              "claim_text": "There is therefore, inevitably, a confirmatory bias within the messages selected and produced for Court.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_003",
+          "duty_title": "Reasons for Judgment",
+          "legal_basis": "FPR 2010; Re G [2014]",
+          "indicator": "no reasons",
+          "severity": "serious",
+          "complaint_route": "Appeal",
+          "evidence_count": 113,
+          "evidence": [
+            {
+              "claim_text": "I have not changed my name through any court or other legal procedure",
+              "author": null,
+              "date": null,
+              "document": "usaf contract and stuff.pdf"
+            },
+            {
+              "claim_text": "at the court hearing in September 2021 Mr Dunmore's barrister said, 'we don't even know if he is even autistic'.",
+              "author": null,
+              "date": null,
+              "document": "Ryan School.pdf"
+            },
+            {
+              "claim_text": "THIS CLEARANCE LETTER DOES NOT AFFECT ANY DISPUTE WITH THE DEPOSIT PROTECTION SCHEME, THE INSURANCE BASED DEPOSIT SCHEME OR ANY COURT PROCEEDINGS, CIVIL COURT OR SMALL CLAIMS.",
+              "author": null,
+              "date": null,
+              "document": "Landlord memo.pdf"
+            },
+            {
+              "claim_text": "Hearing test normal",
+              "author": null,
+              "date": null,
+              "document": "MHS health summary.pdf"
+            },
+            {
+              "claim_text": "Mr Stephen cannot be found to have been, “planning to move to the US with both children without the consent of the court” on the basis of these searches conducted by the mother.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "COURT_003",
+          "duty_title": "Reasons for Judgment",
+          "legal_basis": "FPR 2010; Re G [2014]",
+          "indicator": "no rationale",
+          "severity": "serious",
+          "complaint_route": "Appeal",
+          "evidence_count": 113,
+          "evidence": [
+            {
+              "claim_text": "I have not changed my name through any court or other legal procedure",
+              "author": null,
+              "date": null,
+              "document": "usaf contract and stuff.pdf"
+            },
+            {
+              "claim_text": "at the court hearing in September 2021 Mr Dunmore's barrister said, 'we don't even know if he is even autistic'.",
+              "author": null,
+              "date": null,
+              "document": "Ryan School.pdf"
+            },
+            {
+              "claim_text": "THIS CLEARANCE LETTER DOES NOT AFFECT ANY DISPUTE WITH THE DEPOSIT PROTECTION SCHEME, THE INSURANCE BASED DEPOSIT SCHEME OR ANY COURT PROCEEDINGS, CIVIL COURT OR SMALL CLAIMS.",
+              "author": null,
+              "date": null,
+              "document": "Landlord memo.pdf"
+            },
+            {
+              "claim_text": "Hearing test normal",
+              "author": null,
+              "date": null,
+              "document": "MHS health summary.pdf"
+            },
+            {
+              "claim_text": "Mr Stephen cannot be found to have been, “planning to move to the US with both children without the consent of the court” on the basis of these searches conducted by the mother.",
+              "author": null,
+              "date": null,
+              "document": "February 26 2024.docx"
+            }
+          ]
+        }
+      ]
+    },
+    "media": {
+      "total_breaches": 2,
+      "critical": 1,
+      "serious": 1,
+      "breaches": [
+        {
+          "duty_id": "MEDIA_001",
+          "duty_title": "Section 97 Publication Restrictions",
+          "legal_basis": "Children Act 1989 s.97",
+          "indicator": "documentary",
+          "severity": "critical",
+          "complaint_route": "Ofcom; contempt of court; police",
+          "evidence_count": 1,
+          "evidence": [
+            {
+              "claim_text": "The Respondent maintains that her husband, who is a USA Airforce Serviceman, has been posted back to America, but I have not received any documentary evidence from the American forces to confirm this",
+              "author": null,
+              "date": null,
+              "document": "Witness Statement without exhibits - Applicant.docx"
+            }
+          ]
+        },
+        {
+          "duty_id": "MEDIA_002",
+          "duty_title": "Ofcom Broadcasting Code",
+          "legal_basis": "Communications Act 2003; Ofcom Code",
+          "indicator": "no consent",
+          "severity": "serious",
+          "complaint_route": "Ofcom complaint; legal action",
+          "evidence_count": 12,
+          "evidence": [
+            {
+              "claim_text": "In my opinion there are no directly relevant messages Which are linked to the offence - they come across as 'typically tense' exchanges for a separeated couple going through a custody dispute.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "In my opinion there are no directly relevant messages Which are linked to the offence - they come across as 'typically tense' exchanges for a separeated couple going through a custody dispute.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "In my opinion there are no directly relevant messages which are linked to the offence — they come across as 'typically tense' exchanges for a separeated couple going through a custody dispute.",
+              "author": null,
+              "date": null,
+              "document": "5 - Review of VKS_2 - Joshua DUNMORE phone 1st SRU2.pdf"
+            },
+            {
+              "claim_text": "You must now attend Peterborough Custody, Thorpe Wood Police Station, Thorpe Wood, Longthorpe, Peterborough, Cambridgeshire on 07/03/2024 11:00.",
+              "author": null,
+              "date": null,
+              "document": "Rebail to Police Station 19102022.DOCX"
+            },
+            {
+              "claim_text": "In the conversation that I've just read out to you in the custody block, the transcript, there is no such statement by him about how sorry he is... And no confession from him that he has killed Josh and his father",
+              "author": null,
+              "date": null,
+              "document": "SJS POLICE INTERVIEWS.pdf"
+            }
+          ]
+        }
+      ]
+    },
+    "appeal_court": {
+      "total_breaches": 2,
+      "critical": 0,
+      "serious": 2,
+      "breaches": [
+        {
+          "duty_id": "APPEAL_001",
+          "duty_title": "Permission Criteria",
+          "legal_basis": "CPR 52.6; FPR 30.3",
+          "indicator": "refused without reasons",
+          "severity": "serious",
+          "complaint_route": "Renewed application; JCIO",
+          "evidence_count": 6,
+          "evidence": [
+            {
+              "claim_text": "Permission to appeal is refused.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "We must refute the assertion that we planned to remove the children from the UK without the court's permission. This is categorically untrue. No flights were booked, and our visa application was in progress.",
+              "author": null,
+              "date": null,
+              "document": "The Elephant In The Courtroom.docx"
+            },
+            {
+              "claim_text": "Ryan went outside without permission and with no shoes and socks on, he closed the door behind him and leaned against it so Samantha couldn't open it.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "Ryan became over excited towards the end of family time... Ryan went outside without permission and with no shoes and socks on... Ryan then tried to climb through the window",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "The appeal is frivolous and without merit.",
+              "author": null,
+              "date": null,
+              "document": "SCILS Follow UP Email.pdf"
+            }
+          ]
+        },
+        {
+          "duty_id": "APPEAL_001",
+          "duty_title": "Permission Criteria",
+          "legal_basis": "CPR 52.6; FPR 30.3",
+          "indicator": "no proper consideration",
+          "severity": "serious",
+          "complaint_route": "Renewed application; JCIO",
+          "evidence_count": 12,
+          "evidence": [
+            {
+              "claim_text": "An appeal would have no prospect of success. The findings of fact in respect were legally valid, procedurally fair and supported by abundant evidence.",
+              "author": null,
+              "date": null,
+              "document": "CA-2024-001096 SEALED ORDER.pdf"
+            },
+            {
+              "claim_text": "The Mother and Paul Stephen were determined to relocate to the United States together whether or not the court granted permission... and irrespective of the impact this would have on the children.",
+              "author": null,
+              "date": null,
+              "document": "The Elephant In The Courtroom.docx"
+            },
+            {
+              "claim_text": "We must refute the assertion that we planned to remove the children from the UK without the court's permission. This is categorically untrue. No flights were booked, and our visa application was in progress.",
+              "author": null,
+              "date": null,
+              "document": "The Elephant In The Courtroom.docx"
+            },
+            {
+              "claim_text": "Ryan went outside without permission and with no shoes and socks on, he closed the door behind him and leaned against it so Samantha couldn't open it.",
+              "author": null,
+              "date": null,
+              "document": null
+            },
+            {
+              "claim_text": "Family Time workers have not been given permission to take photographs during the session.",
+              "author": null,
+              "date": null,
+              "document": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "recommendations": [
+    "1. IOPC Complaint - Police failures in investigation/disclosure",
+    "2. LGSCO Complaint - Local Authority failures (candour, proportionality)",
+    "3. CAFCASS Complaint - Independence/impartiality failures",
+    "4. HCPC Referral - Social worker professional standards",
+    "5. Appeal/Judicial Review - Procedural unfairness",
+    "6. Ofcom Complaint - Channel 4 Broadcasting Code violations",
+    "7. CONSIDER: Human Rights Act claim - multiple Article 6/8 violations",
+    "8. CONSIDER: Parliamentary Ombudsman - systemic maladministration"
+  ]
+}

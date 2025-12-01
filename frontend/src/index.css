@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Phronesis LEX Custom Styles */
+:root {
+  /* Primary color palette - Deep Navy to Crimson */
+  --color-primary: #1a1f36;
+  --color-secondary: #2d3a5c;
+  --color-accent: #c41e3a;
+  --color-accent-light: #e8324a;
+  
+  /* Semantic colors */
+  --color-critical: #c41e3a;
+  --color-high: #e85d04;
+  --color-medium: #f4a261;
+  --color-low: #2a9d8f;
+  --color-info: #4a90a4;
+  
+  /* Background gradients */
+  --gradient-dark: linear-gradient(135deg, #0f1219 0%, #1a1f36 50%, #1e2541 100%);
+  --gradient-card: linear-gradient(145deg, rgba(26, 31, 54, 0.95) 0%, rgba(30, 37, 65, 0.9) 100%);
+  
+  /* Typography */
+  --font-display: 'Crimson Pro', 'Georgia', serif;
+  --font-body: 'Source Sans 3', 'system-ui', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+body {
+  font-family: var(--font-body);
+  background: var(--gradient-dark);
+  min-height: 100vh;
+  color: #e2e8f0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(26, 31, 54, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 30, 58, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 30, 58, 0.6);
+}
+
+/* Card styles */
+.card {
+  @apply rounded-xl border border-slate-700/50 bg-slate-800/50 backdrop-blur-sm shadow-xl;
+  background: var(--gradient-card);
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:border-red-500/30 hover:shadow-red-500/5;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg font-medium transition-all duration-200 shadow-lg shadow-red-900/20;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-medium transition-all duration-200;
+}
+
+.btn-ghost {
+  @apply px-4 py-2 hover:bg-slate-700/50 text-slate-300 rounded-lg font-medium transition-all duration-200;
+}
+
+/* Badge styles */
+.badge {
+  @apply px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-critical {
+  @apply bg-red-500/20 text-red-300 border border-red-500/30;
+}
+
+.badge-high {
+  @apply bg-orange-500/20 text-orange-300 border border-orange-500/30;
+}
+
+.badge-medium {
+  @apply bg-amber-500/20 text-amber-300 border border-amber-500/30;
+}
+
+.badge-low {
+  @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30;
+}
+
+.badge-info {
+  @apply bg-sky-500/20 text-sky-300 border border-sky-500/30;
+}
+
+/* Status badges */
+.status-active {
+  @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30;
+}
+
+.status-pending {
+  @apply bg-amber-500/20 text-amber-300 border border-amber-500/30;
+}
+
+.status-processing {
+  @apply bg-blue-500/20 text-blue-300 border border-blue-500/30;
+}
+
+.status-completed {
+  @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30;
+}
+
+.status-failed {
+  @apply bg-red-500/20 text-red-300 border border-red-500/30;
+}
+
+/* Modality colors */
+.modality-asserted {
+  @apply bg-blue-500/20 text-blue-300;
+}
+
+.modality-reported {
+  @apply bg-purple-500/20 text-purple-300;
+}
+
+.modality-alleged {
+  @apply bg-amber-500/20 text-amber-300;
+}
+
+.modality-denied {
+  @apply bg-red-500/20 text-red-300;
+}
+
+.modality-hypothetical {
+  @apply bg-slate-500/20 text-slate-300;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(196, 30, 58, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(196, 30, 58, 0.5); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Stat card glow effect */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.3), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Table styles */
+.table-container {
+  @apply overflow-x-auto rounded-lg border border-slate-700/50;
+}
+
+.table-header {
+  @apply bg-slate-800/80 text-slate-300 text-xs uppercase tracking-wider;
+}
+
+.table-row {
+  @apply border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors;
+}
+
+/* Input styles */
+.input {
+  @apply w-full px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-all;
+}
+
+.select {
+  @apply w-full px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg text-white focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-all appearance-none cursor-pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply h-2 bg-slate-700 rounded-full overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-gradient-to-r from-red-600 to-red-400 transition-all duration-500;
+}
+
+/* Tooltip */
+.tooltip {
+  @apply absolute z-50 px-3 py-2 text-sm bg-slate-900 text-white rounded-lg shadow-xl border border-slate-700;
+}
+
+/* Focus ring */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 focus:ring-offset-slate-900;
+}
+

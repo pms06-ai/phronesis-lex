@@ -1,0 +1,1418 @@
+{
+  "generated_at": "2025-12-01T01:57:16.165751",
+  "total_arguments": 58,
+  "by_agency": {
+    "police": [
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'failure to investigate' found in 168 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'ignored evidence' found in 11 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'selective investigation' found in 36 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'predetermined outcome' found in 1 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'refused to consider' found in 168 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'wouldn't look at' found in 194 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The prosecution/police failed to comply with disclosure obligations under CPIA 1996",
+        "grounds": [
+          "Evidence of 'not disclosed' found in 39 documents"
+        ],
+        "warrant": "The prosecution has a continuing duty to disclose material that might reasonably be considered capable of undermining the prosecution case or assisting the defence (CPIA 1996 s.3)",
+        "backing": [
+          "Criminal Procedure and Investigations Act 1996",
+          "R v H and C [2004] UKHL 3",
+          "Attorney General's Guidelines on Disclosure"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All relevant material was disclosed",
+            "response": "Evidence shows specific material was disclosed late or not at all"
+          },
+          {
+            "counter": "Material was not relevant to proceedings",
+            "response": "Relevance determination should not be made unilaterally"
+          }
+        ],
+        "argument_type": "disclosure",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The prosecution/police failed to comply with disclosure obligations under CPIA 1996",
+        "grounds": [
+          "Evidence of 'late disclosure' found in 12 documents"
+        ],
+        "warrant": "The prosecution has a continuing duty to disclose material that might reasonably be considered capable of undermining the prosecution case or assisting the defence (CPIA 1996 s.3)",
+        "backing": [
+          "Criminal Procedure and Investigations Act 1996",
+          "R v H and C [2004] UKHL 3",
+          "Attorney General's Guidelines on Disclosure"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All relevant material was disclosed",
+            "response": "Evidence shows specific material was disclosed late or not at all"
+          },
+          {
+            "counter": "Material was not relevant to proceedings",
+            "response": "Relevance determination should not be made unilaterally"
+          }
+        ],
+        "argument_type": "disclosure",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The prosecution/police failed to comply with disclosure obligations under CPIA 1996",
+        "grounds": [
+          "Evidence of 'failed to provide' found in 169 documents"
+        ],
+        "warrant": "The prosecution has a continuing duty to disclose material that might reasonably be considered capable of undermining the prosecution case or assisting the defence (CPIA 1996 s.3)",
+        "backing": [
+          "Criminal Procedure and Investigations Act 1996",
+          "R v H and C [2004] UKHL 3",
+          "Attorney General's Guidelines on Disclosure"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All relevant material was disclosed",
+            "response": "Evidence shows specific material was disclosed late or not at all"
+          },
+          {
+            "counter": "Material was not relevant to proceedings",
+            "response": "Relevance determination should not be made unilaterally"
+          }
+        ],
+        "argument_type": "disclosure",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The prosecution/police failed to comply with disclosure obligations under CPIA 1996",
+        "grounds": [
+          "Evidence of 'didn't receive' found in 6 documents"
+        ],
+        "warrant": "The prosecution has a continuing duty to disclose material that might reasonably be considered capable of undermining the prosecution case or assisting the defence (CPIA 1996 s.3)",
+        "backing": [
+          "Criminal Procedure and Investigations Act 1996",
+          "R v H and C [2004] UKHL 3",
+          "Attorney General's Guidelines on Disclosure"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All relevant material was disclosed",
+            "response": "Evidence shows specific material was disclosed late or not at all"
+          },
+          {
+            "counter": "Material was not relevant to proceedings",
+            "response": "Relevance determination should not be made unilaterally"
+          }
+        ],
+        "argument_type": "disclosure",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The prosecution/police failed to comply with disclosure obligations under CPIA 1996",
+        "grounds": [
+          "Evidence of 'wasn't given' found in 7 documents"
+        ],
+        "warrant": "The prosecution has a continuing duty to disclose material that might reasonably be considered capable of undermining the prosecution case or assisting the defence (CPIA 1996 s.3)",
+        "backing": [
+          "Criminal Procedure and Investigations Act 1996",
+          "R v H and C [2004] UKHL 3",
+          "Attorney General's Guidelines on Disclosure"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All relevant material was disclosed",
+            "response": "Evidence shows specific material was disclosed late or not at all"
+          },
+          {
+            "counter": "Material was not relevant to proceedings",
+            "response": "Relevance determination should not be made unilaterally"
+          }
+        ],
+        "argument_type": "disclosure",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no solicitor' found in 59 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'without legal advice' found in 8 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'interview records' found in 10 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'not cautioned properly' found in 37 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "IOPC under Police Reform Act 2002"
+      }
+    ],
+    "local_authority": [
+      {
+        "claim": "The s.31 threshold criteria were not satisfied on the evidence presented",
+        "grounds": [
+          "Evidence of 'no evidence of harm' found in 93 documents"
+        ],
+        "warrant": "A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give",
+        "backing": [
+          "Children Act 1989 s.31(2)",
+          "Re B (Children) [2008] UKHL 35",
+          "Re S-B (Children) [2009] UKSC 17"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Children at risk from family circumstances",
+            "response": "Risk must be evidenced and attributable to parental care, not external circumstances"
+          },
+          {
+            "counter": "Protective action necessary",
+            "response": "Protective measures must be proportionate and threshold must still be met"
+          }
+        ],
+        "argument_type": "threshold",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The s.31 threshold criteria were not satisfied on the evidence presented",
+        "grounds": [
+          "Evidence of 'threshold not met' found in 48 documents"
+        ],
+        "warrant": "A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give",
+        "backing": [
+          "Children Act 1989 s.31(2)",
+          "Re B (Children) [2008] UKHL 35",
+          "Re S-B (Children) [2009] UKSC 17"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Children at risk from family circumstances",
+            "response": "Risk must be evidenced and attributable to parental care, not external circumstances"
+          },
+          {
+            "counter": "Protective action necessary",
+            "response": "Protective measures must be proportionate and threshold must still be met"
+          }
+        ],
+        "argument_type": "threshold",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The s.31 threshold criteria were not satisfied on the evidence presented",
+        "grounds": [
+          "Evidence of 'not significant' found in 42 documents"
+        ],
+        "warrant": "A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give",
+        "backing": [
+          "Children Act 1989 s.31(2)",
+          "Re B (Children) [2008] UKHL 35",
+          "Re S-B (Children) [2009] UKSC 17"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Children at risk from family circumstances",
+            "response": "Risk must be evidenced and attributable to parental care, not external circumstances"
+          },
+          {
+            "counter": "Protective action necessary",
+            "response": "Protective measures must be proportionate and threshold must still be met"
+          }
+        ],
+        "argument_type": "threshold",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The s.31 threshold criteria were not satisfied on the evidence presented",
+        "grounds": [
+          "Evidence of 'not attributable' found in 36 documents"
+        ],
+        "warrant": "A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give",
+        "backing": [
+          "Children Act 1989 s.31(2)",
+          "Re B (Children) [2008] UKHL 35",
+          "Re S-B (Children) [2009] UKSC 17"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Children at risk from family circumstances",
+            "response": "Risk must be evidenced and attributable to parental care, not external circumstances"
+          },
+          {
+            "counter": "Protective action necessary",
+            "response": "Protective measures must be proportionate and threshold must still be met"
+          }
+        ],
+        "argument_type": "threshold",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The s.31 threshold criteria were not satisfied on the evidence presented",
+        "grounds": [
+          "Evidence of 'no proof' found in 47 documents"
+        ],
+        "warrant": "A care order may only be made if the threshold criteria in s.31(2) Children Act 1989 are satisfied: the child is suffering or likely to suffer significant harm attributable to parental care not being what a reasonable parent would give",
+        "backing": [
+          "Children Act 1989 s.31(2)",
+          "Re B (Children) [2008] UKHL 35",
+          "Re S-B (Children) [2009] UKSC 17"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Children at risk from family circumstances",
+            "response": "Risk must be evidenced and attributable to parental care, not external circumstances"
+          },
+          {
+            "counter": "Protective action necessary",
+            "response": "Protective measures must be proportionate and threshold must still be met"
+          }
+        ],
+        "argument_type": "threshold",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The Local Authority failed in their duty of candour to the court",
+        "grounds": [
+          "Evidence of 'didn't disclose' found in 3 documents"
+        ],
+        "warrant": "Local authorities owe a duty of candour to the court and parties, requiring full and frank disclosure of all relevant information (Re C (A Child) [2019] EWCA Civ 1998)",
+        "backing": [
+          "Working Together to Safeguard Children 2023",
+          "Re C (A Child) [2019] EWCA Civ 1998",
+          "FPR 2010 Part 21"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [],
+        "argument_type": "candour",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The Local Authority failed in their duty of candour to the court",
+        "grounds": [
+          "Evidence of 'failed to inform' found in 84 documents"
+        ],
+        "warrant": "Local authorities owe a duty of candour to the court and parties, requiring full and frank disclosure of all relevant information (Re C (A Child) [2019] EWCA Civ 1998)",
+        "backing": [
+          "Working Together to Safeguard Children 2023",
+          "Re C (A Child) [2019] EWCA Civ 1998",
+          "FPR 2010 Part 21"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [],
+        "argument_type": "candour",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The interference with Article 8 rights was disproportionate and not necessary",
+        "grounds": [
+          "Evidence of 'unnecessary' found in 2 documents"
+        ],
+        "warrant": "Any interference with Article 8 rights must be in accordance with law, pursue a legitimate aim, and be necessary and proportionate (Re B (A Child) [2013] UKSC 33)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 8",
+          "Re B (A Child) [2013] UKSC 33",
+          "Re B-S (Children) [2013] EWCA Civ 1146"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Child's welfare required intervention",
+            "response": "Even if welfare requires action, the least interventionist option must be considered"
+          },
+          {
+            "counter": "Parents under investigation for serious offences",
+            "response": "Investigation alone, without charge or conviction, is not evidence of risk"
+          }
+        ],
+        "argument_type": "proportionality",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The interference with Article 8 rights was disproportionate and not necessary",
+        "grounds": [
+          "Evidence of 'didn't consider alternatives' found in 6 documents"
+        ],
+        "warrant": "Any interference with Article 8 rights must be in accordance with law, pursue a legitimate aim, and be necessary and proportionate (Re B (A Child) [2013] UKSC 33)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 8",
+          "Re B (A Child) [2013] UKSC 33",
+          "Re B-S (Children) [2013] EWCA Civ 1146"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Child's welfare required intervention",
+            "response": "Even if welfare requires action, the least interventionist option must be considered"
+          },
+          {
+            "counter": "Parents under investigation for serious offences",
+            "response": "Investigation alone, without charge or conviction, is not evidence of risk"
+          }
+        ],
+        "argument_type": "proportionality",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The interference with Article 8 rights was disproportionate and not necessary",
+        "grounds": [
+          "Evidence of 'not necessary' found in 38 documents"
+        ],
+        "warrant": "Any interference with Article 8 rights must be in accordance with law, pursue a legitimate aim, and be necessary and proportionate (Re B (A Child) [2013] UKSC 33)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 8",
+          "Re B (A Child) [2013] UKSC 33",
+          "Re B-S (Children) [2013] EWCA Civ 1146"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Child's welfare required intervention",
+            "response": "Even if welfare requires action, the least interventionist option must be considered"
+          },
+          {
+            "counter": "Parents under investigation for serious offences",
+            "response": "Investigation alone, without charge or conviction, is not evidence of risk"
+          }
+        ],
+        "argument_type": "proportionality",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The interference with Article 8 rights was disproportionate and not necessary",
+        "grounds": [
+          "Evidence of 'could have' found in 14 documents"
+        ],
+        "warrant": "Any interference with Article 8 rights must be in accordance with law, pursue a legitimate aim, and be necessary and proportionate (Re B (A Child) [2013] UKSC 33)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 8",
+          "Re B (A Child) [2013] UKSC 33",
+          "Re B-S (Children) [2013] EWCA Civ 1146"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Child's welfare required intervention",
+            "response": "Even if welfare requires action, the least interventionist option must be considered"
+          },
+          {
+            "counter": "Parents under investigation for serious offences",
+            "response": "Investigation alone, without charge or conviction, is not evidence of risk"
+          }
+        ],
+        "argument_type": "proportionality",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no letter before' found in 47 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no pre-proceedings' found in 47 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'emergency when not emergency' found in 37 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "LGSCO or Judicial Review"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no family meeting' found in 50 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "LGSCO or Judicial Review"
+      }
+    ],
+    "cafcass": [
+      {
+        "claim": "The CAFCASS officer failed to maintain independence and adopted the Local Authority's position",
+        "grounds": [
+          "Evidence of 'adopted local authority position' found in 5 documents"
+        ],
+        "warrant": "CAFCASS officers must maintain independence and form their own professional judgment, not simply adopt the position of any party (CJCS Act 2000 s.12)",
+        "backing": [
+          "Criminal Justice and Court Services Act 2000 s.12",
+          "CAFCASS Operating Framework",
+          "Re W (Children) [2009] EWCA Civ 59"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Officer formed independent view which happened to align with LA",
+            "response": "Pattern of alignment without critical analysis suggests lack of independence"
+          }
+        ],
+        "argument_type": "cafcass_independence",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The CAFCASS officer failed to maintain independence and adopted the Local Authority's position",
+        "grounds": [
+          "Evidence of 'agreed with social worker' found in 8 documents"
+        ],
+        "warrant": "CAFCASS officers must maintain independence and form their own professional judgment, not simply adopt the position of any party (CJCS Act 2000 s.12)",
+        "backing": [
+          "Criminal Justice and Court Services Act 2000 s.12",
+          "CAFCASS Operating Framework",
+          "Re W (Children) [2009] EWCA Civ 59"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Officer formed independent view which happened to align with LA",
+            "response": "Pattern of alignment without critical analysis suggests lack of independence"
+          }
+        ],
+        "argument_type": "cafcass_independence",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'didn't see child' found in 6 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'didn't speak to' found in 22 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'only interviewed one parent' found in 7 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no recommendation' found in 24 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'didn't ask child' found in 5 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'child not seen' found in 19 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'didn't represent child's views' found in 2 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "CAFCASS Complaints then Parliamentary Ombudsman"
+      }
+    ],
+    "social_worker": [
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'failed to follow' found in 36 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "HCPC Fitness to Practise"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'inadequate communication' found in 2 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "HCPC Fitness to Practise"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'not what I said' found in 76 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "HCPC Fitness to Practise"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'made up' found in 12 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "HCPC Fitness to Practise"
+      }
+    ],
+    "family_court": [
+      {
+        "claim": "The proceedings violated Article 6 rights to a fair trial",
+        "grounds": [
+          "Evidence of 'wasn't heard' found in 3 documents"
+        ],
+        "warrant": "Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 6",
+          "Re K and H [2015] EWCA Civ 543"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All parties had opportunity to be heard",
+            "response": "Opportunity alone is insufficient if evidence was not fairly considered"
+          },
+          {
+            "counter": "Court made findings on available evidence",
+            "response": "Evidence must be complete and fairly presented for findings to be sound"
+          }
+        ],
+        "argument_type": "fair_trial",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The proceedings violated Article 6 rights to a fair trial",
+        "grounds": [
+          "Evidence of 'didn't allow' found in 5 documents"
+        ],
+        "warrant": "Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 6",
+          "Re K and H [2015] EWCA Civ 543"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All parties had opportunity to be heard",
+            "response": "Opportunity alone is insufficient if evidence was not fairly considered"
+          },
+          {
+            "counter": "Court made findings on available evidence",
+            "response": "Evidence must be complete and fairly presented for findings to be sound"
+          }
+        ],
+        "argument_type": "fair_trial",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The proceedings violated Article 6 rights to a fair trial",
+        "grounds": [
+          "Evidence of 'refused to consider' found in 179 documents"
+        ],
+        "warrant": "Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 6",
+          "Re K and H [2015] EWCA Civ 543"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All parties had opportunity to be heard",
+            "response": "Opportunity alone is insufficient if evidence was not fairly considered"
+          },
+          {
+            "counter": "Court made findings on available evidence",
+            "response": "Evidence must be complete and fairly presented for findings to be sound"
+          }
+        ],
+        "argument_type": "fair_trial",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The proceedings violated Article 6 rights to a fair trial",
+        "grounds": [
+          "Evidence of 'no opportunity' found in 114 documents"
+        ],
+        "warrant": "Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 6",
+          "Re K and H [2015] EWCA Civ 543"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All parties had opportunity to be heard",
+            "response": "Opportunity alone is insufficient if evidence was not fairly considered"
+          },
+          {
+            "counter": "Court made findings on available evidence",
+            "response": "Evidence must be complete and fairly presented for findings to be sound"
+          }
+        ],
+        "argument_type": "fair_trial",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The proceedings violated Article 6 rights to a fair trial",
+        "grounds": [
+          "Evidence of 'cut off' found in 14 documents"
+        ],
+        "warrant": "Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 6",
+          "Re K and H [2015] EWCA Civ 543"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All parties had opportunity to be heard",
+            "response": "Opportunity alone is insufficient if evidence was not fairly considered"
+          },
+          {
+            "counter": "Court made findings on available evidence",
+            "response": "Evidence must be complete and fairly presented for findings to be sound"
+          }
+        ],
+        "argument_type": "fair_trial",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The proceedings violated Article 6 rights to a fair trial",
+        "grounds": [
+          "Evidence of 'not enough time' found in 88 documents"
+        ],
+        "warrant": "Every person is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal (ECHR Article 6)",
+        "backing": [
+          "Human Rights Act 1998",
+          "ECHR Article 6",
+          "Re K and H [2015] EWCA Civ 543"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "All parties had opportunity to be heard",
+            "response": "Opportunity alone is insufficient if evidence was not fairly considered"
+          },
+          {
+            "counter": "Court made findings on available evidence",
+            "response": "Evidence must be complete and fairly presented for findings to be sound"
+          }
+        ],
+        "argument_type": "fair_trial",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The court failed to properly consider all elements of the welfare checklist",
+        "grounds": [
+          "Evidence of 'didn't consider' found in 6 documents"
+        ],
+        "warrant": "When determining any question about a child's upbringing, the child's welfare is the court's paramount consideration, having regard to the welfare checklist (CA 1989 s.1)",
+        "backing": [
+          "Children Act 1989 s.1(1)",
+          "Children Act 1989 s.1(3) welfare checklist"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [],
+        "argument_type": "welfare_checklist",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The court failed to properly consider all elements of the welfare checklist",
+        "grounds": [
+          "Evidence of 'no analysis' found in 113 documents"
+        ],
+        "warrant": "When determining any question about a child's upbringing, the child's welfare is the court's paramount consideration, having regard to the welfare checklist (CA 1989 s.1)",
+        "backing": [
+          "Children Act 1989 s.1(1)",
+          "Children Act 1989 s.1(3) welfare checklist"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [],
+        "argument_type": "welfare_checklist",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The court failed to properly consider all elements of the welfare checklist",
+        "grounds": [
+          "Evidence of 'failed to address' found in 179 documents"
+        ],
+        "warrant": "When determining any question about a child's upbringing, the child's welfare is the court's paramount consideration, having regard to the welfare checklist (CA 1989 s.1)",
+        "backing": [
+          "Children Act 1989 s.1(1)",
+          "Children Act 1989 s.1(3) welfare checklist"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [],
+        "argument_type": "welfare_checklist",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no reasons' found in 113 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "Appeal or JCIO"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no rationale' found in 113 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "Appeal or JCIO"
+      }
+    ],
+    "media": [
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'documentary' found in 1 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "Ofcom Broadcasting Code complaint"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no consent' found in 12 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "Ofcom Broadcasting Code complaint"
+      }
+    ],
+    "appeal_court": [
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'refused without reasons' found in 6 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "Supreme Court / ECHR"
+      },
+      {
+        "claim": "The police investigation was conducted with prejudice and failed to meet required standards",
+        "grounds": [
+          "Evidence of 'no proper consideration' found in 12 documents"
+        ],
+        "warrant": "Police have a duty to conduct objective investigations without prejudice to any outcome (R v Commissioner of Police of the Metropolis, ex parte Blackburn [1968])",
+        "backing": [
+          "Police and Criminal Evidence Act 1984",
+          "College of Policing Authorised Professional Practice",
+          "Criminal Procedure and Investigations Act 1996"
+        ],
+        "qualifier": "qualified",
+        "rebuttals": [
+          {
+            "counter": "Investigation was complex and required careful consideration",
+            "response": "Complexity does not excuse failure to follow APP or statutory disclosure requirements"
+          },
+          {
+            "counter": "Suspects were released NFA proving fair process",
+            "response": "NFA after 23 months suggests flawed investigation from outset"
+          }
+        ],
+        "argument_type": "police_investigation",
+        "complaint_route": "Supreme Court / ECHR"
+      }
+    ]
+  }
+}

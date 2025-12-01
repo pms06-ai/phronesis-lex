@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCIP - Forensic Case Intelligence Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-hover: #1a1a25;
+            --border: #2a2a35;
+            --text-primary: #e4e4e7;
+            --text-secondary: #71717a;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --accent-green: #22c55e;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        
+        .card-hover:hover {
+            background: var(--bg-hover);
+            border-color: #3a3a45;
+        }
+        
+        .severity-critical { color: var(--accent-red); }
+        .severity-serious { color: var(--accent-amber); }
+        .severity-moderate { color: var(--accent-blue); }
+        
+        .badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-critical { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+        .badge-serious { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+        .badge-police { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+        .badge-la { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+        .badge-cafcass { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+        
+        .timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent-red));
+        }
+        
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-dark);
+        }
+        
+        .glow-red { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+        .glow-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+        
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: var(--bg-card); }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen" x-data="dashboard()">
+    
+    <!-- Header -->
+    <header class="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-purple-600 flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">⚖</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-white">FCIP</h1>
+                        <p class="text-xs text-zinc-500">Forensic Case Intelligence Platform</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-zinc-400">Case: <span class="font-mono text-white">PE23C50095</span></span>
+                    <span class="badge badge-critical animate-pulse-glow">ACTIVE</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+            <div class="card p-4">
+                <div class="text-3xl font-bold text-white">566</div>
+                <div class="text-sm text-zinc-500">Documents</div>
+            </div>
+            <div class="card p-4">
+                <div class="text-3xl font-bold text-white">3,539</div>
+                <div class="text-sm text-zinc-500">Claims</div>
+            </div>
+            <div class="card p-4">
+                <div class="text-3xl font-bold text-red-500">58</div>
+                <div class="text-sm text-zinc-500">Breaches</div>
+            </div>
+            <div class="card p-4">
+                <div class="text-3xl font-bold text-amber-500">1,903</div>
+                <div class="text-sm text-zinc-500">Contradictions</div>
+            </div>
+            <div class="card p-4">
+                <div class="text-3xl font-bold text-purple-500">7</div>
+                <div class="text-sm text-zinc-500">Cases</div>
+            </div>
+            <div class="card p-4">
+                <div class="text-3xl font-bold text-blue-500">33</div>
+                <div class="text-sm text-zinc-500">Entities</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex gap-2 mb-6 border-b border-zinc-800 pb-4">
+            <button 
+                @click="activeTab = 'timeline'"
+                :class="activeTab === 'timeline' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Timeline
+            </button>
+            <button 
+                @click="activeTab = 'breaches'"
+                :class="activeTab === 'breaches' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Breaches
+            </button>
+            <button 
+                @click="activeTab = 'contradictions'"
+                :class="activeTab === 'contradictions' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Contradictions
+            </button>
+            <button 
+                @click="activeTab = 'agencies'"
+                :class="activeTab === 'agencies' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Agencies
+            </button>
+            <button 
+                @click="activeTab = 'documents'"
+                :class="activeTab === 'documents' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Documents
+            </button>
+            <button 
+                @click="activeTab = 'complaints'"
+                :class="activeTab === 'complaints' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-white'"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Complaints
+            </button>
+        </div>
+
+        <!-- Timeline Tab -->
+        <div x-show="activeTab === 'timeline'" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Timeline -->
+            <div class="lg:col-span-2 card p-6">
+                <h2 class="text-lg font-semibold mb-6">Case Timeline</h2>
+                <div class="relative">
+                    <div class="timeline-line"></div>
+                    <div class="space-y-6 pl-12">
+                        <template x-for="event in timeline" :key="event.date + event.event">
+                            <div class="relative">
+                                <div 
+                                    class="timeline-dot absolute -left-12"
+                                    :class="{
+                                        'bg-red-500': event.type === 'CRIME' || event.type === 'ARREST',
+                                        'bg-blue-500': event.source === 'FAMILY_COURT',
+                                        'bg-purple-500': event.type === 'POLICE',
+                                        'bg-amber-500': event.type === 'PREMEDITATION'
+                                    }">
+                                </div>
+                                <div class="card card-hover p-4 cursor-pointer" @click="selectedEvent = event">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <span class="font-mono text-xs text-zinc-500" x-text="event.date"></span>
+                                            <p class="text-sm mt-1" x-text="event.event"></p>
+                                        </div>
+                                        <span 
+                                            class="badge"
+                                            :class="{
+                                                'badge-critical': event.type === 'CRIME' || event.type === 'ARREST',
+                                                'badge-police': event.source === 'MURDER_INVESTIGATION',
+                                                'bg-zinc-800 text-zinc-400': event.source === 'FAMILY_COURT'
+                                            }"
+                                            x-text="event.type">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Details / Key Facts -->
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-4">Key Facts</h2>
+                <div class="space-y-4">
+                    <div class="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+                        <h3 class="font-semibold text-red-400 text-sm">Murder Date</h3>
+                        <p class="text-2xl font-mono mt-1">29 Mar 2023</p>
+                        <p class="text-xs text-zinc-500 mt-2">Joshua & Gary Dunmore killed by Stephen Alderton</p>
+                    </div>
+                    <div class="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+                        <h3 class="font-semibold text-amber-400 text-sm">Investigation Duration</h3>
+                        <p class="text-2xl font-mono mt-1">~23 months</p>
+                        <p class="text-xs text-zinc-500 mt-2">Mar 2023 → Feb 2025 (NFA)</p>
+                    </div>
+                    <div class="p-4 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+                        <h3 class="font-semibold text-purple-400 text-sm">Premeditation Evidence</h3>
+                        <p class="text-sm font-mono mt-2">"Panama" - Apr 2022</p>
+                        <p class="text-sm font-mono">"Plan B" - Jun 2022</p>
+                        <p class="text-sm font-mono">"Independence Day" - Jun 2022</p>
+                    </div>
+                    <div class="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                        <h3 class="font-semibold text-blue-400 text-sm">Motive (Police Statement)</h3>
+                        <p class="text-xs mt-2 italic">"The motive is known to be centred around the matters heard in the family court"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breaches Tab -->
+        <div x-show="activeTab === 'breaches'" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <template x-for="agency in agencies" :key="agency.name">
+                    <div class="card p-6 card-hover cursor-pointer" @click="selectedAgency = agency">
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="font-semibold" x-text="agency.name"></h3>
+                            <span class="badge" :class="agency.badgeClass" x-text="agency.total + ' breaches'"></span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-zinc-500">Critical</span>
+                                <span class="text-red-500 font-mono" x-text="agency.critical"></span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-zinc-500">Serious</span>
+                                <span class="text-amber-500 font-mono" x-text="agency.serious"></span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-zinc-800">
+                            <p class="text-xs text-zinc-500">Complaint route:</p>
+                            <p class="text-sm text-blue-400" x-text="agency.complaintRoute"></p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <!-- Breach Details -->
+            <div class="card p-6" x-show="selectedAgency">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold" x-text="selectedAgency?.name + ' - Breach Details'"></h3>
+                    <button @click="selectedAgency = null" class="text-zinc-500 hover:text-white">✕</button>
+                </div>
+                <div class="space-y-3 max-h-96 overflow-y-auto scrollbar-thin">
+                    <template x-for="breach in selectedAgency?.breaches || []" :key="breach.indicator">
+                        <div class="p-4 bg-zinc-900 rounded-lg">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="font-medium" x-text="breach.duty_title"></p>
+                                    <p class="text-xs text-zinc-500 mt-1" x-text="breach.legal_basis"></p>
+                                </div>
+                                <span 
+                                    class="badge"
+                                    :class="breach.severity === 'critical' ? 'badge-critical' : 'badge-serious'"
+                                    x-text="breach.severity">
+                                </span>
+                            </div>
+                            <p class="text-sm text-zinc-400 mt-2">
+                                <span class="text-zinc-500">Indicator:</span> 
+                                <span x-text="breach.indicator"></span>
+                            </p>
+                            <p class="text-xs text-zinc-500 mt-1">
+                                Evidence: <span class="text-white" x-text="breach.evidence_count"></span> instances
+                            </p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contradictions Tab -->
+        <div x-show="activeTab === 'contradictions'" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="card p-6 glow-red">
+                    <div class="text-4xl font-bold text-red-500">26</div>
+                    <div class="text-sm text-zinc-500">Self-Contradictions</div>
+                    <p class="text-xs text-zinc-600 mt-2">Same person contradicting themselves</p>
+                </div>
+                <div class="card p-6">
+                    <div class="text-4xl font-bold text-amber-500">7</div>
+                    <div class="text-sm text-zinc-500">Direct Contradictions</div>
+                    <p class="text-xs text-zinc-600 mt-2">Different people on same facts</p>
+                </div>
+                <div class="card p-6">
+                    <div class="text-4xl font-bold text-purple-500">1,870</div>
+                    <div class="text-sm text-zinc-500">Value Conflicts</div>
+                    <p class="text-xs text-zinc-600 mt-2">Opposing assessments</p>
+                </div>
+            </div>
+            
+            <div class="card p-6">
+                <h3 class="text-lg font-semibold mb-4">Self-Contradictions by Professional</h3>
+                <div class="space-y-4">
+                    <template x-for="person in selfContradictors" :key="person.name">
+                        <div class="p-4 bg-zinc-900 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium" x-text="person.name"></span>
+                                <span class="badge badge-critical" x-text="person.count + ' contradictions'"></span>
+                            </div>
+                            <div class="text-sm text-zinc-400 space-y-2" x-show="person.examples">
+                                <template x-for="ex in person.examples.slice(0, 2)" :key="ex">
+                                    <p class="italic text-xs border-l-2 border-red-500 pl-3" x-text="ex"></p>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agencies Tab -->
+        <div x-show="activeTab === 'agencies'" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <template x-for="target in accountabilityTargets" :key="target.agency">
+                <div class="card p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold" x-text="target.agency"></h3>
+                            <p class="text-sm text-zinc-500" x-text="target.issues"></p>
+                        </div>
+                        <span class="badge bg-zinc-800 text-zinc-400" x-text="target.complaint_route"></span>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-sm text-zinc-400">
+                            <span class="text-zinc-500">Key individuals:</span>
+                        </p>
+                        <template x-for="person in target.key_individuals" :key="person">
+                            <p class="text-sm font-mono text-white pl-4" x-text="'• ' + person"></p>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Documents Tab -->
+        <div x-show="activeTab === 'documents'" class="space-y-6">
+            <div class="card p-6">
+                <h3 class="text-lg font-semibold mb-4">Documents by Category</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <template x-for="(count, category) in documentCategories" :key="category">
+                        <div class="p-4 bg-zinc-900 rounded-lg">
+                            <div class="text-2xl font-bold text-white" x-text="count"></div>
+                            <div class="text-xs text-zinc-500 capitalize" x-text="category.replace('_', ' ')"></div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="card p-6">
+                <h3 class="text-lg font-semibold mb-4">Claims by Topic</h3>
+                <div class="space-y-3">
+                    <template x-for="(data, topic) in claimsByTopic" :key="topic">
+                        <div class="flex items-center gap-4">
+                            <span class="w-24 text-sm text-zinc-400" x-text="topic"></span>
+                            <div class="flex-1 bg-zinc-900 rounded-full h-4 overflow-hidden">
+                                <div 
+                                    class="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                                    :style="'width: ' + (data.count / 500 * 100) + '%'">
+                                </div>
+                            </div>
+                            <span class="text-sm font-mono text-white w-16 text-right" x-text="data.count"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complaints Tab -->
+        <div x-show="activeTab === 'complaints'" class="space-y-6">
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-4">Generated Complaint Templates</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <template x-for="complaint in complaintTemplates" :key="complaint.file">
+                        <div class="p-4 bg-zinc-900 rounded-lg card-hover">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="font-medium" x-text="complaint.name"></h4>
+                                    <p class="text-xs text-zinc-500 mt-1" x-text="complaint.target"></p>
+                                </div>
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <p class="text-xs text-zinc-400 mt-2 font-mono" x-text="complaint.file"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-4">Subject Access Requests</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <template x-for="sar in sarTemplates" :key="sar.file">
+                        <div class="p-4 bg-zinc-900 rounded-lg card-hover">
+                            <h4 class="font-medium" x-text="sar.agency"></h4>
+                            <p class="text-xs text-zinc-500 mt-1" x-text="sar.email"></p>
+                            <p class="text-xs text-zinc-400 mt-2 font-mono" x-text="sar.file"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="card p-6 border-2 border-amber-500/30">
+                <h2 class="text-lg font-semibold mb-4 text-amber-400">⚠ Recommended Action Sequence</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">1</span>
+                        <div>
+                            <p class="font-medium">Submit Subject Access Requests</p>
+                            <p class="text-xs text-zinc-500">All 5 agencies - they have 30 days to respond</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">2</span>
+                        <div>
+                            <p class="font-medium">Exhaust LA Internal Complaints</p>
+                            <p class="text-xs text-zinc-500">Required before LGSCO</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">3</span>
+                        <div>
+                            <p class="font-medium">Submit Formal Complaints</p>
+                            <p class="text-xs text-zinc-500">IOPC, LGSCO, CAFCASS, HCPC, Ofcom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-zinc-500">
+            <p>FCIP - Forensic Case Intelligence Platform</p>
+            <p class="text-xs mt-1">Generated: <span x-text="new Date().toLocaleDateString()"></span></p>
+        </div>
+    </footer>
+
+    <script>
+        function dashboard() {
+            return {
+                activeTab: 'timeline',
+                selectedEvent: null,
+                selectedAgency: null,
+                
+                // Timeline data
+                timeline: [
+                    { date: '2021', event: 'PE21P30644 - Original private law proceedings', type: 'PROCEEDINGS', source: 'FAMILY_COURT' },
+                    { date: '2022-04', event: 'Stephen Alderton texts "Panama"', type: 'PREMEDITATION', source: 'MURDER_INVESTIGATION' },
+                    { date: '2022-05', event: 'PE22P00090 - Cambridge proceedings', type: 'PROCEEDINGS', source: 'FAMILY_COURT' },
+                    { date: '2022-06', event: 'Alderton texts "Plan B", "Independence Day"', type: 'PREMEDITATION', source: 'MURDER_INVESTIGATION' },
+                    { date: '2022', event: 'PE22P31058 - Peterborough proceedings', type: 'PROCEEDINGS', source: 'FAMILY_COURT' },
+                    { date: '2023-03-27', event: 'CAFCASS: Child NOT to leave UK', type: 'COURT', source: 'MURDER_INVESTIGATION' },
+                    { date: '2023-03-29', event: 'MURDERS: Joshua & Gary Dunmore killed', type: 'CRIME', source: 'MURDER_INVESTIGATION' },
+                    { date: '2023-03-30', event: 'Paul & Samantha arrested (conspiracy)', type: 'ARREST', source: 'MURDER_INVESTIGATION' },
+                    { date: '2023-03-31', event: 'Released NFA', type: 'POLICE', source: 'MURDER_INVESTIGATION' },
+                    { date: '2023-04', event: 'PE23C50063 - Initial care application', type: 'CARE', source: 'FAMILY_COURT' },
+                    { date: '2023-05-12', event: 'Suspect status reinstated', type: 'POLICE', source: 'MURDER_INVESTIGATION' },
+                    { date: '2023-06-07', event: 'Re-arrested, "no comment" interviews', type: 'ARREST', source: 'MURDER_INVESTIGATION' },
+                    { date: '2023-06-09', event: 'PE23C50095 - Urgent ICO hearing', type: 'CARE', source: 'FAMILY_COURT' },
+                    { date: '2023', event: 'PE23P30344 - New private law (Seamark)', type: 'PROCEEDINGS', source: 'FAMILY_COURT' },
+                    { date: '2024', event: 'CA-2024-001096 - Appeal refused', type: 'APPEAL', source: 'FAMILY_COURT' },
+                    { date: '2025-02-12', event: 'Final NFA - insufficient evidence', type: 'POLICE', source: 'MURDER_INVESTIGATION' },
+                ],
+                
+                // Agencies data
+                agencies: [
+                    { name: 'Police', total: 15, critical: 15, serious: 0, complaintRoute: 'IOPC', badgeClass: 'badge-police',
+                      breaches: [
+                          { duty_title: 'Duty to Investigate Without Prejudice', legal_basis: 'PACE 1984', indicator: 'failure to investigate', severity: 'critical', evidence_count: 168 },
+                          { duty_title: 'Disclosure Duty', legal_basis: 'CPIA 1996', indicator: 'not disclosed', severity: 'critical', evidence_count: 39 },
+                          { duty_title: 'PACE Code C Compliance', legal_basis: 'PACE 1984 Code C', indicator: 'interview records', severity: 'critical', evidence_count: 10 },
+                      ]
+                    },
+                    { name: 'Local Authority', total: 15, critical: 11, serious: 4, complaintRoute: 'LGSCO', badgeClass: 'badge-la',
+                      breaches: [
+                          { duty_title: 'Section 31 Threshold', legal_basis: 'Children Act 1989 s.31(2)', indicator: 'no evidence of harm', severity: 'critical', evidence_count: 93 },
+                          { duty_title: 'Duty of Candour', legal_basis: 'Working Together 2023', indicator: 'failed to inform', severity: 'critical', evidence_count: 84 },
+                          { duty_title: 'Article 8 Proportionality', legal_basis: 'HRA 1998; ECHR Art 8', indicator: 'disproportionate', severity: 'critical', evidence_count: 38 },
+                      ]
+                    },
+                    { name: 'CAFCASS', total: 9, critical: 2, serious: 7, complaintRoute: 'CAFCASS Complaints', badgeClass: 'badge-cafcass',
+                      breaches: [
+                          { duty_title: 'Independence and Impartiality', legal_basis: 'CJCS Act 2000 s.12', indicator: 'adopted LA position', severity: 'critical', evidence_count: 5 },
+                          { duty_title: 'Section 7 Report Requirements', legal_basis: 'CA 1989 s.7', indicator: 'didn\'t see child', severity: 'serious', evidence_count: 6 },
+                      ]
+                    },
+                    { name: 'Social Worker', total: 4, critical: 0, serious: 4, complaintRoute: 'HCPC', badgeClass: 'bg-zinc-800 text-zinc-400',
+                      breaches: [
+                          { duty_title: 'Accurate Recording', legal_basis: 'HCPC Standards', indicator: 'not what I said', severity: 'serious', evidence_count: 76 },
+                          { duty_title: 'HCPC Standards', legal_basis: 'HCPC Standards of Proficiency', indicator: 'failed to follow', severity: 'serious', evidence_count: 36 },
+                      ]
+                    },
+                    { name: 'Family Court', total: 11, critical: 6, serious: 5, complaintRoute: 'JCIO / Appeal', badgeClass: 'badge-serious',
+                      breaches: [
+                          { duty_title: 'Article 6 Fair Trial', legal_basis: 'HRA 1998; ECHR Art 6', indicator: 'refused to consider', severity: 'critical', evidence_count: 179 },
+                          { duty_title: 'Welfare Checklist', legal_basis: 'CA 1989 s.1(3)', indicator: 'didn\'t consider', severity: 'serious', evidence_count: 45 },
+                      ]
+                    },
+                    { name: 'Media (Channel 4)', total: 2, critical: 1, serious: 1, complaintRoute: 'Ofcom', badgeClass: 'bg-zinc-800 text-zinc-400',
+                      breaches: [
+                          { duty_title: 's.97 Publication Restrictions', legal_basis: 'CA 1989 s.97', indicator: 'documentary', severity: 'critical', evidence_count: 1 },
+                          { duty_title: 'Ofcom Broadcasting Code', legal_basis: 'Communications Act 2003', indicator: 'no consent', severity: 'serious', evidence_count: 12 },
+                      ]
+                    },
+                ],
+                
+                // Self-contradictions
+                selfContradictors: [
+                    { name: 'Samantha Stephen', count: 7, examples: ['Ryan has not asked questions...', 'And no Ryan has not been told...'] },
+                    { name: 'Paul Duggan (SCW)', count: 3, examples: ['Ryan was in a heightened state...'] },
+                    { name: 'Local Authority', count: 3, examples: ['The mother wanted the father out...'] },
+                    { name: 'Lucy Ardern', count: 2, examples: ['Although your client initially agreed...'] },
+                    { name: 'Dr Vivien Wong-Spracklen', count: 1, examples: ['He has not exhibited any emotions...'] },
+                ],
+                
+                // Accountability targets
+                accountabilityTargets: [
+                    { agency: 'Police', key_individuals: ['DCI Katie Dounias', 'DC 2072 Atkinson'], issues: 'Investigation conduct, disclosure', complaint_route: 'IOPC' },
+                    { agency: 'Local Authority', key_individuals: ['Social Workers (multiple)'], issues: 'Threshold, candour, proportionality', complaint_route: 'LGSCO' },
+                    { agency: 'CAFCASS', key_individuals: ['Guardian'], issues: 'Independence, impartiality', complaint_route: 'CAFCASS Complaints' },
+                    { agency: 'Family Court', key_individuals: ['HHJ Gordon-Saker'], issues: 'Procedural fairness', complaint_route: 'JCIO / Appeal' },
+                    { agency: 'Channel 4', key_individuals: ['Unknown'], issues: 's.97 identification, consent', complaint_route: 'Ofcom' },
+                ],
+                
+                // Document categories
+                documentCategories: {
+                    medical_records: 78,
+                    email_correspondence: 88,
+                    police_report: 70,
+                    position_statement: 47,
+                    social_work_report: 37,
+                    court_order: 55,
+                    expert_report: 23,
+                    cafcass_report: 23,
+                    legislation: 49,
+                    other: 96,
+                },
+                
+                // Claims by topic
+                claimsByTopic: {
+                    MURDER: { count: 447 },
+                    CUSTODY: { count: 321 },
+                    CREDIBILITY: { count: 193 },
+                    POLICE: { count: 190 },
+                    CONTACT: { count: 176 },
+                    CAFCASS: { count: 55 },
+                    THRESHOLD: { count: 50 },
+                },
+                
+                // Complaint templates
+                complaintTemplates: [
+                    { name: 'IOPC Complaint', target: 'Police misconduct', file: 'IOPC_complaint.txt' },
+                    { name: 'LGSCO Complaint', target: 'Local Authority', file: 'LGSCO_complaint.txt' },
+                    { name: 'CAFCASS Complaint', target: 'CAFCASS', file: 'CAFCASS_complaint.txt' },
+                    { name: 'HCPC Referral', target: 'Social Worker', file: 'HCPC_referral.txt' },
+                    { name: 'Ofcom Complaint', target: 'Channel 4', file: 'Ofcom_complaint.txt' },
+                ],
+                
+                // SAR templates
+                sarTemplates: [
+                    { agency: 'Cambridgeshire Police', email: 'dataprotection@cambs.police.uk', file: 'SAR_Police.txt' },
+                    { agency: 'Cambridgeshire CC', email: 'dataprotection@cambridgeshire.gov.uk', file: 'SAR_LocalAuthority.txt' },
+                    { agency: 'CAFCASS', email: 'dataprotection@cafcass.gov.uk', file: 'SAR_CAFCASS.txt' },
+                    { agency: 'HMCTS', email: 'data.access@justice.gov.uk', file: 'SAR_Court.txt' },
+                    { agency: 'Channel 4', email: 'dpo@channel4.co.uk', file: 'SAR_Channel4.txt' },
+                ],
+            }
+        }
+    </script>
+</body>
+</html>
+

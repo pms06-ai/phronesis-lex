@@ -1,0 +1,104 @@
+[
+  {
+    "date": "2021",
+    "event": "PE21P30644 - Original private law proceedings commence",
+    "type": "PROCEEDINGS",
+    "case": "PE21P30644"
+  },
+  {
+    "date": "2022",
+    "event": "PE22P31058 - Further private law proceedings",
+    "type": "PROCEEDINGS",
+    "case": "PE22P31058"
+  },
+  {
+    "date": "2022-04",
+    "event": "Stephen Alderton texts about \"Panama\" - evidence of premeditation",
+    "type": "EVIDENCE",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2022-05",
+    "event": "PE22P00090 - Cambridge Family Court proceedings",
+    "type": "PROCEEDINGS",
+    "case": "PE22P00090"
+  },
+  {
+    "date": "2022-06",
+    "event": "Stephen Alderton texts \"Plan B\" and \"Independence Day\"",
+    "type": "EVIDENCE",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2023",
+    "event": "PE23P30344 - New private law proceedings (Mandy Seamark)",
+    "type": "PROCEEDINGS",
+    "case": "PE23P30344"
+  },
+  {
+    "date": "2023-03-27",
+    "event": "Family Court hearing - CAFCASS recommends child NOT leave UK",
+    "type": "CAFCASS_BREACH",
+    "case": "PE22P31058"
+  },
+  {
+    "date": "2023-03-29",
+    "event": "MURDERS: Joshua and Gary Dunmore killed by Stephen Alderton",
+    "type": "CRIME",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2023-03-30",
+    "event": "Paul & Samantha Stephen arrested for conspiracy to murder",
+    "type": "ARREST",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2023-03-31",
+    "event": "Released NFA - POTENTIAL POLICE BREACH: Premature release?",
+    "type": "POLICE_BREACH",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2023-04",
+    "event": "PE23C50063 - Initial care application by Local Authority",
+    "type": "PROCEEDINGS",
+    "case": "PE23C50063"
+  },
+  {
+    "date": "2023-05-12",
+    "event": "Suspect status reinstated by DCI Dounias",
+    "type": "POLICE",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2023-06-07",
+    "event": "Re-arrested, \"no comment\" interviews",
+    "type": "ARREST",
+    "case": "CRIMINAL"
+  },
+  {
+    "date": "2023-06-09",
+    "event": "PE23C50095 - Urgent ICO hearing HHJ Gordon-Saker",
+    "type": "COURT_BREACH",
+    "case": "PE23C50095"
+  },
+  {
+    "date": "2024",
+    "event": "CA-2024-001096 - Court of Appeal permission REFUSED",
+    "type": "APPEAL_BREACH",
+    "case": "CA-2024-001096"
+  },
+  {
+    "date": "2024-07",
+    "event": "PE23C50095 - Ongoing care proceedings",
+    "type": "PROCEEDINGS",
+    "case": "PE23C50095"
+  },
+  {
+    "date": "2025-02-12",
+    "event": "Criminal investigation: Final NFA - insufficient evidence",
+    "type": "POLICE_OUTCOME",
+    "case": "CRIMINAL"
+  }
+]

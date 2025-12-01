@@ -1,0 +1,68 @@
+
+================================================================================
+SUBJECT ACCESS REQUEST
+HM COURTS & TRIBUNALS SERVICE
+================================================================================
+
+To: Data Protection Officer
+    HMCTS
+    102 Petty France
+    London
+    SW1H 9AJ
+    
+    Email: data.access@justice.gov.uk
+
+Date: 01 December 2025
+
+SUBJECT ACCESS REQUEST UNDER UK GDPR ARTICLE 15 AND DATA PROTECTION ACT 2018
+
+Dear Sir/Madam,
+
+I make this Subject Access Request for all personal data held about me.
+
+APPLICANT DETAILS
+-----------------
+Full Name: [YOUR FULL NAME]
+Date of Birth: [YOUR DOB]
+Address: [YOUR CURRENT ADDRESS]
+
+Court: Family Court at Peterborough
+Case Numbers:
+- PE23C50095
+- PE21P30644
+- PE22P31058
+- PE22P00090
+- PE23C50063
+- PE23P30344
+- CA-2024-001096
+
+INFORMATION REQUESTED
+---------------------
+I request all personal data including:
+
+1. CASE FILES
+   - All documents on the court file for each case
+   - All orders made (including draft orders)
+   - All directions
+
+2. ADMINISTRATIVE RECORDS
+   - All case management notes
+   - All listing notes
+   - Any judge's notes (where disclosable)
+
+3. CORRESPONDENCE
+   - All correspondence with parties
+   - All correspondence about the case
+
+4. AUDIO RECORDINGS
+   - All recordings of hearings (where made)
+
+5. APPEAL RECORDS
+   - All papers relating to CA-2024-001096
+
+Yours faithfully,
+
+[SIGNATURE]
+[PRINT NAME]
+
+================================================================================

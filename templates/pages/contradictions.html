@@ -1,0 +1,431 @@
+<!-- Contradictions Analysis Page -->
+<div x-data="contradictionsPage()" x-init="init()">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-display font-semibold text-white tracking-wide flex items-center gap-3">
+                <span class="material-symbols-outlined text-red-400">compare_arrows</span>
+                Contradiction Analysis
+            </h1>
+            <p class="text-xs font-mono text-gray-500 mt-1">
+                Cross-document inconsistency detection for Case 
+                <span x-text="$store.case.activeCase?.reference || 'N/A'" class="text-accent-brass"></span>
+            </p>
+        </div>
+        <div class="flex items-center gap-3">
+            <button 
+                @click="runAnalysis()" 
+                :disabled="loading"
+                class="flex items-center gap-2 px-4 py-2 bg-accent-brass/20 text-accent-brass rounded-lg border border-accent-brass/30 hover:bg-accent-brass/30 transition-all font-mono text-xs disabled:opacity-50"
+            >
+                <span class="material-symbols-outlined text-sm" :class="loading && 'animate-spin'">
+                    <template x-if="loading">sync</template>
+                    <template x-if="!loading">search</template>
+                </span>
+                <span x-text="loading ? 'Analyzing...' : 'Run Analysis'"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-5 gap-4 mb-6">
+        <!-- Total -->
+        <div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-gray-400">fact_check</span>
+                <span class="text-[9px] text-gray-500 font-mono uppercase">Total</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-white mb-1" x-text="report.total_contradictions || 0"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Contradictions</div>
+        </div>
+
+        <!-- Critical -->
+        <div class="bg-dark-800 rounded-xl p-4 border border-red-500/30" :class="(report.by_severity?.critical || 0) > 0 && 'glow-red'">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-red-400">error</span>
+                <span class="text-[9px] text-red-400 font-mono uppercase">Critical</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-red-400 mb-1" x-text="report.by_severity?.critical || 0"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Self-Contradictions</div>
+        </div>
+
+        <!-- High -->
+        <div class="bg-dark-800 rounded-xl p-4 border border-orange-500/30">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-orange-400">warning</span>
+                <span class="text-[9px] text-orange-400 font-mono uppercase">High</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-orange-400 mb-1" x-text="report.by_severity?.high || 0"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Severity</div>
+        </div>
+
+        <!-- Medium -->
+        <div class="bg-dark-800 rounded-xl p-4 border border-yellow-500/30">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-yellow-400">info</span>
+                <span class="text-[9px] text-yellow-400 font-mono uppercase">Medium</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-yellow-400 mb-1" x-text="report.by_severity?.medium || 0"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Severity</div>
+        </div>
+
+        <!-- Modality Shifts -->
+        <div class="bg-dark-800 rounded-xl p-4 border border-purple-500/30">
+            <div class="flex items-center justify-between mb-2">
+                <span class="material-symbols-outlined text-purple-400">transform</span>
+                <span class="text-[9px] text-purple-400 font-mono uppercase">Re B</span>
+            </div>
+            <div class="text-3xl font-bold font-mono text-purple-400 mb-1" x-text="report.by_type?.modality_shift || 0"></div>
+            <div class="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Modality Shifts</div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="bg-dark-800 rounded-xl p-4 mb-6 border border-dark-700 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-mono text-gray-500">Filter by type:</span>
+            <button 
+                @click="filter = 'all'" 
+                :class="filter === 'all' ? 'bg-accent-brass/20 text-accent-brass border-accent-brass/30' : 'text-gray-400 border-dark-600 hover:border-gray-500'"
+                class="px-3 py-1 rounded-lg border text-xs font-mono transition"
+            >All</button>
+            <button 
+                @click="filter = 'self_contradiction'" 
+                :class="filter === 'self_contradiction' ? 'bg-red-500/20 text-red-400 border-red-500/30' : 'text-gray-400 border-dark-600 hover:border-gray-500'"
+                class="px-3 py-1 rounded-lg border text-xs font-mono transition"
+            >Self-Contradictions</button>
+            <button 
+                @click="filter = 'modality_shift'" 
+                :class="filter === 'modality_shift' ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : 'text-gray-400 border-dark-600 hover:border-gray-500'"
+                class="px-3 py-1 rounded-lg border text-xs font-mono transition"
+            >Modality Shifts</button>
+            <button 
+                @click="filter = 'direct'" 
+                :class="filter === 'direct' ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' : 'text-gray-400 border-dark-600 hover:border-gray-500'"
+                class="px-3 py-1 rounded-lg border text-xs font-mono transition"
+            >Direct</button>
+            <button 
+                @click="filter = 'temporal'" 
+                :class="filter === 'temporal' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : 'text-gray-400 border-dark-600 hover:border-gray-500'"
+                class="px-3 py-1 rounded-lg border text-xs font-mono transition"
+            >Temporal</button>
+        </div>
+        <div class="text-xs font-mono text-gray-500">
+            Showing <span class="text-white" x-text="filteredContradictions.length"></span> of <span x-text="report.contradictions?.length || 0"></span>
+        </div>
+    </div>
+
+    <!-- Contradictions List -->
+    <div class="space-y-4">
+        <template x-if="!report.contradictions || report.contradictions.length === 0">
+            <div class="bg-dark-800 rounded-xl p-12 border border-dark-700 text-center">
+                <span class="material-symbols-outlined text-6xl text-gray-600 mb-4">search_off</span>
+                <h3 class="text-lg font-display text-white mb-2">No Contradictions Detected</h3>
+                <p class="text-sm text-gray-500 font-mono max-w-md mx-auto">
+                    Run the analysis to detect contradictions across documents, or no contradictions were found in the current claims.
+                </p>
+                <button 
+                    @click="runAnalysis()" 
+                    class="mt-4 px-6 py-2 bg-accent-brass/20 text-accent-brass rounded-lg border border-accent-brass/30 hover:bg-accent-brass/30 transition font-mono text-sm"
+                >
+                    Run Analysis Now
+                </button>
+            </div>
+        </template>
+
+        <template x-for="c in filteredContradictions" :key="c.id">
+            <div 
+                class="bg-dark-800 rounded-xl border overflow-hidden transition-all"
+                :class="{
+                    'border-red-500/50': c.severity === 'critical',
+                    'border-orange-500/30': c.severity === 'high',
+                    'border-yellow-500/30': c.severity === 'medium',
+                    'border-dark-700': c.severity === 'low'
+                }"
+            >
+                <!-- Header -->
+                <div 
+                    class="p-4 flex items-center justify-between cursor-pointer hover:bg-dark-700/30 transition"
+                    @click="toggleExpanded(c.id)"
+                >
+                    <div class="flex items-center gap-4">
+                        <!-- Severity Badge -->
+                        <div 
+                            class="w-10 h-10 rounded-lg flex items-center justify-center"
+                            :class="{
+                                'bg-red-500/20': c.severity === 'critical',
+                                'bg-orange-500/20': c.severity === 'high',
+                                'bg-yellow-500/20': c.severity === 'medium',
+                                'bg-gray-500/20': c.severity === 'low'
+                            }"
+                        >
+                            <span 
+                                class="material-symbols-outlined text-xl"
+                                :class="{
+                                    'text-red-400': c.severity === 'critical',
+                                    'text-orange-400': c.severity === 'high',
+                                    'text-yellow-400': c.severity === 'medium',
+                                    'text-gray-400': c.severity === 'low'
+                                }"
+                            >
+                                <template x-if="c.severity === 'critical'">error</template>
+                                <template x-if="c.severity === 'high'">warning</template>
+                                <template x-if="c.severity === 'medium'">info</template>
+                                <template x-if="c.severity === 'low'">help</template>
+                            </span>
+                        </div>
+                        
+                        <!-- Type & Description -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span 
+                                    class="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                                    :class="{
+                                        'bg-red-500/20 text-red-400': c.type === 'self_contradiction',
+                                        'bg-purple-500/20 text-purple-400': c.type === 'modality_shift',
+                                        'bg-orange-500/20 text-orange-400': c.type === 'direct',
+                                        'bg-blue-500/20 text-blue-400': c.type === 'temporal',
+                                        'bg-green-500/20 text-green-400': c.type === 'value',
+                                        'bg-cyan-500/20 text-cyan-400': c.type === 'attribution'
+                                    }"
+                                    x-text="formatType(c.type)"
+                                ></span>
+                                <template x-if="c.same_author">
+                                    <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-red-500/30 text-red-300">
+                                        Same Author
+                                    </span>
+                                </template>
+                            </div>
+                            <p class="text-sm text-gray-300" x-text="c.explanation"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Confidence & Expand -->
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <div class="text-xs font-mono text-gray-500">Confidence</div>
+                            <div class="text-sm font-mono text-white" x-text="(c.confidence * 100).toFixed(0) + '%'"></div>
+                        </div>
+                        <span 
+                            class="material-symbols-outlined text-gray-400 transition-transform"
+                            :class="expanded.includes(c.id) && 'rotate-180'"
+                        >expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Expanded Details -->
+                <template x-if="expanded.includes(c.id)">
+                    <div class="border-t border-dark-700">
+                        <!-- Side-by-Side Quotes -->
+                        <div class="grid grid-cols-2 divide-x divide-dark-700">
+                            <!-- Claim A -->
+                            <div class="p-4">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="w-6 h-6 rounded bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">A</span>
+                                    <span class="text-xs font-mono text-gray-500">Source: <span class="text-gray-300" x-text="c.claim_a?.source || 'Unknown'"></span></span>
+                                </div>
+                                <template x-if="c.claim_a?.author">
+                                    <p class="text-[10px] font-mono text-gray-500 mb-2">
+                                        By: <span class="text-accent-brass" x-text="c.claim_a.author"></span>
+                                        <template x-if="c.claim_a?.date">
+                                            · <span x-text="c.claim_a.date"></span>
+                                        </template>
+                                    </p>
+                                </template>
+                                <blockquote class="text-sm text-gray-200 italic border-l-2 border-blue-500/50 pl-3 py-1 bg-blue-500/5 rounded-r">
+                                    "<span x-text="c.claim_a?.text || 'No text available'"></span>"
+                                </blockquote>
+                            </div>
+                            
+                            <!-- Claim B -->
+                            <div class="p-4">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="w-6 h-6 rounded bg-orange-500/20 text-orange-400 flex items-center justify-center text-xs font-bold">B</span>
+                                    <span class="text-xs font-mono text-gray-500">Source: <span class="text-gray-300" x-text="c.claim_b?.source || 'Unknown'"></span></span>
+                                </div>
+                                <template x-if="c.claim_b?.author">
+                                    <p class="text-[10px] font-mono text-gray-500 mb-2">
+                                        By: <span class="text-accent-brass" x-text="c.claim_b.author"></span>
+                                        <template x-if="c.claim_b?.date">
+                                            · <span x-text="c.claim_b.date"></span>
+                                        </template>
+                                    </p>
+                                </template>
+                                <blockquote class="text-sm text-gray-200 italic border-l-2 border-orange-500/50 pl-3 py-1 bg-orange-500/5 rounded-r">
+                                    "<span x-text="c.claim_b?.text || 'No text available'"></span>"
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <!-- Legal Significance -->
+                        <template x-if="c.legal_significance || c.case_law_reference">
+                            <div class="p-4 bg-dark-900/50 border-t border-dark-700">
+                                <div class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-accent-brass">gavel</span>
+                                    <div>
+                                        <template x-if="c.case_law_reference">
+                                            <p class="text-xs font-mono text-accent-brass mb-1" x-text="c.case_law_reference"></p>
+                                        </template>
+                                        <p class="text-sm text-gray-300" x-text="c.legal_significance"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Recommended Action -->
+                        <template x-if="c.recommended_action">
+                            <div class="p-4 bg-accent-brass/5 border-t border-accent-brass/20">
+                                <div class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-accent-brass">lightbulb</span>
+                                    <div>
+                                        <p class="text-xs font-mono text-accent-brass mb-1">RECOMMENDED ACTION</p>
+                                        <p class="text-sm text-gray-300" x-text="c.recommended_action"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Metrics -->
+                        <div class="p-4 border-t border-dark-700 flex items-center gap-6">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-mono text-gray-500">Semantic Similarity:</span>
+                                <div class="w-24 h-2 bg-dark-600 rounded-full overflow-hidden">
+                                    <div 
+                                        class="h-full bg-accent-brass rounded-full"
+                                        :style="'width:' + (c.semantic_similarity * 100) + '%'"
+                                    ></div>
+                                </div>
+                                <span class="text-xs font-mono text-white" x-text="(c.semantic_similarity * 100).toFixed(0) + '%'"></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-mono text-gray-500">Detection:</span>
+                                <span class="text-xs font-mono text-gray-300" x-text="c.detection_method || 'N/A'"></span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+
+    <!-- Legal Context Footer -->
+    <div class="mt-8 bg-dark-800/50 rounded-xl p-6 border border-dark-700">
+        <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-2xl text-accent-brass">balance</span>
+            <div>
+                <h3 class="font-display text-lg text-white mb-2">Understanding Contradiction Analysis</h3>
+                <p class="text-sm text-gray-400 mb-3">
+                    This analysis identifies inconsistencies that may be relevant to evidential reliability. 
+                    Contradictions are not proof of falsehood—they require contextual evaluation.
+                </p>
+                <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                    <div>
+                        <span class="text-red-400">Self-Contradiction:</span>
+                        <span class="text-gray-400">Same author making inconsistent statements (Lucas direction applies)</span>
+                    </div>
+                    <div>
+                        <span class="text-purple-400">Modality Shift:</span>
+                        <span class="text-gray-400">Allegations treated as facts without proof (Re B [2008])</span>
+                    </div>
+                    <div>
+                        <span class="text-orange-400">Direct:</span>
+                        <span class="text-gray-400">Different accounts of the same event or fact</span>
+                    </div>
+                    <div>
+                        <span class="text-blue-400">Temporal:</span>
+                        <span class="text-gray-400">Events that cannot both be true given timeline</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function contradictionsPage() {
+    return {
+        loading: false,
+        report: {},
+        filter: 'all',
+        expanded: [],
+        
+        async init() {
+            await this.loadContradictions();
+        },
+        
+        async loadContradictions() {
+            const caseId = Alpine.store('case').activeCase?.id;
+            if (!caseId) return;
+            
+            try {
+                const response = await fetch(`/api/cases/${caseId}/contradictions`);
+                if (response.ok) {
+                    this.report = await response.json();
+                }
+            } catch (error) {
+                console.error('Failed to load contradictions:', error);
+            }
+        },
+        
+        async runAnalysis() {
+            const caseId = Alpine.store('case').activeCase?.id;
+            if (!caseId) {
+                alert('No active case selected');
+                return;
+            }
+            
+            this.loading = true;
+            try {
+                const response = await fetch(`/api/cases/${caseId}/contradictions?refresh=true`);
+                if (response.ok) {
+                    this.report = await response.json();
+                } else {
+                    const error = await response.json();
+                    alert('Analysis failed: ' + (error.detail || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Analysis failed:', error);
+                alert('Analysis failed: ' + error.message);
+            } finally {
+                this.loading = false;
+            }
+        },
+        
+        get filteredContradictions() {
+            if (!this.report.contradictions) return [];
+            if (this.filter === 'all') return this.report.contradictions;
+            return this.report.contradictions.filter(c => c.type === this.filter);
+        },
+        
+        toggleExpanded(id) {
+            const idx = this.expanded.indexOf(id);
+            if (idx === -1) {
+                this.expanded.push(id);
+            } else {
+                this.expanded.splice(idx, 1);
+            }
+        },
+        
+        formatType(type) {
+            const map = {
+                'self_contradiction': 'Self-Contradiction',
+                'modality_shift': 'Modality Shift',
+                'direct': 'Direct',
+                'temporal': 'Temporal',
+                'value': 'Value',
+                'attribution': 'Attribution',
+                'quotation': 'Quotation',
+                'omission': 'Omission'
+            };
+            return map[type] || type;
+        }
+    };
+}
+</script>
+
+<style>
+.glow-red {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+}
+</style>
+

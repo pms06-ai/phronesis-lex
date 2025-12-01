@@ -1,0 +1,592 @@
+{
+  "generated": "2025-12-01T07:10:11.673996",
+  "case_id": "PE23C50095",
+  "title": "True Contradictions - Legal Documents & Emails Only",
+  "description": "Analysis limited to official court documents, position statements, and email correspondence",
+  "total_claims_analyzed": 2089,
+  "document_types_included": [
+    "court_order",
+    "court_application_c2",
+    "court_application_c100",
+    "position_statement",
+    "witness_statement",
+    "skeleton_argument",
+    "cafcass_report",
+    "social_work_report",
+    "email_correspondence",
+    "police_report",
+    "POLICE_DISCLOSURE",
+    "legislation",
+    "bundle_index",
+    "expert_report"
+  ],
+  "contradictions": [
+    {
+      "id": "conspiracy_involvement",
+      "topic": "Conspiracy to Murder - Knowledge/Involvement",
+      "description": "Whether Samantha and Paul Stephen knew about or were involved in the murder plan",
+      "significance": "CRITICAL",
+      "legal_basis": "Criminal law - conspiracy to murder; R v Gnango [2011]",
+      "positive_claims": [
+        {
+          "text": "Mrs Stephen was working together with Mr Alderton throughout the Private Law proceedings and encouraged his animosity towards Mr Dunmore.",
+          "source": "The Elephant In The Courtroom.docx",
+          "category": "social_work_report"
+        },
+        {
+          "text": "SS (Samantha) and PS conspired or encouraged/assisted SA to murder JD and GD",
+          "source": "police update (AutoRecovered).docx",
+          "category": "police_report"
+        },
+        {
+          "text": "working hypothesis that Samantha and/or Paul Stephen were aware of and indeed involved in the planning and preparation or encouragement of the offences under investigation.",
+          "source": "katie denunes 20082024 v1-c.pdf",
+          "category": "police_report"
+        },
+        {
+          "text": "These Reports contain key extracts of material located on the downloads and assisted with the interviews of Stephen ALDERTON, Samantha STEPHEN, Paul STEPHEN, 2 Third parties",
+          "source": "schedule of docs .docx",
+          "category": "social_work_report"
+        },
+        {
+          "text": "Our case is that SS (Samantha) and PS conspired or encouraged/assisted SA to murder JD and GD",
+          "source": "police emails.pdf",
+          "category": "email_correspondence"
+        }
+      ],
+      "negative_claims": [
+        {
+          "text": "I did not conspire uh, with my father, my husband um, or any other persons to murder um, Joshua DUNMORE or Gary DUNMORE.",
+          "source": "SJS POLICE INTERVIEWS.pdf",
+          "category": "police_report"
+        },
+        {
+          "text": "I did not conspire uh, with my father, my husband um, or any other persons to murder um, Joshua DUNMORE or Gary DUNMORE.",
+          "source": "SJS-Police_interrogations.pdf",
+          "category": "police_report"
+        },
+        {
+          "text": "The crimes are alleged, and we have had no involvement in the murders.",
+          "source": "Response to LA Connect Person Report.docx",
+          "category": "expert_report"
+        }
+      ],
+      "positive_count": 17,
+      "negative_count": 3,
+      "is_contradiction": true
+    },
+    {
+      "id": "threshold_criteria",
+      "topic": "Section 31 Threshold Criteria",
+      "description": "Whether the threshold for significant harm under Children Act 1989 s.31 is met",
+      "significance": "HIGH",
+      "legal_basis": "Children Act 1989 s.31; Re B (Care Proceedings: Threshold Criteria) [2013]",
+      "positive_claims": [
+        {
+          "text": "Freya did not suffer significant harm in the same way. She did not lose a parent... She was exposed to the animosity... She has been separated from her brother... she was suffering significant emotional harm.",
+          "source": "September 23 2024.docx",
+          "category": "legislation"
+        },
+        {
+          "text": "Both children were caused significant harm by the above animosity which culminated in the death of Ryan’s father and paternal grandfather",
+          "source": "February 26 2024.docx",
+          "category": "social_work_report"
+        },
+        {
+          "text": "At the relevant date (8th June 2023) the children were suffering, and were likely to suffer, significant harm attributable to parental care.",
+          "source": "CA-2024-001096 SEALED ORDER.pdf",
+          "category": "court_order"
+        },
+        {
+          "text": "Both children were caused significant harm by the above animosity, which culminated in the death of R’s father and paternal grandfather, the imprisonment of the grandfather and the arrest of the parents.",
+          "source": "CA-2024-001096 SEALED ORDER.pdf",
+          "category": "court_order"
+        },
+        {
+          "text": "Ryan and Freya both experienced significant harm in the care of Mr and Mrs Stephen. The children were exposed to the animosity displayed towards Mr Dunmore... which culminated in the murders of Joshua and Gary Dunmore.",
+          "source": "The Elephant In The Courtroom.docx",
+          "category": "social_work_report"
+        }
+      ],
+      "negative_claims": [],
+      "positive_count": 34,
+      "negative_count": 0,
+      "is_contradiction": false
+    },
+    {
+      "id": "parenting_capacity",
+      "topic": "Parenting Capacity Assessment",
+      "description": "Assessments of whether mother/stepfather can safely parent the children",
+      "significance": "HIGH",
+      "legal_basis": "Children Act 1989 s.1 welfare checklist",
+      "positive_claims": [
+        {
+          "text": "At the relevant date (8th June 2023) the children were suffering, and were likely to suffer, significant harm attributable to parental care.",
+          "source": "CA-2024-001096 SEALED ORDER.pdf",
+          "category": "court_order"
+        },
+        {
+          "text": "At this time family members are not appropriate carers until such time all involvement has been confirmed.",
+          "source": "Record of Strategy Discussions.pdf",
+          "category": "social_work_report"
+        },
+        {
+          "text": "At this time family members are not appropriate carers until such time all involvement has been confirmed.",
+          "source": "31 March local authority.pdf",
+          "category": "legislation"
+        }
+      ],
+      "negative_claims": [
+        {
+          "text": "I feel that this could potentially lead to neglect and isolation if they are relying on Ryan to care for himself.",
+          "source": "Position Statement - P Stephen-sam's draft June 2023.pdf",
+          "category": "position_statement"
+        },
+        {
+          "text": "The Local Authority has failed to provide evidence that Samantha and I harmed the children; they appear to be so desperate to find a way to support their claims that they have in turn neglected their actual purpose.",
+          "source": "paul's Notebook.pdf",
+          "category": "legislation"
+        },
+        {
+          "text": "Mr Dunmore neglected to take care of Ryan... Ryan returned from his father’s with bad sunburn.",
+          "source": "sams court stuff.docx",
+          "category": "court_order"
+        },
+        {
+          "text": "Our grandson is neglected when in the fathers care.",
+          "source": "Record of Strategy Discussions.docx",
+          "category": "social_work_report"
+        },
+        {
+          "text": "Our grandson is neglected when in the father's care. We are worried the incidents of harm could become more serious.",
+          "source": "31 March local authority.pdf",
+          "category": "legislation"
+        }
+      ],
+      "positive_count": 3,
+      "negative_count": 9,
+      "is_contradiction": true
+    },
+    {
+      "id": "credibility",
+      "topic": "Witness Credibility",
+      "description": "Assessments of whether the parents' accounts are credible",
+      "significance": "HIGH",
+      "legal_basis": "Lucas direction - R v Lucas [1981]",
+      "positive_claims": [
+        {
+          "text": "Both mother and Mr Stephen said Ryan was doing this spontaneously. This is not credible.",
+          "source": "Submissions.docx",
+          "category": "social_work_report"
+        },
+        {
+          "text": "the risk of psychological absence of the mother; an inability to provide the children with a truthful account of what has happened in their lives; an inability to recognise having done anything wrong; an inability to suppress negative feelings about Ryan’s paternal family",
+          "source": "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf",
+          "category": "position_statement"
+        }
+      ],
+      "negative_claims": [
+        {
+          "text": "The Mother knew that the Maternal Grandfather had applied for a shotgun licence in October 2022",
+          "source": "Threshold Schedule refs.docx",
+          "category": "social_work_report"
+        },
+        {
+          "text": "Both mother and Mr Stephen said Ryan was doing this spontaneously. This is not credible.",
+          "source": "Submissions.docx",
+          "category": "social_work_report"
+        }
+      ],
+      "positive_count": 2,
+      "negative_count": 2,
+      "is_contradiction": true
+    },
+    {
+      "id": "contact_recommendation",
+      "topic": "Contact Recommendation",
+      "description": "Whether contact between children and parents should continue",
+      "significance": "HIGH",
+      "legal_basis": "Children Act 1989 s.1(2A); Re C (Direct Contact: Suspension) [2011]",
+      "positive_claims": [],
+      "negative_claims": [
+        {
+          "text": "alleged that Joshua has had no contact with Ryan",
+          "source": "Solicitor Threat - 18 August 2021 (2).pdf",
+          "category": "court_order"
+        },
+        {
+          "text": "Communications data, received thus far, showed no contact between the suspects post offence",
+          "source": "Letter from DI Mark Butler Cambridgeshire Police (03.04.2023).pdf",
+          "category": "police_report"
+        },
+        {
+          "text": "it is alleged that Joshua has had no contact with Ryan",
+          "source": "31.08.21 - Reply to LA.pdf",
+          "category": "court_order"
+        },
+        {
+          "text": "At no point was the previous pattern of contact refused. Messages prove it was always agreed.",
+          "source": "Second Position Statement (Comments) - Feb 2021.docx",
+          "category": "position_statement"
+        },
+        {
+          "text": "No contact was agreed for the Easter Holidays",
+          "source": "Email - 06.04.22 Easter Dad.pdf",
+          "category": "email_correspondence"
+        }
+      ],
+      "positive_count": 0,
+      "negative_count": 5,
+      "is_contradiction": false
+    }
+  ],
+  "summary": {
+    "conspiracy_involvement": {
+      "topic": "Conspiracy to Murder - Knowledge/Involvement",
+      "positive": 17,
+      "negative": 3,
+      "significance": "CRITICAL",
+      "is_contradiction": true
+    },
+    "threshold_criteria": {
+      "topic": "Section 31 Threshold Criteria",
+      "positive": 34,
+      "negative": 0,
+      "significance": "HIGH",
+      "is_contradiction": false
+    },
+    "parenting_capacity": {
+      "topic": "Parenting Capacity Assessment",
+      "positive": 3,
+      "negative": 9,
+      "significance": "HIGH",
+      "is_contradiction": true
+    },
+    "credibility": {
+      "topic": "Witness Credibility",
+      "positive": 2,
+      "negative": 2,
+      "significance": "HIGH",
+      "is_contradiction": true
+    },
+    "contact_recommendation": {
+      "topic": "Contact Recommendation",
+      "positive": 0,
+      "negative": 5,
+      "significance": "HIGH",
+      "is_contradiction": false
+    }
+  },
+  "source_consistency": [
+    {
+      "source": "paul_stephen",
+      "total_claims": 139,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "Both children were caused significant harm by the above animosity which culminated in the death of Ryan’s father and paternal grandfather",
+            "The mother’s relationship with Paul Stephen was volatile and controlling which meant that both children were at risk of being exposed to arguments and instability",
+            "Ryan was at risk of further harm as was in great need of emotional support... and the Mother and Paul Stephen, due to their animosity towards the father, was unable to provide him with this."
+          ],
+          "negative_examples": [
+            "SSgt Stephen is not able to perform any aircraft maintenance duties for the sake of his well being and squadron safety."
+          ],
+          "pos_count": 3,
+          "neg_count": 1
+        },
+        {
+          "topic": "credibility",
+          "positive_examples": [
+            "Both mother and Mr Stephen said Ryan was doing this spontaneously. This is not credible.",
+            "Ryan... he's so smart to be honest he's so intelligent... autism... broad the spectrum truly is"
+          ],
+          "negative_examples": [
+            "Both mother and Mr Stephen said Ryan was doing this spontaneously. This is not credible.",
+            "many of the directions made on 15th December 2023 had not been complied with.",
+            "SSgt Stephen’s assignment is not optional to the member and must be complied with in accordance with military regulations and his contract."
+          ],
+          "pos_count": 2,
+          "neg_count": 3
+        }
+      ]
+    },
+    {
+      "source": "unknown",
+      "total_claims": 232,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "Freya did not suffer significant harm in the same way. She did not lose a parent... She was exposed to the animosity... She has been separated from her brother... she was suffering significant emotion",
+            "putting him on a motocross bike, when he cannot manage to ride a pedal bike could seriously put Ryan at risk of harm and injury.",
+            "These concerns indicate an understandable (if inadvisable) level of acrimony... however, do not currently amount to significant harm or inability to meet Ryan’s needs to a good enough standard."
+          ],
+          "negative_examples": [
+            "The child protection system became over-bureaucratised and focused on compliance rather than valuing and developing professional expertise focused on child safety and welfare.",
+            "it would not be safe for Freya to return to the care of her parents at this stage.",
+            "There are no current safeguarding concerns fhat would suggest that Ryan is not safe in the care of his father"
+          ],
+          "pos_count": 8,
+          "neg_count": 8
+        },
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "Ryan is a very capable writer... Ryan is a very able mathematician who loves to be challenged.",
+            "Ryan thoroughly enjoys maths... However, Ryan will often rush through his work. Resulting in lower quality work than he is capable of.",
+            "Supervisor noted: 'doesn't feel that it will ever be appropriate for Ryan to be discharged'"
+          ],
+          "negative_examples": [
+            "Dr Hunnisett was unable to make firm recommendations in respect of Freya.",
+            "There is and cannot be any ongoing dispute between Ryan’s parents.",
+            "If Ryan was unable to relocate with the rest of his family unit... It would be such a significant change that Ryan would not be able to comprehend it."
+          ],
+          "pos_count": 5,
+          "neg_count": 13
+        }
+      ]
+    },
+    {
+      "source": "cafcass",
+      "total_claims": 178,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "pending findings of fact, there are reasonable grounds for believing that the children would be at risk of significant emotional harm if placed in their care.",
+            "The issues before the Court are whether the children have suffered, or were at risk of suffering, significant harm as a result of the alleged conspiracy to commit murder.",
+            "Ryan was going to be harmed by more interviews with Cafcass."
+          ],
+          "negative_examples": [
+            "As a family we have had multiple reports from Cafcass stating that there are no safeguarding concerns.",
+            "There have been no concerns for Ryan's safety identified.",
+            "There have been no concerns for Ryan's safety identified."
+          ],
+          "pos_count": 3,
+          "neg_count": 7
+        }
+      ]
+    },
+    {
+      "source": "local_authority",
+      "total_claims": 282,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "Both children were caused significant harm by the above animosity which culminated in the death of Ryan’s father and paternal grandfather",
+            "The Local Authority has failed to provide evidence that Samantha and I harmed the children; they appear to be so desperate to find a way to support their claims that they have in turn neglected their ",
+            "At the relevant date (8th June 2023 when these proceedings were commenced) the children had suffered, and were likely to suffer, significant harm attributable to the care given and likely to be given "
+          ],
+          "negative_examples": [
+            "Both assessments identified no concerns regarding either parents’ ability to safely care for their child.",
+            "Both assessments identified no concerns regarding either parents’ ability to safely care for their child.",
+            "no concerns were identified for Lyla’s care during this time nor were there any concerns raised regarding Mr and Mrs Stephens relationship or emotional capacity."
+          ],
+          "pos_count": 16,
+          "neg_count": 10
+        },
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "At paragraph 8 of the threshold document the LA alleges that mother had failed to arrange any appropriate therapy or counselling whereas this is at odds with its own evidence",
+            "Following Ryan’s bereavement, the mother failed to send him to school or to arrange any appropriate therapy or counselling for him",
+            "The mother knew, or should have known, that his attitude to the Dunmores was inappropriate, malign, and becoming dangerous"
+          ],
+          "negative_examples": [
+            "Significantly, the local authority does not adequately set out the positives for Freya of being with her family and the risks of permanent separation.",
+            "the Local Authority cannot establish a causal link between his behaviour and the killings",
+            "Ryan cannot yet understand what he has read and cannot access many other language-based learning experiences."
+          ],
+          "pos_count": 13,
+          "neg_count": 31
+        },
+        {
+          "topic": "credibility",
+          "positive_examples": [
+            "Ms Seamark, does not provide honest and truthful updates about how Ryan is doing. They very much contradict Dr Hunnisett’s assessment"
+          ],
+          "negative_examples": [
+            "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+            "The Mother knew that the Maternal Grandfather had applied for a shotgun licence in October 2022",
+            "Order(s) applied for: Withdraw care proceedings"
+          ],
+          "pos_count": 1,
+          "neg_count": 4
+        }
+      ]
+    },
+    {
+      "source": "court",
+      "total_claims": 353,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "At the relevant date (8th June 2023) the children were suffering, and were likely to suffer, significant harm attributable to parental care.",
+            "Both children were caused significant harm by the above animosity, which culminated in the death of R’s father and paternal grandfather, the imprisonment of the grandfather and the arrest of the paren",
+            "Ryan and Freya both experienced significant harm in the care of Mr and Mrs Stephen. The children were exposed to the animosity displayed towards Mr Dunmore... which culminated in the murders of Joshua"
+          ],
+          "negative_examples": [
+            "Safeguarding concerns were raised and reported to the NSPCC April 2017... Ryan would frequently return home with soiled nappies, and an alarming number of bruises",
+            "Given the lack of safeguarding concerns, and the shared belief of the parties that spending time with the father is beneficial to the child, I think it very likely that a court would allow for there t"
+          ],
+          "pos_count": 7,
+          "neg_count": 2
+        },
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "Following R’s bereavement the mother failed to send him to school or to arrange any appropriate therapy or counselling for him or to explain to him that his father and grandfather had died and this in",
+            "Ms Seamark... clearly lacks the mental capacity to care for children at this current time... She is also physically incapable of tending to the needs of the children.",
+            "THE MOBILE PHONE SHE GAVE RYAN ALLOWS RYAN TO ACCESS INAPPROPRIATE CONTENT"
+          ],
+          "negative_examples": [
+            "Mr Stephen cannot be found to have been, “planning to move to the US with both children without the consent of the court” on the basis of these searches conducted by the mother.",
+            "Family courts had 'at times failed to understand the risks they knew about. At other times, there had been inadequate investigation of the history of those concerned.'",
+            "The mother had encouraged the grandfather’s animosity towards R’s father and knew or should have known that he posed a serious risk to R’s father."
+          ],
+          "pos_count": 5,
+          "neg_count": 19
+        }
+      ]
+    },
+    {
+      "source": "samantha_stephen",
+      "total_claims": 235,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "Samantha did not agree that the children had been exposed to significant harm as a result of her own actions.",
+            "Ryan and Freya were both exposed to significant harm in the care of Samantha and Paul, firstly by being exposed to extreme levels of parental acrimony... and then subsequently due to the actions of St",
+            "Mr and Mrs Stephen caused the children significant harm"
+          ],
+          "negative_examples": [
+            "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ryan.",
+            "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ryan.",
+            "recommended no further role for Children’s Services. The assessment did not highlight any safeguarding concerns regarding Mr and Mrs Stephen’s care of Ryan and his sibling."
+          ],
+          "pos_count": 8,
+          "neg_count": 12
+        },
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "I would never in my life ever think he would ever be capable of what he's done and... yeah I could never ever forgive him"
+          ],
+          "negative_examples": [
+            "ACRO cannot be held liable for any costs associated with any failure to meet such plans or losses incurred should there be a delay with your certificate.",
+            "Mrs Stephen is concerned that Mandy’s ongoing arm impairment would make her unable to care for Ryan safely.",
+            "Sadly, I am unable to recommend a return home for either Ryan or Freya at this stage."
+          ],
+          "pos_count": 1,
+          "neg_count": 6
+        },
+        {
+          "topic": "credibility",
+          "positive_examples": [
+            "Her descriptions of her positive relationship with her father as a child appeared scripted, and not credible.",
+            "Her descriptions of her positive relationship with her father as a child appeared scripted, and not credible."
+          ],
+          "negative_examples": [
+            "Her descriptions of her positive relationship with her father as a child appeared scripted, and not credible.",
+            "Her descriptions of her positive relationship with her father as a child appeared scripted, and not credible."
+          ],
+          "pos_count": 2,
+          "neg_count": 2
+        }
+      ]
+    },
+    {
+      "source": "police",
+      "total_claims": 205,
+      "inconsistencies": [
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "any unlawful, unnecessary or inappropriate contact between the suspect in a case... and the victim or witness, may constitute a criminal offence."
+          ],
+          "negative_examples": [
+            "NVC cannot schedule your visa interview until your supporting documentation is complete.",
+            "ADHD is associated with a high risk for early mortality in childhood or by midlife and eventually, should they survive into later life, a shortened life expectancy.",
+            "ADHD has a more adverse effect on life expectancy than any single adverse health event noted above [smoking, obesity, alcohol use], and on which insurers, governments, and individuals spend billions o"
+          ],
+          "pos_count": 1,
+          "neg_count": 7
+        }
+      ]
+    },
+    {
+      "source": "correspondence",
+      "total_claims": 256,
+      "inconsistencies": [
+        {
+          "topic": "credibility",
+          "positive_examples": [
+            "Honestly you might be better to get a taxi from the taxi rank at London King Cross when you get off the train... Then it’s 35mins, 4.2 miles to the Embassy at Nine Elms."
+          ],
+          "negative_examples": [
+            "Because this is the one we previously applied on... So weird that he was able to and we got dismissed",
+            "contact as per Week 1 and Week 2 is being applied"
+          ],
+          "pos_count": 1,
+          "neg_count": 2
+        }
+      ]
+    },
+    {
+      "source": "mandy_seamark",
+      "total_claims": 48,
+      "inconsistencies": [
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "agreed that it was not appropriate for the carer/PGM to undertake any transport to or from each session due to animosities between family members.",
+            "Wrong clothing; no warm clothes in winter (no hats, no gloves, no scarves), no spare school clothes, no school uniform, lack of appropriate school bag (too small)."
+          ],
+          "negative_examples": [
+            "Ms Seamark does not believe there is significant risk of this [Ryan being exposed to information] as Ryan has 1-to-1 support in school due to his additional needs and is never without his support adul",
+            "Lack of parenting skills Is another key indicator of potentially neglectful situations.",
+            "Physically unable to keep hi safe"
+          ],
+          "pos_count": 2,
+          "neg_count": 3
+        }
+      ]
+    },
+    {
+      "source": "party_submission",
+      "total_claims": 161,
+      "inconsistencies": [
+        {
+          "topic": "harm",
+          "positive_examples": [
+            "Ryan and Freya have endured significant harm after being removed from our care, the impact to the children has been catastrophic."
+          ],
+          "negative_examples": [
+            "Up until a week ago there were no concerns about our care",
+            "It is recorded that both Freya and Ryan are happy in our care, and that there are no concerns regarding basic care provide to our children."
+          ],
+          "pos_count": 1,
+          "neg_count": 2
+        },
+        {
+          "topic": "parenting",
+          "positive_examples": [
+            "I acknowledge that as a result of the traumatic incident that took place in march of last year, it has rendered me incapable of fulfilling my role as an NCO in the Aircraft maintenance career field",
+            "I have been fully capable of meeting both children’s needs, my ability to care for my children has never been questioned."
+          ],
+          "negative_examples": [
+            "I feel that this could potentially lead to neglect and isolation if they are relying on Ryan to care for himself.",
+            "He is unable to perform any duties that pertain to his career field or in general. He has not been able to perform any AFSC related duties in 10 months.",
+            "He cannot perform any aircraft maintenance duties or roles relevant to his AFSC as doing so would be dangerous for both him and the Squadron."
+          ],
+          "pos_count": 2,
+          "neg_count": 9
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,572 @@
+{
+  "generated_at": "2025-12-01T01:48:52.146259",
+  "case_reference": "PE23C50095",
+  "case_title": "JFD vs SJS Family Proceedings",
+  "summary": {
+    "total_documents": 566,
+    "total_claims": 3539,
+    "total_entities": 33,
+    "cases_tracked": 7,
+    "professionals_identified": 7,
+    "critical_finding_categories": 5
+  },
+  "cases": [
+    {
+      "reference": "PE23C50095",
+      "title": "JFD vs SJS Family Proceedings",
+      "status": "active"
+    },
+    {
+      "reference": "PE21P30644",
+      "title": "Private Law Proceedings - Dunmore v Stephen (2021)",
+      "status": "concluded"
+    },
+    {
+      "reference": "PE22P00090",
+      "title": "Private Law Proceedings - Cambridge (May 2022)",
+      "status": "concluded"
+    },
+    {
+      "reference": "PE22P31058",
+      "title": "Private Law Proceedings (2022)",
+      "status": "concluded"
+    },
+    {
+      "reference": "PE23C50063",
+      "title": "Care Proceedings - Former Application (2023)",
+      "status": "withdrawn/concluded"
+    },
+    {
+      "reference": "PE23P30344",
+      "title": "Private Law Proceedings (2023)",
+      "status": "active"
+    },
+    {
+      "reference": "CA-2024-001096",
+      "title": "Court of Appeal - D-S (Children)",
+      "status": "refused"
+    }
+  ],
+  "cross_reference_timeline": [
+    {
+      "date": "2021",
+      "event": "PE21P30644 - Original private law proceedings",
+      "type": "PROCEEDINGS",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2022",
+      "event": "PE22P31058 - Peterborough proceedings",
+      "type": "PROCEEDINGS",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2022-04",
+      "event": "Stephen Alderton texts \"Panama\"",
+      "type": "PREMEDITATION",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2022-05",
+      "event": "PE22P00090 - Cambridge proceedings",
+      "type": "PROCEEDINGS",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2022-06",
+      "event": "Alderton texts \"Plan B\", \"Independence Day\"",
+      "type": "PREMEDITATION",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023",
+      "event": "PE23P30344 - New private law (Seamark)",
+      "type": "PROCEEDINGS",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2023-03-27",
+      "event": "Family Court - CAFCASS: Child NOT to leave UK",
+      "type": "COURT",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023-03-29",
+      "event": "MURDERS: Joshua & Gary Dunmore killed",
+      "type": "CRIME",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023-03-30",
+      "event": "Paul & Samantha arrested (conspiracy)",
+      "type": "ARREST",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023-03-31",
+      "event": "Released NFA",
+      "type": "POLICE",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023-04",
+      "event": "PE23C50063 - Initial care application",
+      "type": "CARE",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2023-05-12",
+      "event": "Suspect status reinstated",
+      "type": "POLICE",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023-06-07",
+      "event": "Re-arrested, \"no comment\" interviews",
+      "type": "ARREST",
+      "source": "MURDER_INVESTIGATION"
+    },
+    {
+      "date": "2023-06-09",
+      "event": "PE23C50095 - Urgent ICO hearing",
+      "type": "CARE",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2024",
+      "event": "CA-2024-001096 - Appeal refused",
+      "type": "APPEAL",
+      "source": "FAMILY_COURT"
+    },
+    {
+      "date": "2025-02-12",
+      "event": "Final NFA - insufficient evidence",
+      "type": "POLICE",
+      "source": "MURDER_INVESTIGATION"
+    }
+  ],
+  "claims_by_topic": {
+    "CUSTODY": {
+      "count": 321,
+      "examples": [
+        "Patient is currently Space A, as he been receiving the care he needs off base",
+        "Father seeks the return of Freya to the care of her parents enabling her to enjoy a family life with",
+        "The notes of these contacts are positive in respect of the parents’ emotional and practical care of ",
+        "the UK healthcare system is somewhat failing Ryan and other children with autism... The NHS provides",
+        "Here in the UK ABA therapy is not funded through the NHS... In the US Ryan will be eligible to enrol"
+      ]
+    },
+    "POLICE": {
+      "count": 190,
+      "examples": [
+        "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate ",
+        "On 29 March 2023 an incident occurred and as a result my wife and I have been required to cooperate ",
+        "This certificate will disclose details of any convictions, impending prosecutions, cautions, reprima",
+        "ACRO will not accept responsibility for Police Certificates that are rejected by the relevant embass",
+        "If you fail to complete your application in English you will not receive your Police Certificate and"
+      ]
+    },
+    "CAFCASS": {
+      "count": 55,
+      "examples": [
+        "The Guardian recommends the return of Freya to the parents and her sister.",
+        "The section 7 report does not raise any safeguarding concerns about Mr. and Mrs Stephen’s care of Ry",
+        "Airmen and Guardians are responsible for keeping the medical and/or special education needs document",
+        "CAFCASS operates as an independent executive non-departmental public body, separate from courts, soc",
+        "Family Court Advisers and Children's Guardians are 'not sufficiently resourced or trained' and they "
+      ]
+    },
+    "THRESHOLD": {
+      "count": 50,
+      "examples": [
+        "Freya did not suffer significant harm in the same way. She did not lose a parent... She was exposed ",
+        "Both children were caused significant harm by the above animosity which culminated in the death of R",
+        "At the relevant date (8th June 2023) the children were suffering, and were likely to suffer, signifi",
+        "Both children were caused significant harm by the above animosity, which culminated in the death of ",
+        "Finding 3 is not a valid threshold allegation."
+      ]
+    },
+    "MURDER": {
+      "count": 447,
+      "examples": [
+        "Freya’s maternal grandfather is serving life imprisonment for the murders and has no active part in ",
+        "Ryan demonstrates some positive cognitive skills. However he does have an unusual pattern of languag",
+        "at the court hearing in September 2021 Mr Dunmore's barrister said, 'we don't even know if he is eve",
+        "I can commit to caring for Ryan full-time... Mr Dunmore is self-employed working full-time, if he do",
+        "Mr Dunmore unfairly blames me as the reason for not letting Ryan participate in football classes... "
+      ]
+    },
+    "CONTACT": {
+      "count": 176,
+      "examples": [
+        "The notes of these contacts are positive in respect of the parents’ emotional and practical care of ",
+        "From October 2015 untll July 2021contact had been sa.tisfactorily agreed between the parties",
+        "From October 2015 untll July 2021contact had been sa.tisfactorily agreed between the parties",
+        "You have been concerned about Ryan since he was about a year of age. You noticed that he had a lack ",
+        "Contact/Reason: Autistic disorder"
+      ]
+    },
+    "CREDIBILITY": {
+      "count": 193,
+      "examples": [
+        "His father only ever attended the initial introduction classes. And at this point his father still r",
+        "Here in the UK ABA therapy is not funded through the NHS... In the US Ryan will be eligible to enrol",
+        "You have successfully submitted an Immigrant Visa and Alien Registration Application (Form DS-260).",
+        "Your Immigrant Visa and Alien Registration Application (Form DS-260) was sent to the National Visa C",
+        "Place of birth/Lieu de naissance (6) HUNTINGDON"
+      ]
+    }
+  },
+  "claims_by_document_type": {
+    "medical_records": 580,
+    "police_report": 369,
+    "legislation": 208,
+    "court_order": 198,
+    "email_correspondence": 382,
+    "school_records": 56,
+    "other": 141,
+    "social_work_report": 274,
+    "expert_report": 178,
+    "cafcass_report": 167,
+    "position_statement": 329,
+    "bundle_index": 5,
+    "unknown": 553,
+    "text_messages": 44,
+    "court_application_c2": 25,
+    "skeleton_argument": 6,
+    "court_application_c100": 6,
+    "POLICE_DISCLOSURE": 18
+  },
+  "professionals": {
+    "Police": {
+      "name": "Police",
+      "document_count": 26,
+      "document_types": [
+        "position_statement",
+        "police_report",
+        "court_order",
+        "email_correspondence"
+      ],
+      "documents": [
+        "G_Police_Disclosure.pdf",
+        "police update june 9th 2023.pdf",
+        "PGM stmt police.docx",
+        "police disclosure order private law 19.06.23.pdf",
+        "pgm police stmt.docx",
+        "PGM police.docx",
+        "MS stmt police 1stm.pdf",
+        "Letter from DI Mark Butler Cambridgeshire Police (03.04.2023).pdf",
+        "Police - Bail December.docx",
+        "Police Statement - Death Threat .docx"
+      ]
+    },
+    "Butler (Social Worker)": {
+      "name": "Butler (Social Worker)",
+      "document_count": 3,
+      "document_types": [
+        "social_work_report",
+        "police_report",
+        "expert_report"
+      ],
+      "documents": [
+        "Butler Letter.pdf",
+        "butler report.docx",
+        "Letter from DI Mark Butler Cambridgeshire Police (03.04.2023).pdf"
+      ]
+    },
+    "Stephen Family": {
+      "name": "Stephen Family",
+      "document_count": 56,
+      "document_types": [
+        "police_report",
+        "position_statement",
+        "court_application_c2",
+        "legislation",
+        "skeleton_argument",
+        "other",
+        "email_correspondence",
+        "social_work_report",
+        "medical_records",
+        "expert_report",
+        "cafcass_report",
+        "text_messages",
+        "court_order"
+      ],
+      "documents": [
+        "Dunmore Stephen CMO 26 Sept 24.pdf",
+        "Position Statement for Mr Stephen Feb 2024.pdf",
+        "Samantha Stephen PS 9 Feb 2024 -.docx",
+        "Samantha Stephen PS 9 Feb 2024 -.pdf",
+        "Stephen PS [M] (1).pdf",
+        "DunmoreStephenDraft order 15 March 2024.pdf",
+        "Stephen Dunmore - CMO 09.10.24-c.pdf",
+        "DunmoreStephenDraft CMO 19TH APRIL 2024_ LB changes (002) ML.pdf",
+        "Stephen-Dunmore - Order dated 9 June 2023.pdf",
+        "C2-Application - Stephen and  Dunmore  31st August PDF. for court.pdf"
+      ]
+    },
+    "Guardian": {
+      "name": "Guardian",
+      "document_count": 7,
+      "document_types": [
+        "position_statement",
+        "cafcass_report",
+        "court_order",
+        "legislation"
+      ],
+      "documents": [
+        "c43a_special_guardianship_order-c.pdf",
+        "LOI - Dr Emma Hunnisett by Guardian.pdf",
+        "Guardian Analysis 16.06.23.pdf",
+        "Guardian position statement 8Jun23.pdf",
+        "Initial Analysis of the Guardian 16.06.23.pdf",
+        "Position Statement Children's Guardian 23.08.24-IPE20240820131228109 (2).pdf",
+        "Special Guardianship Support Plan dated 13.8.24 (1).docx"
+      ]
+    },
+    "Mandy Seamark": {
+      "name": "Mandy Seamark",
+      "document_count": 6,
+      "document_types": [
+        "position_statement",
+        "legislation",
+        "social_work_report",
+        "medical_records"
+      ],
+      "documents": [
+        "0005 MG11 SEAMARK, MANDY 22.09.2023.pdf",
+        "Mandy Seamark's Statement.docx",
+        "Ms. seamark app 31 mar.pdf",
+        "Ms. Seamark Court Applications .pdf",
+        "PS for Mandy Seamark for hearing 8th May 2024.docx",
+        "0005 MG11 SEAMARK, MANDY 22.09.2023.PDF"
+      ]
+    },
+    "CAFCASS": {
+      "name": "CAFCASS",
+      "document_count": 10,
+      "document_types": [
+        "expert_report",
+        "cafcass_report"
+      ],
+      "documents": [
+        "Section 7 Report 08.03.2023.pdf",
+        "cafcass 1 nov 22.pdf",
+        "Cafcass 17 sept 21.pdf",
+        "Section 7 Report 28 Sept 2022.pdf",
+        "Cafcass 1 November 2022 simplified .docx",
+        "cafcass 18 may 22.docx",
+        "Cafcass Lette17 Sept 2021 simplified.docx",
+        "Cafcass Letter 08 Apr 22 simplified.docx",
+        "CAFCASS Report resp.docx",
+        "Section 7 Report 28 Sept 2022.docx"
+      ]
+    },
+    "Lucy Ardern (Social Worker)": {
+      "name": "Lucy Ardern (Social Worker)",
+      "document_count": 2,
+      "document_types": [
+        "legislation"
+      ],
+      "documents": [
+        "Copleys - Lucy Ardern SRA Complaint File.pdf",
+        "Lucy Ardern - Copley's SRA Complaint File (Word Doc).docx"
+      ]
+    }
+  },
+  "critical_findings": [
+    {
+      "type": "MOTIVE",
+      "description": "What was the alleged motive?",
+      "count": 5,
+      "examples": [
+        {
+          "text": "The matters raised in the Family Court are known to be central to the murder enquiry and form the motive for the offences.",
+          "document": "katie denunes 20082024 v1-c.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "My motive for sharing information about the case with my father was to engender sympathy... I would never have asked , invited or encouraged my father to commit such act",
+          "document": "August 22 2024.docx",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "he can at times struggle to answer inference questions regarding characters’ motives or feelings.",
+          "document": "Ryan School Report 2020-2021.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "The motive for these offences is known to be centred around the matters heard in the family court.",
+          "document": "Adobe Scan 29 Feb 2024.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "The motive for these offences is known to be centred around the matters heard in the family court",
+          "document": "Document_2025-11-30_225038.pdf",
+          "date": "2024-02-27",
+          "author": "DC ATKINSON"
+        }
+      ]
+    },
+    {
+      "type": "PREMEDITATION",
+      "description": "Evidence of premeditation",
+      "count": 101,
+      "examples": [
+        {
+          "text": "I agree with assessment and plan as documented above.",
+          "document": "TOL_Health_Record_Document_2023-06-15_083755CDT.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "Ryan has special educational needs identified in the final Plan",
+          "document": "Ryan School.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "ACRO cannot be held liable for any costs associated with any failure to meet such plans or losses incurred should there be a delay with your certificate.",
+          "document": "Police Certificate Application Form - Samantha Stephen.docx",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "I agree with assessment and plan as documented above.",
+          "document": "TOL_Health_Record_Document_2023-06-15_084006CDT.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "I was available for consult during the encounter. I agree with assessment and plan as documented above.",
+          "document": "TOL_Health_Record_Document_2023-06-15_083755CDT.pdf",
+          "date": null,
+          "author": null
+        }
+      ]
+    },
+    {
+      "type": "POLICE_FAILURE",
+      "description": "Police investigation failures",
+      "count": 2,
+      "examples": [
+        {
+          "text": "Family courts had 'at times failed to understand the risks they knew about. At other times, there had been inadequate investigation of the history of those concerned.'",
+          "document": "conduct an investigative research evaluation into.docx",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "Evidence suggests critical documents (Police Clearance Letter, LA Assessment May 2023) were available but not disclosed or examined at key decision points.",
+          "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx",
+          "date": null,
+          "author": null
+        }
+      ]
+    },
+    {
+      "type": "CREDIBILITY",
+      "description": "Credibility findings",
+      "count": 52,
+      "examples": [
+        {
+          "text": "Here in the UK ABA therapy is not funded through the NHS... In the US Ryan will be eligible to enrol in something known as the TRICARE Comprehensive Autism Care Demonstration (ACD) which covers... Applied behavioural analysis (ABA).",
+          "document": "Ryan School.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "Joshua told us the Judge asked Sam where she was living, and she lied and said they were living in Mildenhall. They were never in Mildenhall, they were at the Holiday Inn.",
+          "document": "MS stmt.docx",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "I have never tried, used, sold, supplied, or possessed any narcotic... or any mind-altering substance",
+          "document": "usaf contract and stuff.pdf",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "A systematic pattern of exculpatory evidence suppression combined with methodologically flawed expert assessment created a false evidentiary foundation that may have led to an unjust outcome.",
+          "document": "06_QUALITATIVE_SYNTHESIS_REPORT.docx",
+          "date": null,
+          "author": null
+        },
+        {
+          "text": "the Local Authority confirmed what was already apparent, namely that many of the directions made on 15th December 2023 had not been complied with.",
+          "document": "PMS PS for 9.2.24.docx",
+          "date": null,
+          "author": null
+        }
+      ]
+    },
+    {
+      "type": "COURT_PROCESS",
+      "description": "Procedural unfairness",
+      "count": 1,
+      "examples": [
+        {
+          "text": "No opportunity for mediation. The applicant also stated he had no choice but to apply for a CAO. Despite the fact he never made a single attempt to speak to the mother first.",
+          "document": "Second Position Statement (Comments) - Feb 2021.docx",
+          "date": null,
+          "author": null
+        }
+      ]
+    }
+  ],
+  "key_dates": {
+    "murder_date": "2023-03-29",
+    "first_arrest": "2023-03-30",
+    "care_proceedings_start": "2023-06-09",
+    "appeal_refused": "2024",
+    "final_nfa": "2025-02-12"
+  },
+  "accountability_targets": [
+    {
+      "agency": "Police",
+      "key_individuals": [
+        "DCI Katie Dounias",
+        "DC 2072 Atkinson"
+      ],
+      "complaint_route": "IOPC",
+      "issues": "Investigation conduct, disclosure"
+    },
+    {
+      "agency": "Local Authority",
+      "key_individuals": [
+        "Social Workers (multiple)"
+      ],
+      "complaint_route": "LGSCO",
+      "issues": "Threshold, candour, proportionality"
+    },
+    {
+      "agency": "CAFCASS",
+      "key_individuals": [
+        "Guardian"
+      ],
+      "complaint_route": "CAFCASS Complaints",
+      "issues": "Independence, impartiality"
+    },
+    {
+      "agency": "Family Court",
+      "key_individuals": [
+        "HHJ Gordon-Saker"
+      ],
+      "complaint_route": "JCIO / Appeal",
+      "issues": "Procedural fairness"
+    },
+    {
+      "agency": "Channel 4",
+      "key_individuals": [
+        "Unknown"
+      ],
+      "complaint_route": "Ofcom",
+      "issues": "s.97 identification, consent"
+    }
+  ]
+}

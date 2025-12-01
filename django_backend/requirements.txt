@@ -1,0 +1,50 @@
+# Django Backend Requirements - Phronesis LEX v5.0
+# Forensic Case Intelligence Platform
+
+# Core Django
+Django>=4.2,<5.0
+djangorestframework>=3.14
+django-cors-headers>=4.0
+django-filter>=23.0
+drf-nested-routers>=0.93
+whitenoise>=6.5
+
+# Database
+psycopg2-binary>=2.9  # PostgreSQL
+dj-database-url>=2.0  # Database URL parsing
+
+# Environment
+python-dotenv>=1.0
+
+# AI/ML - Claude Integration
+anthropic>=0.18
+
+# NLP & Similarity
+sentence-transformers>=2.2
+torch>=2.0
+
+# Scientific Computing
+numpy>=1.24
+scipy>=1.10
+
+# Date/Time Parsing
+parsedatetime>=2.6
+python-dateutil>=2.8
+
+# Text Similarity (fallback)
+rapidfuzz>=3.0
+
+# Data Validation
+pydantic>=2.0
+
+# Document Processing (optional)
+# pdfplumber>=0.9
+# python-docx>=0.8
+# python-magic>=0.4
+
+# Development
+black>=23.0
+flake8>=6.0
+pytest>=7.0
+pytest-django>=4.5
+
