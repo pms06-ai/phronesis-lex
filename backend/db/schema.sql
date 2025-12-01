@@ -123,6 +123,15 @@ CREATE TABLE IF NOT EXISTS claims (
     paragraph_number INTEGER,
     ai_extracted BOOLEAN DEFAULT FALSE,
     ai_confidence REAL,
+    -- FCIP Epistemic Fields
+    modality TEXT CHECK(modality IN ('asserted', 'reported', 'alleged', 'denied', 'hypothetical')),
+    polarity TEXT CHECK(polarity IN ('affirm', 'negate')) DEFAULT 'affirm',
+    certainty REAL CHECK(certainty >= 0 AND certainty <= 1),
+    certainty_markers TEXT,  -- JSON array
+    asserted_by TEXT,
+    time_expression TEXT,
+    extraction_prompt_hash TEXT,
+    extractor_model TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -235,11 +244,79 @@ CREATE TABLE IF NOT EXISTS bias_indicators (
     severity TEXT CHECK(severity IN ('high', 'medium', 'low')),
     ai_confidence REAL CHECK(ai_confidence >= 0 AND ai_confidence <= 1),
     ai_reasoning TEXT,
+    -- FCIP statistical fields
+    z_score REAL,
+    p_value REAL,
+    baseline_mean REAL,
+    baseline_std REAL,
+    baseline_id TEXT,
+    direction TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX IF NOT EXISTS idx_bias_case ON bias_indicators(case_id);
 CREATE INDEX IF NOT EXISTS idx_bias_professional ON bias_indicators(professional_id);
+
+
+-- Contradictions (FCIP Revolutionary Feature)
+-- Cross-document contradiction detection
+CREATE TABLE IF NOT EXISTS contradictions (
+    id TEXT PRIMARY KEY,
+    case_id TEXT NOT NULL REFERENCES cases(id) ON DELETE CASCADE,
+    
+    -- The conflicting claims
+    claim_a_id TEXT REFERENCES claims(id) ON DELETE CASCADE,
+    claim_b_id TEXT REFERENCES claims(id) ON DELETE CASCADE,
+    
+    -- Contradiction classification
+    contradiction_type TEXT CHECK(contradiction_type IN (
+        'direct',           -- Opposite assertions about same thing
+        'self',             -- Same author contradicts themselves (CRITICAL)
+        'temporal',         -- Timeline impossibility
+        'modality',         -- Allegation treated as fact
+        'value',            -- Different values for same attribute
+        'attribution',      -- Disputes about who said/did what
+        'quotation',        -- Misrepresented quotes
+        'omission'          -- Material context omitted
+    )),
+    
+    -- Severity and confidence
+    severity TEXT CHECK(severity IN ('critical', 'high', 'medium', 'low', 'info')),
+    confidence REAL CHECK(confidence >= 0 AND confidence <= 1),
+    semantic_similarity REAL CHECK(semantic_similarity >= 0 AND semantic_similarity <= 1),
+    
+    -- Analysis
+    description TEXT,
+    conflicting_elements TEXT,  -- JSON array
+    
+    -- Attribution (for self-contradictions)
+    author_a TEXT,
+    author_b TEXT,
+    is_self_contradiction BOOLEAN DEFAULT FALSE,
+    
+    -- Temporal context
+    date_a TEXT,
+    date_b TEXT,
+    temporal_gap_days INTEGER,
+    
+    -- Legal significance
+    legal_significance TEXT,
+    relevant_case_law TEXT,  -- JSON array
+    recommended_action TEXT,
+    
+    -- Metadata
+    detected_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    detection_model TEXT,
+    reviewed BOOLEAN DEFAULT FALSE,
+    reviewer_notes TEXT,
+    
+    CHECK(claim_a_id != claim_b_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_contradictions_case ON contradictions(case_id);
+CREATE INDEX IF NOT EXISTS idx_contradictions_type ON contradictions(contradiction_type);
+CREATE INDEX IF NOT EXISTS idx_contradictions_severity ON contradictions(severity);
+CREATE INDEX IF NOT EXISTS idx_contradictions_self ON contradictions(is_self_contradiction);
 
 -- Legal References (legislation, case law, standards)
 CREATE TABLE IF NOT EXISTS legal_references (
@@ -308,6 +385,130 @@ CREATE TABLE IF NOT EXISTS analysis_runs (
 );
 
 CREATE INDEX IF NOT EXISTS idx_runs_case ON analysis_runs(case_id);
+
+-- Contradictions (detected inconsistencies between claims)
+CREATE TABLE IF NOT EXISTS contradictions (
+    id TEXT PRIMARY KEY,
+    case_id TEXT NOT NULL REFERENCES cases(id) ON DELETE CASCADE,
+    claim_a_id TEXT NOT NULL REFERENCES claims(id) ON DELETE CASCADE,
+    claim_b_id TEXT NOT NULL REFERENCES claims(id) ON DELETE CASCADE,
+    contradiction_type TEXT CHECK(contradiction_type IN (
+        'direct', 'temporal', 'self_contradiction', 'modality_shift',
+        'value', 'attribution', 'quotation', 'omission'
+    )),
+    severity TEXT CHECK(severity IN ('critical', 'high', 'medium', 'low', 'info')) DEFAULT 'medium',
+    claim_a_text TEXT,
+    claim_b_text TEXT,
+    claim_a_source TEXT,
+    claim_b_source TEXT,
+    claim_a_author TEXT,
+    claim_b_author TEXT,
+    same_author BOOLEAN DEFAULT FALSE,
+    semantic_similarity REAL CHECK(semantic_similarity >= 0 AND semantic_similarity <= 1),
+    confidence REAL CHECK(confidence >= 0 AND confidence <= 1),
+    explanation TEXT,
+    legal_significance TEXT,
+    recommended_action TEXT,
+    case_law_reference TEXT,
+    detection_method TEXT,
+    reviewed BOOLEAN DEFAULT FALSE,
+    reviewer_notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(claim_a_id, claim_b_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_contradictions_case ON contradictions(case_id);
+CREATE INDEX IF NOT EXISTS idx_contradictions_type ON contradictions(contradiction_type);
+CREATE INDEX IF NOT EXISTS idx_contradictions_severity ON contradictions(severity);
+
+
+-- FCIP v5 enhancements to claims table (additional columns)
+-- Note: Run as ALTER TABLE if table already exists
+
+-- Toulmin Arguments (structured legal reasoning)
+CREATE TABLE IF NOT EXISTS arguments (
+    id TEXT PRIMARY KEY,
+    case_id TEXT NOT NULL REFERENCES cases(id) ON DELETE CASCADE,
+    claim_text TEXT NOT NULL,
+    grounds TEXT,  -- JSON array
+    warrant TEXT,
+    warrant_rule_id TEXT,
+    backing TEXT,  -- JSON array
+    qualifier TEXT,
+    rebuttal TEXT,  -- JSON array
+    falsifiability_conditions TEXT,  -- JSON array
+    missing_evidence TEXT,  -- JSON array
+    alternative_explanations TEXT,  -- JSON array
+    confidence_lower REAL CHECK(confidence_lower >= 0 AND confidence_lower <= 1),
+    confidence_upper REAL CHECK(confidence_upper >= 0 AND confidence_upper <= 1),
+    confidence_mean REAL CHECK(confidence_mean >= 0 AND confidence_mean <= 1),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_arguments_case ON arguments(case_id);
+
+
+-- Deadline Alerts (from temporal parsing)
+CREATE TABLE IF NOT EXISTS deadline_alerts (
+    id TEXT PRIMARY KEY,
+    case_id TEXT NOT NULL REFERENCES cases(id) ON DELETE CASCADE,
+    document_id TEXT REFERENCES documents(id),
+    raw_expression TEXT,
+    deadline_date DATE,
+    deadline_type TEXT CHECK(deadline_type IN (
+        'absolute', 'relative', 'working_days', 'immediate', 'before_hearing'
+    )),
+    anchor_event TEXT,
+    offset_value INTEGER,
+    offset_unit TEXT,
+    confidence REAL CHECK(confidence >= 0 AND confidence <= 1),
+    is_working_days BOOLEAN DEFAULT FALSE,
+    status TEXT CHECK(status IN ('pending', 'acknowledged', 'completed', 'missed')) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_deadlines_case ON deadline_alerts(case_id);
+CREATE INDEX IF NOT EXISTS idx_deadlines_date ON deadline_alerts(deadline_date);
+
+
+-- Legal Rules Library
+CREATE TABLE IF NOT EXISTS legal_rules (
+    rule_id TEXT PRIMARY KEY,
+    short_name TEXT NOT NULL,
+    full_citation TEXT NOT NULL,
+    text TEXT,
+    category TEXT CHECK(category IN ('welfare', 'threshold', 'evidence', 'professional', 'procedural')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- Bias Baselines (for statistical comparison)
+CREATE TABLE IF NOT EXISTS bias_baselines (
+    baseline_id TEXT PRIMARY KEY,
+    doc_type TEXT NOT NULL,
+    metric TEXT NOT NULL,
+    mean REAL NOT NULL,
+    std_dev REAL NOT NULL,
+    corpus_size INTEGER DEFAULT 100,
+    source TEXT CHECK(source IN ('empirical', 'estimated', 'calibrated')) DEFAULT 'estimated',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(doc_type, metric)
+);
+
+
+-- Entity Aliases (learned during analysis)
+CREATE TABLE IF NOT EXISTS entity_aliases (
+    id TEXT PRIMARY KEY,
+    professional_id TEXT NOT NULL REFERENCES professionals(id) ON DELETE CASCADE,
+    alias_text TEXT NOT NULL,
+    confidence REAL CHECK(confidence >= 0 AND confidence <= 1),
+    source TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(professional_id, alias_text)
+);
+
+CREATE INDEX IF NOT EXISTS idx_aliases_professional ON entity_aliases(professional_id);
+
 
 -- Triggers for updated_at
 CREATE TRIGGER IF NOT EXISTS update_cases_timestamp

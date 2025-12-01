@@ -4,6 +4,13 @@ from .entity_resolution import EntityResolutionEngine, EntityRoster, ResolutionR
 from .temporal import TemporalParser, CourtCalendar, TemporalRelation
 from .argumentation import ArgumentationEngine, LegalRule, LEGAL_RULES
 from .bias import BiasDetectionEngine, BiasBaseline, BaselineCorpus
+from .contradiction import (
+    ContradictionEngine,
+    ContradictionType,
+    Contradiction,
+    ContradictionReport,
+    detect_contradictions_from_db,
+)
 
 __all__ = [
     "EntityResolutionEngine",
@@ -18,4 +25,9 @@ __all__ = [
     "BiasDetectionEngine",
     "BiasBaseline",
     "BaselineCorpus",
+    "ContradictionEngine",
+    "ContradictionType",
+    "Contradiction",
+    "ContradictionReport",
+    "detect_contradictions_from_db",
 ]
