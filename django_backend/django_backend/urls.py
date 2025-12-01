@@ -9,8 +9,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers as nested_routers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 from django_backend.cases.views import CaseViewSet, CaseNoteViewSet
 from django_backend.documents.views import (
@@ -25,14 +31,20 @@ from django_backend.analysis.views import (
 )
 
 
-# API Root view
+# API Root view (public)
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def api_root(request):
     """API root with documentation."""
     return Response({
         'name': 'Phronesis LEX API',
         'version': '5.0',
         'description': 'Forensic Case Intelligence Platform for UK Family Court',
+        'authentication': {
+            'token': '/api/auth/token/',
+            'refresh': '/api/auth/token/refresh/',
+            'verify': '/api/auth/token/verify/',
+        },
         'endpoints': {
             'cases': '/api/cases/',
             'documents': '/api/documents/',
@@ -48,6 +60,22 @@ def api_root(request):
             'dashboard': '/api/cases/dashboard/',
         },
         'documentation': 'See /admin/ for Django admin interface'
+    })
+
+
+# User info endpoint
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_info(request):
+    """Get current user information."""
+    user = request.user
+    return Response({
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'is_staff': user.is_staff,
     })
 
 
@@ -83,10 +111,16 @@ cases_router.register(r'notes', CaseNoteViewSet, basename='case-notes')
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
-    
+
+    # Authentication
+    path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api/auth/user/', user_info, name='user_info'),
+
     # API root
     path('api/', api_root, name='api-root'),
-    
+
     # Router URLs
     path('api/', include(router.urls)),
     path('api/', include(cases_router.urls)),

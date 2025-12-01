@@ -115,6 +115,12 @@ class Database:
         async with self.transaction() as conn:
             await conn.execute(query, (id,))
 
+    async def execute_script(self, script: str):
+        """Execute a multi-statement SQL script"""
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.executescript(script)
+            await conn.commit()
+
 
 # Global database instance
 db = Database()

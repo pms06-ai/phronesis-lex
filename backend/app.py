@@ -1,8 +1,14 @@
 """
 Phronesis LEX Backend API
 FastAPI server for the Forensic Legal Investigation Platform
+
+Features:
+- JWT Authentication (can be disabled with AUTH_DISABLED=true)
+- Rate limiting
+- Audit logging
+- FCIP analysis engines
 """
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
@@ -10,14 +16,29 @@ from pathlib import Path
 from typing import Optional, List
 import uuid
 import shutil
-from datetime import datetime
+import os
+from datetime import datetime, timedelta
 
 import logging
+
+# Rate limiting
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 from config import HOST, PORT, DEBUG, CORS_ORIGINS, UPLOADS_DIR, ANTHROPIC_API_KEY
 from db.connection import db, get_db, Database
 from services.document_processor import get_document_processor, DocumentProcessor
 from services.claude_service import get_claude_service, ClaudeService
+
+# Authentication
+from auth import (
+    get_current_user, get_optional_user, User, Token, UserLogin,
+    authenticate_user, create_access_token, get_password_hash
+)
+
+# Audit logging
+from audit import log_audit, AuditAction, get_audit_logs, AUDIT_TABLE_SQL
 
 # FCIP Engine imports
 from fcip.services.analysis_service import FCIPAnalysisService, AnalysisResult
@@ -30,6 +51,17 @@ from fcip.models.core import Claim as FCIPClaim, ClaimType, Modality, Polarity, 
 
 logger = logging.getLogger(__name__)
 
+# Rate limiter
+limiter = Limiter(key_func=get_remote_address)
+
+
+def get_client_ip(request: Request) -> str:
+    """Extract client IP from request."""
+    forwarded = request.headers.get("X-Forwarded-For")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,8 +69,17 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Initializing Phronesis LEX Backend...")
     await db.initialize()
+
+    # Create audit logs table
+    try:
+        await db.execute_script(AUDIT_TABLE_SQL)
+        logger.info("Audit logging initialized")
+    except Exception as e:
+        logger.warning(f"Could not initialize audit table: {e}")
+
     logger.info(f"Database ready at {db.db_path}")
     logger.info(f"API Key configured: {'Yes' if ANTHROPIC_API_KEY else 'No'}")
+    logger.info(f"Auth disabled: {os.getenv('AUTH_DISABLED', 'false')}")
 
     yield
 
@@ -50,9 +91,13 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Phronesis LEX API",
     description="Forensic Legal Investigation Platform - Backend API",
-    version="1.0.0",
+    version="2.0.0",
     lifespan=lifespan
 )
+
+# Rate limiting
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # CORS middleware
 app.add_middleware(
@@ -62,6 +107,84 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ============================================================================
+# Authentication Endpoints
+# ============================================================================
+
+@app.post("/api/auth/token", response_model=Token)
+@limiter.limit("10/minute")
+async def login(request: Request, login_data: UserLogin):
+    """
+    Authenticate and get JWT token.
+
+    For personal use, default credentials are:
+    - username: admin
+    - password: phronesis2024 (or value of ADMIN_PASSWORD env var)
+
+    Set AUTH_DISABLED=true to skip authentication entirely.
+    """
+    user = authenticate_user(login_data.username, login_data.password)
+    if not user:
+        await log_audit(
+            user=login_data.username,
+            action=AuditAction.LOGIN,
+            resource_type="auth",
+            description="Failed login attempt",
+            ip_address=get_client_ip(request),
+            success=False,
+            error="Invalid credentials"
+        )
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    access_token, expires_at = create_access_token(
+        data={"sub": user.username}
+    )
+
+    await log_audit(
+        user=user.username,
+        action=AuditAction.LOGIN,
+        resource_type="auth",
+        description="Successful login",
+        ip_address=get_client_ip(request),
+        success=True
+    )
+
+    return Token(
+        access_token=access_token,
+        token_type="bearer",
+        expires_at=expires_at.isoformat()
+    )
+
+
+@app.get("/api/auth/user")
+async def get_current_user_info(current_user: User = Depends(get_current_user)):
+    """Get current authenticated user info."""
+    return {
+        "username": current_user.username,
+        "is_active": current_user.is_active
+    }
+
+
+@app.get("/api/audit-logs")
+async def list_audit_logs(
+    resource_type: Optional[str] = None,
+    action: Optional[str] = None,
+    limit: int = 100,
+    current_user: User = Depends(get_current_user)
+):
+    """Get audit logs (admin only)."""
+    logs = await get_audit_logs(
+        resource_type=resource_type,
+        action=action,
+        limit=limit
+    )
+    return {"logs": logs}
 
 
 # ============================================================================

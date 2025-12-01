@@ -146,48 +146,138 @@ class ContradictionDetectionService:
     ) -> List[ContradictionCandidate]:
         """
         Detect contradictions among a list of claims.
-        
+
+        Uses optimized blocking strategy:
+        1. Pre-compute all embeddings in batch
+        2. Compute similarity matrix efficiently
+        3. Only analyze pairs above threshold
+
         Args:
             claims: QuerySet or list of Claim model instances
             case_id: Case identifier
-            
+
         Returns:
             List of ContradictionCandidate objects
         """
         contradictions = []
         claims_list = list(claims)
         n = len(claims_list)
-        
+
         if n < 2:
             return contradictions
-        
-        logger.info(f"Analyzing {n} claims for contradictions...")
-        
-        # Pre-compute embeddings
+
+        logger.info(f"Analyzing {n} claims for contradictions (optimized)...")
+
+        # Pre-compute embeddings and similarity matrix
         embeddings = {}
-        if self.model:
-            texts = [c.claim_text for c in claims_list]
-            all_embeddings = self.model.encode(texts, convert_to_tensor=True)
-            for i, claim in enumerate(claims_list):
-                embeddings[str(claim.id)] = all_embeddings[i]
-        
-        # Pairwise comparison
-        for i in range(n):
-            for j in range(i + 1, n):
-                claim_a = claims_list[i]
-                claim_b = claims_list[j]
-                
-                similarity = self._calculate_similarity(claim_a, claim_b, embeddings)
-                
-                if similarity < self.SIMILARITY_THRESHOLD:
-                    continue
-                
-                candidate = self._analyze_pair(claim_a, claim_b, similarity)
-                
-                if candidate:
-                    contradictions.append(candidate)
-        
-        logger.info(f"Found {len(contradictions)} contradictions")
+        similarity_matrix = None
+
+        if self.model and SENTENCE_TRANSFORMERS_AVAILABLE:
+            try:
+                texts = [c.claim_text for c in claims_list]
+                all_embeddings = self.model.encode(texts, convert_to_tensor=True)
+
+                # Store embeddings for later use
+                for i, claim in enumerate(claims_list):
+                    embeddings[str(claim.id)] = all_embeddings[i]
+
+                # Compute full similarity matrix at once (much faster than pairwise)
+                similarity_matrix = util.cos_sim(all_embeddings, all_embeddings)
+
+                # Find pairs above threshold using matrix operations
+                # This is O(n²) in space but much faster due to vectorization
+                if hasattr(torch, 'triu_indices'):
+                    # Get upper triangle indices (excluding diagonal)
+                    rows, cols = torch.triu_indices(n, n, offset=1)
+                    similarities = similarity_matrix[rows, cols]
+
+                    # Filter to pairs above threshold
+                    mask = similarities >= self.SIMILARITY_THRESHOLD
+                    candidate_pairs = list(zip(
+                        rows[mask].tolist(),
+                        cols[mask].tolist(),
+                        similarities[mask].tolist()
+                    ))
+
+                    logger.info(f"Found {len(candidate_pairs)} candidate pairs above threshold")
+
+                    # Analyze only candidate pairs
+                    for i, j, sim in candidate_pairs:
+                        claim_a = claims_list[i]
+                        claim_b = claims_list[j]
+                        candidate = self._analyze_pair(claim_a, claim_b, sim)
+                        if candidate:
+                            contradictions.append(candidate)
+
+                    logger.info(f"Found {len(contradictions)} contradictions")
+                    return contradictions
+            except Exception as e:
+                logger.warning(f"Optimized detection failed, falling back: {e}")
+                similarity_matrix = None
+
+        # Fallback: Use blocking by subject/author for efficiency
+        # Group claims by subject for targeted comparison
+        subject_blocks: Dict[str, List[int]] = {}
+        author_blocks: Dict[str, List[int]] = {}
+
+        for i, claim in enumerate(claims_list):
+            # Block by subject
+            if claim.subject:
+                key = claim.subject.lower().strip()
+                if key not in subject_blocks:
+                    subject_blocks[key] = []
+                subject_blocks[key].append(i)
+
+            # Block by author (for self-contradiction detection)
+            if claim.asserted_by:
+                key = claim.asserted_by.lower().strip()
+                if key not in author_blocks:
+                    author_blocks[key] = []
+                author_blocks[key].append(i)
+
+        # Compare within subject blocks first (most likely contradictions)
+        compared_pairs = set()
+
+        for indices in subject_blocks.values():
+            if len(indices) < 2:
+                continue
+            for i in range(len(indices)):
+                for j in range(i + 1, len(indices)):
+                    idx_a, idx_b = indices[i], indices[j]
+                    pair_key = (min(idx_a, idx_b), max(idx_a, idx_b))
+                    if pair_key in compared_pairs:
+                        continue
+                    compared_pairs.add(pair_key)
+
+                    claim_a, claim_b = claims_list[idx_a], claims_list[idx_b]
+                    similarity = self._calculate_similarity(claim_a, claim_b, embeddings)
+
+                    if similarity >= self.SIMILARITY_THRESHOLD:
+                        candidate = self._analyze_pair(claim_a, claim_b, similarity)
+                        if candidate:
+                            contradictions.append(candidate)
+
+        # Also check within author blocks (self-contradictions)
+        for indices in author_blocks.values():
+            if len(indices) < 2:
+                continue
+            for i in range(len(indices)):
+                for j in range(i + 1, len(indices)):
+                    idx_a, idx_b = indices[i], indices[j]
+                    pair_key = (min(idx_a, idx_b), max(idx_a, idx_b))
+                    if pair_key in compared_pairs:
+                        continue
+                    compared_pairs.add(pair_key)
+
+                    claim_a, claim_b = claims_list[idx_a], claims_list[idx_b]
+                    similarity = self._calculate_similarity(claim_a, claim_b, embeddings)
+
+                    if similarity >= self.SIMILARITY_THRESHOLD:
+                        candidate = self._analyze_pair(claim_a, claim_b, similarity)
+                        if candidate:
+                            contradictions.append(candidate)
+
+        logger.info(f"Found {len(contradictions)} contradictions (compared {len(compared_pairs)} pairs)")
         return contradictions
     
     def _calculate_similarity(

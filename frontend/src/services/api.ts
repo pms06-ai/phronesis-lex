@@ -1,38 +1,210 @@
 /**
  * API Service for Phronesis LEX
- * Comprehensive REST API client
+ * Comprehensive REST API client with authentication support
+ *
+ * Works with FastAPI backend (default) or Django backend
  */
-import axios from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import type {
   Case, Document, Claim, Contradiction, BiasSignal,
   TimelineEvent, ToulminArgument, Entity, LegalRule,
   AnalysisRun, DashboardStats, CaseStats, PaginatedResponse
 } from '../types';
 
+// FastAPI backend (default) or Django backend
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+
+// Token storage keys
+const ACCESS_TOKEN_KEY = 'phronesis_access_token';
+const REFRESH_TOKEN_KEY = 'phronesis_refresh_token';
+
+// Error types for better handling
+export interface ApiError {
+  error: string;
+  code: string;
+  details?: Record<string, string[]>;
+}
+
+// Auth types
+export interface AuthTokens {
+  access: string;
+  refresh: string;
+}
+
+export interface UserInfo {
+  id: number;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  is_staff: boolean;
+}
+
+// Token management
+export const tokenManager = {
+  getAccessToken: (): string | null => localStorage.getItem(ACCESS_TOKEN_KEY),
+  getRefreshToken: (): string | null => localStorage.getItem(REFRESH_TOKEN_KEY),
+
+  setTokens: (tokens: AuthTokens): void => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, tokens.access);
+    localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh);
+  },
+
+  clearTokens: (): void => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+  },
+
+  isAuthenticated: (): boolean => !!localStorage.getItem(ACCESS_TOKEN_KEY),
+};
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 30000, // 30 second timeout
 });
 
-// Response interceptor for error handling
+// Request interceptor - add auth token
+api.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = tokenManager.getAccessToken();
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor - handle errors and token refresh
+let isRefreshing = false;
+let failedQueue: Array<{
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+}> = [];
+
+const processQueue = (error: AxiosError | null, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
 api.interceptors.response.use(
-  response => response,
-  error => {
-    console.error('API Error:', error.response?.data || error.message);
-    return Promise.reject(error);
+  (response) => response,
+  async (error: AxiosError<ApiError>) => {
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    // Handle 401 - attempt token refresh
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            if (originalRequest.headers) {
+              originalRequest.headers.Authorization = `Bearer ${token}`;
+            }
+            return api(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const refreshToken = tokenManager.getRefreshToken();
+      if (refreshToken) {
+        try {
+          const response = await axios.post(`${API_BASE_URL}/auth/token/refresh/`, {
+            refresh: refreshToken,
+          });
+          const { access } = response.data;
+          localStorage.setItem(ACCESS_TOKEN_KEY, access);
+          processQueue(null, access);
+
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${access}`;
+          }
+          return api(originalRequest);
+        } catch (refreshError) {
+          processQueue(refreshError as AxiosError, null);
+          tokenManager.clearTokens();
+          window.location.href = '/login';
+          return Promise.reject(refreshError);
+        } finally {
+          isRefreshing = false;
+        }
+      } else {
+        tokenManager.clearTokens();
+        window.location.href = '/login';
+      }
+    }
+
+    // Format error message for display
+    const apiError: ApiError = error.response?.data || {
+      error: error.message || 'An unexpected error occurred',
+      code: 'network_error',
+    };
+
+    // Don't log sensitive auth errors in production
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('API Error:', apiError);
+    }
+
+    return Promise.reject(apiError);
   }
 );
+
+// ============================================================================
+// Authentication API
+// ============================================================================
+
+export const authApi = {
+  login: async (username: string, password: string): Promise<AuthTokens> => {
+    const { data } = await axios.post(`${API_BASE_URL}/auth/token/`, {
+      username,
+      password,
+    });
+    tokenManager.setTokens(data);
+    return data;
+  },
+
+  logout: (): void => {
+    tokenManager.clearTokens();
+  },
+
+  refreshToken: async (): Promise<string> => {
+    const refreshToken = tokenManager.getRefreshToken();
+    if (!refreshToken) throw new Error('No refresh token');
+
+    const { data } = await axios.post(`${API_BASE_URL}/auth/token/refresh/`, {
+      refresh: refreshToken,
+    });
+    localStorage.setItem(ACCESS_TOKEN_KEY, data.access);
+    return data.access;
+  },
+
+  getUser: async (): Promise<UserInfo> => {
+    const { data } = await api.get('/auth/user/');
+    return data;
+  },
+
+  isAuthenticated: (): boolean => tokenManager.isAuthenticated(),
+};
 
 // ============================================================================
 // Cases API
 // ============================================================================
 
 export const casesApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<Case>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<Case>> => {
     const { data } = await api.get('/cases/', { params });
     return data;
   },
@@ -82,7 +254,7 @@ export const casesApi = {
 // ============================================================================
 
 export const documentsApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<Document>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<Document>> => {
     const { data } = await api.get('/documents/', { params });
     return data;
   },
@@ -92,7 +264,7 @@ export const documentsApi = {
     return data;
   },
 
-  upload: async (caseId: string, file: File, metadata: any): Promise<Document> => {
+  upload: async (caseId: string, file: File, metadata: Record<string, unknown>): Promise<Document> => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('case_id', caseId);
@@ -101,9 +273,10 @@ export const documentsApi = {
         formData.append(key, String(value));
       }
     });
-    
+
     const { data } = await api.post('/documents/upload/', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 120000, // 2 min for uploads
     });
     return data;
   },
@@ -118,7 +291,7 @@ export const documentsApi = {
     return data;
   },
 
-  forCase: async (caseId: string, params?: Record<string, any>): Promise<PaginatedResponse<Document>> => {
+  forCase: async (caseId: string, params?: Record<string, unknown>): Promise<PaginatedResponse<Document>> => {
     const { data } = await api.get(`/cases/${caseId}/documents/`, { params });
     return data;
   },
@@ -134,7 +307,7 @@ export const documentsApi = {
 // ============================================================================
 
 export const claimsApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<Claim>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<Claim>> => {
     const { data } = await api.get('/claims/', { params });
     return data;
   },
@@ -144,7 +317,7 @@ export const claimsApi = {
     return data;
   },
 
-  forCase: async (caseId: string, params?: Record<string, any>): Promise<PaginatedResponse<Claim>> => {
+  forCase: async (caseId: string, params?: Record<string, unknown>): Promise<PaginatedResponse<Claim>> => {
     const { data } = await api.get(`/cases/${caseId}/claims/`, { params });
     return data;
   },
@@ -155,7 +328,7 @@ export const claimsApi = {
 // ============================================================================
 
 export const contradictionsApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<Contradiction>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<Contradiction>> => {
     const { data } = await api.get('/contradictions/', { params });
     return data;
   },
@@ -170,7 +343,7 @@ export const contradictionsApi = {
     return data;
   },
 
-  forCase: async (caseId: string, params?: Record<string, any>): Promise<PaginatedResponse<Contradiction>> => {
+  forCase: async (caseId: string, params?: Record<string, unknown>): Promise<PaginatedResponse<Contradiction>> => {
     const { data } = await api.get(`/cases/${caseId}/contradictions/`, { params });
     return data;
   },
@@ -178,8 +351,9 @@ export const contradictionsApi = {
   detect: async (caseId: string): Promise<{
     run_id: string;
     status: string;
-    contradictions_found: number;
-    claims_analyzed: number;
+    contradictions_found?: number;
+    claims_analyzed?: number;
+    message?: string;
   }> => {
     const { data } = await api.post(`/cases/${caseId}/detect-contradictions/`);
     return data;
@@ -196,12 +370,12 @@ export const contradictionsApi = {
 // ============================================================================
 
 export const biasApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<BiasSignal>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<BiasSignal>> => {
     const { data } = await api.get('/bias-signals/', { params });
     return data;
   },
 
-  forCase: async (caseId: string, params?: Record<string, any>): Promise<PaginatedResponse<BiasSignal>> => {
+  forCase: async (caseId: string, params?: Record<string, unknown>): Promise<PaginatedResponse<BiasSignal>> => {
     const { data } = await api.get(`/cases/${caseId}/bias-signals/`, { params });
     return data;
   },
@@ -217,7 +391,7 @@ export const biasApi = {
 // ============================================================================
 
 export const timelineApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<TimelineEvent>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<TimelineEvent>> => {
     const { data } = await api.get('/timeline/', { params });
     return data;
   },
@@ -238,7 +412,7 @@ export const timelineApi = {
 // ============================================================================
 
 export const argumentsApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<ToulminArgument>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<ToulminArgument>> => {
     const { data } = await api.get('/arguments/', { params });
     return data;
   },
@@ -265,7 +439,7 @@ export const argumentsApi = {
 // ============================================================================
 
 export const entitiesApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<Entity>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<Entity>> => {
     const { data } = await api.get('/entities/', { params });
     return data;
   },
@@ -286,7 +460,7 @@ export const entitiesApi = {
 // ============================================================================
 
 export const legalRulesApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<LegalRule>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<LegalRule>> => {
     const { data } = await api.get('/legal-rules/', { params });
     return data;
   },
@@ -302,7 +476,7 @@ export const legalRulesApi = {
 // ============================================================================
 
 export const analysisRunsApi = {
-  list: async (params?: Record<string, any>): Promise<PaginatedResponse<AnalysisRun>> => {
+  list: async (params?: Record<string, unknown>): Promise<PaginatedResponse<AnalysisRun>> => {
     const { data } = await api.get('/analysis-runs/', { params });
     return data;
   },
@@ -319,4 +493,3 @@ export const analysisRunsApi = {
 };
 
 export default api;
-
