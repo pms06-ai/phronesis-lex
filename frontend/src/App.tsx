@@ -15,6 +15,7 @@ import { BiasAnalysis } from './pages/BiasAnalysis';
 import { Timeline } from './pages/Timeline';
 import { Arguments } from './pages/Arguments';
 import { LegalRules } from './pages/LegalRules';
+import AIWorkflow from './pages/AIWorkflow';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/cases/:id/bias" element={<BiasAnalysis />} />
             <Route path="/cases/:id/timeline" element={<Timeline />} />
             <Route path="/cases/:id/arguments" element={<Arguments />} />
+            <Route path="/cases/:caseId/ai-workflow" element={<AIWorkflow />} />
             <Route path="/legal-rules" element={<LegalRules />} />
           </Routes>
         </Layout>

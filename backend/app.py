@@ -17,6 +17,7 @@ from typing import Optional, List
 import uuid
 import shutil
 import os
+import json
 from datetime import datetime, timedelta
 
 import logging
@@ -48,6 +49,10 @@ from fcip.engines.bias import BiasDetectionEngine
 from fcip.engines.temporal import TemporalParser
 from fcip.engines.contradiction import ContradictionDetectionEngine, ContradictionType, LEGAL_SIGNIFICANCE
 from fcip.models.core import Claim as FCIPClaim, ClaimType, Modality, Polarity, Confidence
+
+# Prompt generation for AI subscription workflow
+from prompts import PromptGenerator, PromptTemplates, ResponseParser
+from prompts.templates import PromptType
 
 logger = logging.getLogger(__name__)
 
@@ -1350,6 +1355,654 @@ async def compare_two_claims(
             "is_contradiction": False,
             "message": "No contradiction detected between these claims"
         }
+
+
+# ============================================================================
+# Prompt Generation Endpoints (AI Subscription Workflow)
+# ============================================================================
+
+# Initialize prompt generator
+_prompt_generator = PromptGenerator()
+_response_parser = ResponseParser()
+
+
+@app.get("/api/prompts/types")
+async def list_prompt_types():
+    """
+    List all available prompt types with descriptions.
+
+    Use this to understand what analysis types are available
+    for the copy-paste AI subscription workflow.
+    """
+    return {
+        "types": [
+            {
+                "type": ptype.value,
+                "description": desc
+            }
+            for ptype, desc in PromptTemplates.list_templates().items()
+        ],
+        "workflow": {
+            "description": "Generate prompts here, copy to your AI platform, paste response back to parse",
+            "supported_platforms": ["Claude", "ChatGPT", "Grok", "Perplexity", "Le Chat", "Venice AI"]
+        }
+    }
+
+
+@app.post("/api/prompts/generate/claim-extraction")
+async def generate_claim_extraction_prompt(
+    request: Request,
+    doc_id: str = Form(...),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Generate a prompt for extracting claims from a document.
+
+    Copy the 'full_prompt' to your AI platform (Claude, ChatGPT, etc.)
+    and paste the JSON response back to /api/prompts/parse.
+    """
+    doc = await db.fetch_one(
+        "SELECT id, case_id, full_text, filename FROM documents WHERE id = ?",
+        (doc_id,)
+    )
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    if not doc["full_text"]:
+        raise HTTPException(status_code=422, detail="Document has no extracted text")
+
+    prompt = _prompt_generator.generate_claim_extraction(
+        document_text=doc["full_text"],
+        case_id=doc["case_id"]
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"claim_extraction:{doc['filename']}",
+        description="Generated claim extraction prompt",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "document": doc["filename"],
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes,
+        "instructions": "Copy 'full_prompt' to your AI platform, then use /api/prompts/parse with the response"
+    }
+
+
+@app.post("/api/prompts/generate/document-summary")
+async def generate_summary_prompt(
+    request: Request,
+    doc_id: str = Form(...),
+    current_user: User = Depends(get_current_user)
+):
+    """Generate a prompt for document summarization."""
+    doc = await db.fetch_one(
+        "SELECT id, case_id, full_text, filename FROM documents WHERE id = ?",
+        (doc_id,)
+    )
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    prompt = _prompt_generator.generate_document_summary(
+        document_text=doc["full_text"],
+        case_id=doc["case_id"]
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"document_summary:{doc['filename']}",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "document": doc["filename"],
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes
+    }
+
+
+@app.post("/api/prompts/generate/credibility-assessment")
+async def generate_credibility_prompt(
+    request: Request,
+    doc_id: str = Form(...),
+    author: str = Form(...),
+    document_type: str = Form("statement"),
+    current_user: User = Depends(get_current_user)
+):
+    """Generate a prompt for credibility assessment of a document."""
+    doc = await db.fetch_one(
+        "SELECT id, case_id, full_text, filename FROM documents WHERE id = ?",
+        (doc_id,)
+    )
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    prompt = _prompt_generator.generate_credibility_assessment(
+        document_text=doc["full_text"],
+        author=author,
+        document_type=document_type,
+        case_id=doc["case_id"]
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"credibility:{doc['filename']}",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "document": doc["filename"],
+        "author": author,
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes
+    }
+
+
+@app.post("/api/prompts/generate/claim-analysis")
+async def generate_claim_analysis_prompt(
+    request: Request,
+    claim_id: str = Form(...),
+    current_user: User = Depends(get_current_user)
+):
+    """Generate a prompt for deep analysis of a specific claim."""
+    claim = await db.fetch_one(
+        """SELECT c.*, d.filename as source_document
+           FROM claims c
+           LEFT JOIN documents d ON c.document_id = d.id
+           WHERE c.id = ?""",
+        (claim_id,)
+    )
+    if not claim:
+        raise HTTPException(status_code=404, detail="Claim not found")
+
+    prompt = _prompt_generator.generate_claim_analysis(
+        claim_text=claim["claim_text"],
+        document_name=claim.get("source_document", "Unknown"),
+        claimant=claim.get("claimant_capacity", "Unknown"),
+        context=claim.get("context", ""),
+        case_id=claim["case_id"]
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"claim_analysis:{claim_id[:8]}",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "claim_id": claim_id,
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes
+    }
+
+
+@app.post("/api/prompts/generate/contradiction-analysis")
+async def generate_contradiction_prompt(
+    request: Request,
+    claim_a_id: str = Form(...),
+    claim_b_id: str = Form(...),
+    current_user: User = Depends(get_current_user)
+):
+    """Generate a prompt to analyze contradiction between two claims."""
+    claim_a = await db.fetch_one(
+        """SELECT c.*, d.filename as source_document
+           FROM claims c
+           LEFT JOIN documents d ON c.document_id = d.id
+           WHERE c.id = ?""",
+        (claim_a_id,)
+    )
+    claim_b = await db.fetch_one(
+        """SELECT c.*, d.filename as source_document
+           FROM claims c
+           LEFT JOIN documents d ON c.document_id = d.id
+           WHERE c.id = ?""",
+        (claim_b_id,)
+    )
+
+    if not claim_a or not claim_b:
+        raise HTTPException(status_code=404, detail="One or both claims not found")
+
+    prompt = _prompt_generator.generate_contradiction_analysis(
+        claim_a={
+            "text": claim_a["claim_text"],
+            "source": claim_a.get("source_document", "Unknown"),
+            "author": claim_a.get("claimant_capacity", "Unknown"),
+            "date": claim_a.get("time_expression", "Unknown")
+        },
+        claim_b={
+            "text": claim_b["claim_text"],
+            "source": claim_b.get("source_document", "Unknown"),
+            "author": claim_b.get("claimant_capacity", "Unknown"),
+            "date": claim_b.get("time_expression", "Unknown")
+        },
+        case_id=claim_a["case_id"]
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"contradiction:{claim_a_id[:8]}vs{claim_b_id[:8]}",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "claim_a_id": claim_a_id,
+        "claim_b_id": claim_b_id,
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes
+    }
+
+
+@app.post("/api/prompts/generate/timeline")
+async def generate_timeline_prompt(
+    request: Request,
+    case_id: str = Form(...),
+    doc_ids: str = Form(None),  # Comma-separated list of doc IDs, or None for all
+    current_user: User = Depends(get_current_user)
+):
+    """Generate a prompt to extract timeline from case documents."""
+    if doc_ids:
+        doc_id_list = [d.strip() for d in doc_ids.split(",")]
+        placeholders = ",".join(["?" for _ in doc_id_list])
+        docs = await db.fetch_all(
+            f"""SELECT id, filename, full_text FROM documents
+                WHERE id IN ({placeholders}) AND case_id = ?""",
+            (*doc_id_list, case_id)
+        )
+    else:
+        docs = await db.fetch_all(
+            "SELECT id, filename, full_text FROM documents WHERE case_id = ? LIMIT 5",
+            (case_id,)
+        )
+
+    if not docs:
+        raise HTTPException(status_code=404, detail="No documents found")
+
+    documents = [
+        {"name": d["filename"], "text": d["full_text"][:20000]}  # Limit text per doc
+        for d in docs if d["full_text"]
+    ]
+
+    prompt = _prompt_generator.generate_timeline_extraction(
+        documents=documents,
+        case_id=case_id
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"timeline:{case_id[:8]}",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "case_id": case_id,
+        "documents_included": len(documents),
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes
+    }
+
+
+@app.post("/api/prompts/generate/legal-framework")
+async def generate_legal_framework_prompt(
+    request: Request,
+    case_id: str = Form(...),
+    situation: str = Form(...),
+    current_user: User = Depends(get_current_user)
+):
+    """Generate a prompt for legal framework analysis of a situation."""
+    # Get relevant claims for context
+    claims = await db.fetch_all(
+        """SELECT claim_text FROM claims WHERE case_id = ?
+           AND (certainty >= 0.7 OR ai_confidence >= 0.7)
+           ORDER BY certainty DESC LIMIT 10""",
+        (case_id,)
+    )
+
+    claim_texts = [c["claim_text"] for c in claims if c["claim_text"]]
+
+    prompt = _prompt_generator.generate_legal_framework(
+        situation=situation,
+        claims=claim_texts,
+        case_id=case_id
+    )
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.ANALYZE,
+        resource_type="prompt",
+        resource_id=prompt.id,
+        resource_name=f"legal_framework:{case_id[:8]}",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "prompt_id": prompt.id,
+        "prompt_type": prompt.prompt_type,
+        "case_id": case_id,
+        "claims_included": len(claim_texts),
+        "full_prompt": prompt.full_prompt,
+        "estimated_tokens": prompt.estimated_tokens,
+        "recommended_platforms": prompt.recommended_platforms,
+        "notes": prompt.notes
+    }
+
+
+# ============================================================================
+# Response Parsing Endpoints (AI Subscription Workflow)
+# ============================================================================
+
+@app.post("/api/prompts/parse")
+async def parse_ai_response(
+    request: Request,
+    response_text: str = Form(...),
+    prompt_type: str = Form(...),
+    case_id: Optional[str] = Form(None),
+    doc_id: Optional[str] = Form(None),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Parse an AI response back into structured data.
+
+    After copying a prompt to your AI platform and getting a response,
+    paste the response here to import the data.
+
+    Args:
+        response_text: The full AI response (should contain JSON)
+        prompt_type: The type of prompt that generated this (claim_extraction, etc.)
+        case_id: Optional case ID to associate data with
+        doc_id: Optional document ID to associate data with
+    """
+    result = _response_parser.parse(response_text, prompt_type)
+
+    # Log the parsing attempt
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.CREATE,
+        resource_type="ai_response",
+        resource_id=result.parsed_at,
+        resource_name=f"parse:{prompt_type}",
+        description=f"Parsed AI response: {'success' if result.success else 'failed'}",
+        ip_address=get_client_ip(request),
+        success=result.success,
+        error="; ".join(result.errors) if result.errors else None
+    )
+
+    if not result.success:
+        return {
+            "success": False,
+            "prompt_type": prompt_type,
+            "errors": result.errors,
+            "warnings": result.warnings,
+            "partial_data": result.data
+        }
+
+    # Store parsed data if case_id provided
+    stored = {"claims": 0, "events": 0, "other": 0}
+
+    if case_id and result.claims:
+        for claim in result.claims:
+            try:
+                await db.insert("claims", {
+                    "id": claim.id,
+                    "case_id": case_id,
+                    "document_id": doc_id,
+                    "claim_type": claim.claim_type,
+                    "claim_text": claim.text,
+                    "claimant_capacity": claim.claimant,
+                    "target_entity": ", ".join(claim.subjects) if claim.subjects else None,
+                    "context": claim.document_reference,
+                    "ai_extracted": True,
+                    "ai_confidence": claim.confidence,
+                    "time_expression": claim.date_mentioned,
+                    "extractor_model": "subscription_import"
+                })
+                stored["claims"] += 1
+            except Exception as e:
+                logger.warning(f"Could not store claim: {e}")
+
+    if case_id and result.timeline:
+        for event in result.timeline.events:
+            try:
+                await db.insert("timeline_events", {
+                    "id": str(uuid.uuid4()),
+                    "case_id": case_id,
+                    "event_date": event.get("date"),
+                    "event_type": event.get("event_type", "other"),
+                    "description": event.get("event"),
+                    "source_document_id": doc_id,
+                    "significance": "imported"
+                })
+                stored["events"] += 1
+            except Exception as e:
+                logger.warning(f"Could not store event: {e}")
+
+    return {
+        "success": True,
+        "prompt_type": prompt_type,
+        "parsed_at": result.parsed_at,
+        "warnings": result.warnings,
+        "stored": stored if case_id else None,
+        "data": {
+            "claims": [c.model_dump() for c in result.claims] if result.claims else None,
+            "summary": result.summary.model_dump() if result.summary else None,
+            "contradiction": result.contradiction.model_dump() if result.contradiction else None,
+            "credibility": result.credibility.model_dump() if result.credibility else None,
+            "timeline": result.timeline.model_dump() if result.timeline else None,
+            "raw": result.data
+        }
+    }
+
+
+@app.post("/api/prompts/parse/batch")
+async def parse_batch_responses(
+    request: Request,
+    responses: str = Form(...),  # JSON array of {response_text, prompt_type}
+    case_id: Optional[str] = Form(None),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Parse multiple AI responses at once.
+
+    Useful when you've processed multiple prompts in your AI platform.
+
+    Args:
+        responses: JSON array of objects with 'response_text' and 'prompt_type'
+        case_id: Optional case ID to associate all data with
+    """
+    try:
+        response_list = json.loads(responses)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON for responses array")
+
+    results = []
+    total_stored = {"claims": 0, "events": 0}
+
+    for item in response_list:
+        response_text = item.get("response_text", "")
+        prompt_type = item.get("prompt_type", "unknown")
+        doc_id = item.get("doc_id")
+
+        result = _response_parser.parse(response_text, prompt_type)
+
+        if result.success and case_id:
+            # Store claims
+            if result.claims:
+                for claim in result.claims:
+                    try:
+                        await db.insert("claims", {
+                            "id": claim.id,
+                            "case_id": case_id,
+                            "document_id": doc_id,
+                            "claim_type": claim.claim_type,
+                            "claim_text": claim.text,
+                            "claimant_capacity": claim.claimant,
+                            "ai_extracted": True,
+                            "extractor_model": "subscription_import"
+                        })
+                        total_stored["claims"] += 1
+                    except Exception:
+                        pass
+
+        results.append({
+            "prompt_type": prompt_type,
+            "success": result.success,
+            "claims_count": len(result.claims) if result.claims else 0,
+            "errors": result.errors
+        })
+
+    await log_audit(
+        user=current_user.username,
+        action=AuditAction.CREATE,
+        resource_type="ai_response_batch",
+        description=f"Parsed {len(results)} AI responses",
+        ip_address=get_client_ip(request)
+    )
+
+    return {
+        "total_processed": len(results),
+        "successful": sum(1 for r in results if r["success"]),
+        "stored": total_stored if case_id else None,
+        "results": results
+    }
+
+
+@app.get("/api/prompts/workflow-status/{case_id}")
+async def get_workflow_status(
+    case_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Get the status of the AI subscription workflow for a case.
+
+    Shows what analysis has been done and what's recommended next.
+    """
+    # Count documents
+    docs = await db.fetch_one(
+        "SELECT COUNT(*) as count FROM documents WHERE case_id = ?",
+        (case_id,)
+    )
+
+    # Count claims (total and imported)
+    claims = await db.fetch_one(
+        """SELECT
+              COUNT(*) as total,
+              SUM(CASE WHEN extractor_model = 'subscription_import' THEN 1 ELSE 0 END) as imported
+           FROM claims WHERE case_id = ?""",
+        (case_id,)
+    )
+
+    # Count timeline events
+    events = await db.fetch_one(
+        "SELECT COUNT(*) as count FROM timeline_events WHERE case_id = ?",
+        (case_id,)
+    )
+
+    # Count contradictions analyzed
+    contradictions = await db.fetch_one(
+        "SELECT COUNT(*) as count FROM contradictions WHERE case_id = ?",
+        (case_id,)
+    )
+
+    # Determine recommended next steps
+    recommendations = []
+
+    if docs["count"] == 0:
+        recommendations.append({
+            "priority": 1,
+            "action": "Upload documents",
+            "endpoint": f"POST /api/cases/{case_id}/documents"
+        })
+    elif claims["total"] == 0:
+        recommendations.append({
+            "priority": 1,
+            "action": "Generate claim extraction prompts for documents",
+            "endpoint": "POST /api/prompts/generate/claim-extraction"
+        })
+    elif events["count"] == 0:
+        recommendations.append({
+            "priority": 2,
+            "action": "Generate timeline extraction prompt",
+            "endpoint": "POST /api/prompts/generate/timeline"
+        })
+    elif contradictions["count"] == 0 and claims["total"] >= 2:
+        recommendations.append({
+            "priority": 2,
+            "action": "Run contradiction detection",
+            "endpoint": f"GET /api/cases/{case_id}/contradictions"
+        })
+
+    if claims["total"] > 0:
+        recommendations.append({
+            "priority": 3,
+            "action": "Generate credibility assessments for key documents",
+            "endpoint": "POST /api/prompts/generate/credibility-assessment"
+        })
+        recommendations.append({
+            "priority": 3,
+            "action": "Generate legal framework analysis",
+            "endpoint": "POST /api/prompts/generate/legal-framework"
+        })
+
+    return {
+        "case_id": case_id,
+        "status": {
+            "documents": docs["count"],
+            "claims_total": claims["total"],
+            "claims_imported": claims["imported"] or 0,
+            "timeline_events": events["count"],
+            "contradictions_analyzed": contradictions["count"]
+        },
+        "workflow_progress": {
+            "documents_uploaded": docs["count"] > 0,
+            "claims_extracted": claims["total"] > 0,
+            "timeline_built": events["count"] > 0,
+            "contradictions_analyzed": contradictions["count"] > 0
+        },
+        "recommended_next_steps": sorted(recommendations, key=lambda x: x["priority"])
+    }
 
 
 # ============================================================================

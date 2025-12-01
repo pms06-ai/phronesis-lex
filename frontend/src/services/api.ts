@@ -492,4 +492,182 @@ export const analysisRunsApi = {
   },
 };
 
+// ============================================================================
+// AI Subscription Workflow API (Prompt Generation & Response Parsing)
+// ============================================================================
+
+export interface PromptType {
+  type: string;
+  description: string;
+}
+
+export interface GeneratedPrompt {
+  prompt_id: string;
+  prompt_type: string;
+  document?: string;
+  full_prompt: string;
+  estimated_tokens: number;
+  recommended_platforms: string[];
+  notes: string;
+  instructions?: string;
+}
+
+export interface ParseResult {
+  success: boolean;
+  prompt_type: string;
+  parsed_at?: string;
+  errors?: string[];
+  warnings?: string[];
+  stored?: { claims: number; events: number; other: number };
+  data?: Record<string, unknown>;
+  partial_data?: Record<string, unknown>;
+}
+
+export interface WorkflowStatus {
+  case_id: string;
+  status: {
+    documents: number;
+    claims_total: number;
+    claims_imported: number;
+    timeline_events: number;
+    contradictions_analyzed: number;
+  };
+  workflow_progress: {
+    documents_uploaded: boolean;
+    claims_extracted: boolean;
+    timeline_built: boolean;
+    contradictions_analyzed: boolean;
+  };
+  recommended_next_steps: Array<{
+    priority: number;
+    action: string;
+    endpoint: string;
+  }>;
+}
+
+export const promptsApi = {
+  // List available prompt types
+  listTypes: async (): Promise<{ types: PromptType[]; workflow: Record<string, unknown> }> => {
+    const { data } = await api.get('/prompts/types');
+    return data;
+  },
+
+  // Generate prompts for different analysis types
+  generateClaimExtraction: async (docId: string): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('doc_id', docId);
+    const { data } = await api.post('/prompts/generate/claim-extraction', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  generateDocumentSummary: async (docId: string): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('doc_id', docId);
+    const { data } = await api.post('/prompts/generate/document-summary', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  generateCredibilityAssessment: async (
+    docId: string,
+    author: string,
+    documentType: string = 'statement'
+  ): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('doc_id', docId);
+    formData.append('author', author);
+    formData.append('document_type', documentType);
+    const { data } = await api.post('/prompts/generate/credibility-assessment', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  generateClaimAnalysis: async (claimId: string): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('claim_id', claimId);
+    const { data } = await api.post('/prompts/generate/claim-analysis', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  generateContradictionAnalysis: async (claimAId: string, claimBId: string): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('claim_a_id', claimAId);
+    formData.append('claim_b_id', claimBId);
+    const { data } = await api.post('/prompts/generate/contradiction-analysis', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  generateTimeline: async (caseId: string, docIds?: string[]): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('case_id', caseId);
+    if (docIds && docIds.length > 0) {
+      formData.append('doc_ids', docIds.join(','));
+    }
+    const { data } = await api.post('/prompts/generate/timeline', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  generateLegalFramework: async (caseId: string, situation: string): Promise<GeneratedPrompt> => {
+    const formData = new FormData();
+    formData.append('case_id', caseId);
+    formData.append('situation', situation);
+    const { data } = await api.post('/prompts/generate/legal-framework', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  // Parse AI responses
+  parseResponse: async (
+    responseText: string,
+    promptType: string,
+    caseId?: string,
+    docId?: string
+  ): Promise<ParseResult> => {
+    const formData = new FormData();
+    formData.append('response_text', responseText);
+    formData.append('prompt_type', promptType);
+    if (caseId) formData.append('case_id', caseId);
+    if (docId) formData.append('doc_id', docId);
+    const { data } = await api.post('/prompts/parse', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  parseBatch: async (
+    responses: Array<{ response_text: string; prompt_type: string; doc_id?: string }>,
+    caseId?: string
+  ): Promise<{
+    total_processed: number;
+    successful: number;
+    stored?: { claims: number; events: number };
+    results: Array<{ prompt_type: string; success: boolean; claims_count: number; errors: string[] }>;
+  }> => {
+    const formData = new FormData();
+    formData.append('responses', JSON.stringify(responses));
+    if (caseId) formData.append('case_id', caseId);
+    const { data } = await api.post('/prompts/parse/batch', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  },
+
+  // Get workflow status
+  getWorkflowStatus: async (caseId: string): Promise<WorkflowStatus> => {
+    const { data } = await api.get(`/prompts/workflow-status/${caseId}`);
+    return data;
+  },
+};
+
 export default api;
